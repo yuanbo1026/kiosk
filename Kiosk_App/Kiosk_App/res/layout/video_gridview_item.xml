@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:id="@+id/video_gridview_item_name"
+            android:text="Video Tutorial"
+            android:gravity="left|center_vertical"
+            android:textSize="20sp"
+            />
+
+    <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/video_gridview_item_cover" android:layout_gravity="center_horizontal"
+            android:background="@color/RealWhite"
+            android:src="@drawable/video_cover_big" android:paddingBottom="@dimen/activity_horizontal_margin"
+            android:layout_alignParentTop="true"
+            android:layout_weight="1"
+            android:padding="20dp"/>
+
+    <LinearLayout android:id="@+id/video_button_layout"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal">
+        <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1"
+                android:layout_margin="10dp"
+                android:text="Download"/>
+        <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1"
+                android:layout_margin="10dp"
+                android:text="Play"/>
+    </LinearLayout>
+
+
+    <!--TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:id="@+id/video_gridview_item_size"
+            android:text="132 Pages / 45 MB"
+            android:gravity="center"
+            android:layout_above="@id/video_gridview_item_name"
+            android:textSize="15sp"
+            /-->
+</LinearLayout>

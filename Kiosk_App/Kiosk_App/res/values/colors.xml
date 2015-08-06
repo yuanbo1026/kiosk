@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <color name="RadiothekBlueLight">#1abc9c</color>
+    <color name="RadiothekBlueDark">#1e303d</color>
+    <color name="RadiothekBlueLight75">#E61abc9c</color>
+    <color name="RadiothekHighlightColor">#E6b6f5e8</color>
+    <color name="RadiothekGrey">#a1a1a1</color>
+    <color name="RadiothekWhite">#ececec</color>
+    <color name="RealWhite">#fff</color>
+    <color name="IABItemBackground">#eeeeee</color>
+    
+</resources>

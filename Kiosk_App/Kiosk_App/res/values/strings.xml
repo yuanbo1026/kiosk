@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Kiosk_App</string>
+    <!-- menu title -->
+    <string name="action_protocol">Protocol</string>
+    <string name="action_contact">Contact</string>
+    <string name="action_imprint">Imprint</string>
+    <string name="search_title">Search</string>
+
+    <!-- search empty result -->
+    <string name="listview.empty.text">No Results</string>
+    <!-- search hint -->
+    <string name="search_hint">Search..</string>
+    <!-- search bundle -->
+    <string name="kiosk_search_bundle_group">kiosk.search.result.bundle.group</string>
+    <string name="kiosk_search_bundle_child">kiosk.search.result.bundle.child</string>
+
+    <!-- Manual view button text -->
+    <string name="manual_view_button_download">Download</string>
+    <string name="manual_view_button_open">Open</string>
+    <string name="manual_view_progress_index"> % </string>
+
+    <!-- contact -->
+    <string name="contact_title">Contact...</string>
+
+    <!-- imprint -->
+    <string name="imprint_title">Imprint...</string>
+
+    <!-- protocol -->
+    <string name="protocol_title">Protocol...</string>
+</resources>

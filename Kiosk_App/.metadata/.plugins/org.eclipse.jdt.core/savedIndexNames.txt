@@ -1,0 +1,8 @@
+INDEX VERSION 1.127+D:\Nexxoo_Workspace\Kiosk_App\.metadata\.plugins\org.eclipse.jdt.core
+1531412002.index
+192364917.index
+3728077594.index
+821297292.index
+1353233863.index
+1348984076.index
+4232068046.index

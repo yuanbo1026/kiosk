@@ -24,6 +24,7 @@ public class JSONParser {
 				String name = null;
 				String description = null;
 				String url = null;
+				String fileName = null;
 				String coverUrlBig = null;
 				String coverUrlSmall = null;
 				String size = null;
@@ -35,15 +36,17 @@ public class JSONParser {
 					id = BaseEntityObj.getLong("id");
 					url = BaseEntityObj.getString("url");
 					name = BaseEntityObj.getString("name");
+					fileName = BaseEntityObj.getString("filename");
 					description = BaseEntityObj.getString("description");
 					coverUrlBig = BaseEntityObj.getString("coverUrlBig");
 					coverUrlSmall = BaseEntityObj.getString("coverUrlSmall");
 					size = BaseEntityObj.getString("size");
 					category = BaseEntityObj.getInt("category");
 
-					BaseEntity = new BaseEntity(id, url, name);
+					BaseEntity = new BaseEntity(id, url, name,fileName);
 					BaseEntity.setDescription(description);
 					BaseEntity.setCoverUrlBig(coverUrlBig);
+					BaseEntity.setFileName(fileName);
 					BaseEntity.setCoverUrlSmall(coverUrlSmall);
 					BaseEntity.setSize(size);
 					BaseEntity.setCategory(category);

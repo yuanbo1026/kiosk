@@ -14,8 +14,11 @@ public class BaseEntity implements Parcelable {
 	private String name;
 	private String description;
 	private String url;
+	private String fileName;
 	private String coverUrlBig;
 	private String coverUrlSmall;
+	private String size;
+	private int category;
 
 	public String getSize() {
 		return size;
@@ -25,10 +28,14 @@ public class BaseEntity implements Parcelable {
 		this.size = size;
 	}
 
-	private String size;
-	private int category;
 
+	public String getFileName() {
+		return fileName;
+	}
 
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
 
 	public long getId() {
 		return id;
@@ -86,10 +93,11 @@ public class BaseEntity implements Parcelable {
 		this.coverUrlSmall = coverUrlSmall;
 	}
 
-	public BaseEntity(long id, String name, String url){
+	public BaseEntity(long id, String name, String url,String fileName){
 		setId(id);
 		setName(name);
 		setUrl(url);
+		setFileName(fileName);
 	}
 
 	public BaseEntity(){
@@ -106,6 +114,7 @@ public class BaseEntity implements Parcelable {
 		dest.writeString(name);
 		dest.writeString(description);
 		dest.writeString(url);
+		dest.writeString(fileName);
 		dest.writeString(coverUrlBig);
 		dest.writeString(coverUrlSmall);
 		dest.writeString(size);
@@ -116,6 +125,7 @@ public class BaseEntity implements Parcelable {
 		name = in.readString();
 		description = in.readString();
 		url = in.readString();
+		fileName = in.readString();
 		coverUrlBig = in.readString();
 		coverUrlSmall = in.readString();
 		size = in.readString();

@@ -9,6 +9,7 @@
             android:id="@+id/manual_gridview_item_cover" android:layout_gravity="center_horizontal"
             android:background="@color/RealWhite"
             android:src="@drawable/catalog_cover_big"
+            android:scaleType="fitCenter"
             android:layout_marginTop="10dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"

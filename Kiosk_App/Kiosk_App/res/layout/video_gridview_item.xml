@@ -2,34 +2,38 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent" >
     <TextView
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="match_parent"
             android:id="@+id/video_gridview_item_name"
             android:text="Video Tutorial"
-            android:gravity="left|center_vertical"
-            android:textSize="20sp"
+            android:gravity="left|top"
+            android:layout_alignParentTop="true"
+            android:layout_weight="3"
+            android:layout_margin="10dp"
+            android:textSize="25sp"
             />
 
     <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/video_gridview_item_cover" android:layout_gravity="center_horizontal"
-            android:background="@color/RealWhite"
-            android:src="@drawable/video_cover_big" android:paddingBottom="@dimen/activity_horizontal_margin"
-            android:layout_alignParentTop="true"
+            android:scaleType="centerInside"
+            android:id="@+id/video_gridview_item_cover"
+            android:layout_below="@+id/video_gridview_item_name"
             android:layout_weight="1"
-            android:padding="20dp"/>
+            android:src="@drawable/logo_big" android:visibility="visible"/>
 
     <LinearLayout android:id="@+id/video_button_layout"
                   android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:orientation="horizontal">
-        <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1"
+                  android:layout_height="match_parent"
+                  android:orientation="horizontal"
+                  android:layout_alignParentBottom="true"
+                  android:layout_weight="3">
+        <Button android:layout_width="match_parent" android:layout_height="match_parent" android:layout_weight="1"
                 android:layout_margin="10dp"
                 android:text="Download"/>
-        <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1"
+        <Button android:layout_width="match_parent" android:layout_height="match_parent" android:layout_weight="1"
                 android:layout_margin="10dp"
                 android:text="Play"/>
     </LinearLayout>

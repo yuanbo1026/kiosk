@@ -41,7 +41,14 @@ public class FileStorageHelper {
 		return null;
 	}
 
+	public boolean isContentDownloaded(String fileName){
+		File file = new File(getDownloadFolder()+fileName);
+		return file.exists();
+	}
 
+	public String getFileAbsolutePath(String fileName){
+		return getDownloadFolder()+fileName;
+	}
 
 	/**
 	 * Checks if app given by package name is installed on device.
@@ -80,6 +87,45 @@ public class FileStorageHelper {
 			return false;
 		}
 	}
+
+	/*public static OnDownloadResult getCallback(final Activity activity, final BaseEntity
+			content, boolean reattach){
+
+		return new OnDownloadResult() {
+
+			@Override
+			public void onDownloadSuccess(final BaseEntity content) {
+				if (activity != null) {
+					File file = new File(content
+							.getFileName());
+					if (activity instanceof ContentDetailActivity) {
+						((ContentDetailActivity) activity)
+								.hideProgress();
+					}
+
+				}
+
+			}
+
+			@Override
+			public void onDownloadProgress(int percent) {
+				if (activity != null && activity instanceof ContentDetailActivity) {
+					((ContentDetailActivity) activity)
+							.setDownloadProgress(percent);
+				}
+
+			}
+
+			@Override
+			public void onDownloadFailed(String msg, int code) {
+
+			}
+
+			@Override
+			public void onDownloadStarted(final BaseEntity content) {
+			}
+		};
+	}*/
 
 	/**
 	 * Checks if given content (magazine or video) is downloaded or not.

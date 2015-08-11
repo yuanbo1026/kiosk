@@ -33,9 +33,11 @@ public class ManualFragment extends Fragment {
 		listview = (ListView) rootView.findViewById(R.id.manual_list);
 		gridview = (GridView) rootView.findViewById(R.id.manual_grid);
 
-		gridview.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 		ManualListAdapter gridAdapter = new ManualListAdapter(getActivity(), R.layout.manual_gridview_item, getManualList());
 		gridview.setAdapter(gridAdapter);
+
+		/*OptimizeGridAdapter gridAdapter = new OptimizeGridAdapter(getActivity(), R.layout.manual_gridview_item, getManualList());
+		gridview.setAdapter(gridAdapter);*/
 		ManualListAdapter listAdapter = new ManualListAdapter(getActivity(), R.layout.manual_listview_item, getManualList());
 		listview.setAdapter(listAdapter);
 

@@ -4,4 +4,10 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
+    <!-- dimens for custom grid view -->
+    <dimen name="itemSize">100dp</dimen>
+    <dimen name="itemBorderWidth">2dp</dimen>
+    <dimen name="gridMarginTopLeft">-2.5dp</dimen>
+    <dimen name="gridMarginBottomRight">-4dp</dimen>
+
 </resources>

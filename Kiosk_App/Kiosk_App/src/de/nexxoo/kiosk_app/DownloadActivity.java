@@ -23,8 +23,7 @@ import android.widget.Toast;
  */
 public class DownloadActivity extends Activity {
 	DownloadManager downloadManager;
-	String downloadFileUrl = "http://www.101apps.co.za/" +
-			"images/headers/101_logo_very_small.jpg";
+	String downloadFileUrl = "http://www.101apps.co.za/images/headers/101_logo_very_small.jpg";
 	private long myDownloadReference;
 	private BroadcastReceiver receiverDownloadComplete;
 	private BroadcastReceiver receiverNotificationClicked;
@@ -78,11 +77,11 @@ public class DownloadActivity extends Activity {
 
 //                set the path to where to save the file
 //                      save in app package directory
-				request.setDestinationInExternalFilesDir(DownloadActivity.this,
-						Environment.DIRECTORY_DOWNLOADS, "logo.jpg");
+//				request.setDestinationInExternalFilesDir(DownloadActivity.this,
+//						Environment.DIRECTORY_DOWNLOADS, "logo.jpg");
 //                      save in the public downloads folder
-//                request.setDestinationInExternalPublicDir(Environment.
-//                              DIRECTORY_DOWNLOADS, "MyWebsiteLogo.png");
+                request.setDestinationInExternalPublicDir(Environment.
+                              DIRECTORY_DOWNLOADS, "logo.png");
 
 //                make file visible by and manageable by system's download app
 				request.setVisibleInDownloadsUi(true);

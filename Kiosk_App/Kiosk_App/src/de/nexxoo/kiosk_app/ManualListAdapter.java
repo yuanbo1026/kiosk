@@ -84,6 +84,16 @@ public class ManualListAdapter extends ArrayAdapter<Manual> {
 		return v;
 	}
 
+	@Override
+	public int getCount() {
+		return mManualList.size();
+	}
+
+	@Override
+	public Manual getItem(int position) {
+		return mManualList.get(position);
+	}
+
 	private static class Item {
 		TextView manualName;
 		TextView manualSize;

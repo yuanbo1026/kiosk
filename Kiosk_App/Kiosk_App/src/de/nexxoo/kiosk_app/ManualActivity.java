@@ -2,13 +2,15 @@ package de.nexxoo.kiosk_app;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.ContextWrapper;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.*;
+import de.nexxoo.kiosk_app.tools.FileStorageHelper;
 
 import java.io.*;
 import java.net.URL;
@@ -17,22 +19,32 @@ import java.net.URLConnection;
 /**
  * Created by b.yuan on 05.08.2015.
  */
-public class ManualActivity extends Activity implements View.OnClickListener{
+public class ManualActivity extends Activity implements View.OnClickListener {
 
 	private ProgressBar progressBar;
-	private String filepath = "KioskFileStorage";
-	private File directory;
+//	private String filepath = "downloads";
+	private String fileAbsolutePath;
+	String filename = "sample.jpg";
+//	private File directory;
 	private TextView index;
 	private Button download;
 	private Button open;
+	private Context context;
+	private FileStorageHelper fileStorageHelper;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.manual_view);
 
-		ContextWrapper contextWrapper = new ContextWrapper(getApplicationContext());
-		directory = contextWrapper.getDir(filepath, Context.MODE_PRIVATE);
+		context = this;
+		fileStorageHelper = new FileStorageHelper(this);
+		File folder = new File(fileStorageHelper.getDownloadFolder() );
+		if (!folder.exists())
+			folder.mkdirs();
+		fileAbsolutePath = fileStorageHelper.getFileAbsolutePath(filename);
+		Log.d("fileAbsolutePath", fileAbsolutePath);
+
 
 		progressBar = (ProgressBar) findViewById(R.id.manual_view_progressBar);
 		progressBar.setVisibility(View.GONE);
@@ -48,25 +60,31 @@ public class ManualActivity extends Activity implements View.OnClickListener{
 	public void onClick(View v) {
 
 		switch (v.getId()) {
-	/*		case R.id.start:
-				progressBar1.setVisibility(View.VISIBLE);
-				break;
-
-			case R.id.stop:
-				progressBar1.setVisibility(View.GONE);
-				break;*/
 
 			case R.id.manual_view_button_download:
-				String url = "http://upload.wikimedia.org/wikipedia/commons/0/05/Sna_large.png";
-				grabURL(url);
+
+				if (fileStorageHelper.isContentDownloaded(filename)) {
+					Toast.makeText(this,"Already Downloaded",Toast.LENGTH_LONG).show();
+				}else{
+					String url = "http://www.101apps.co.za/images/headers/101_logo_very_small.jpg";
+					grabURL(url);
+				}
+
 				break;
 
 			case R.id.manual_view_button_open:
+				Intent intent = new Intent(this, DownloadActivity.class);
+				startActivity(intent);
 				break;
 
 		}
 	}
 
+	/**
+	 * download async task
+	 *
+	 * @param url
+	 */
 	public void grabURL(String url) {
 		new GrabURL().execute(url);
 	}
@@ -76,11 +94,13 @@ public class ManualActivity extends Activity implements View.OnClickListener{
 		protected void onPreExecute() {
 			progressBar.setVisibility(View.VISIBLE);
 			progressBar.setProgress(0);
+			index.setVisibility(View.VISIBLE);
+			index.setText(" Start Downloading... ");
 		}
 
 		protected String doInBackground(String... urls) {
-			String filename = "KioskSampleFile.png";
-			File myFile = new File(directory , filename);
+			File myFile = new File(fileAbsolutePath);
+
 
 			try {
 				URL url = new URL(urls[0]);
@@ -108,13 +128,13 @@ public class ManualActivity extends Activity implements View.OnClickListener{
 				e.printStackTrace();
 			}
 
-			return filename;
+			return fileAbsolutePath;
 
 		}
 
 		protected void onProgressUpdate(Integer... progress) {
-			index.setVisibility(View.VISIBLE);
 			index.setText(String.valueOf(progress[0]) + " % ");
+			progressBar.setProgress(progress[0]);
 		}
 
 		protected void onCancelled() {
@@ -126,9 +146,9 @@ public class ManualActivity extends Activity implements View.OnClickListener{
 		}
 
 		protected void onPostExecute(String filename) {
-			index.setVisibility(View.VISIBLE);
-			index.setText("Finished downloading...");
-			File myFile = new File(directory , filename);
+			index.setVisibility(View.GONE);
+			progressBar.setVisibility(View.GONE);
+			File myFile = new File(filename);
 			ImageView myImage = (ImageView) findViewById(R.id.manual_view_cover);
 			myImage.setImageBitmap(BitmapFactory.decodeFile(myFile.getAbsolutePath()));
 		}

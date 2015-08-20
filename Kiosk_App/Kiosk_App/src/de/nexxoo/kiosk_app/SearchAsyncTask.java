@@ -48,7 +48,7 @@ public class SearchAsyncTask extends AsyncTask<String, Integer, Boolean> {
 
 		for (int i = 0; i < 4; i++) {
 			Manual manual = new Manual();
-			manual.setmName("Muanl " + i);
+			manual.setName("Muanl " + i);
 			manuals.add(manual);
 		}
 

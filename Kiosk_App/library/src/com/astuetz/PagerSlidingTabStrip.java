@@ -17,6 +17,7 @@
 package com.astuetz;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -74,24 +75,25 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
     private Paint rectPaint;
     private Paint dividerPaint;
 
-    private int indicatorColor = 0xFF666666;
-    private int underlineColor = 0x1A000000;
+    private int indicatorColor = 0x7f010005;
+	//Color.parseColor("#bcbcbc");//#bcbcbc
+    private int underlineColor = 0x1A000000;//#bcbcbc
     private int dividerColor = 0x1A000000;
 
     private boolean shouldExpand = false;
     private boolean textAllCaps = true;
 
     private int scrollOffset = 52;
-    private int indicatorHeight = 4;
-    private int underlineHeight = 0;
+    private int indicatorHeight = 2;
+    private int underlineHeight = 1;
     private int dividerPadding = 12;
     private int tabPadding = 24;
-    private int dividerWidth = 1;
+    private int dividerWidth = 0;
 
-    private int tabTextSize = 12;
+    private int tabTextSize = 15;
     private int tabTextColor = 0xFF666666;
     private Typeface tabTypeface = null;
-    private int tabTypefaceStyle = Typeface.BOLD;
+    private int tabTypefaceStyle = Typeface.NORMAL;
 
     private int lastScrollX = 0;
 
@@ -133,7 +135,8 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
         TypedArray a = context.obtainStyledAttributes(attrs, ATTRS);
 
         tabTextSize = a.getDimensionPixelSize(0, tabTextSize);
-        tabTextColor = getContext().getResources().getColor(R.color.AppStockDrawerLightBlue);//a.getColor(1, tabTextColor);
+        tabTextColor = getContext().getResources().getColor(R.color.tab_text_color);//a.getColor
+        // (1, tabTextColor);
 
         a.recycle();
 
@@ -142,9 +145,12 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
         a = context.obtainStyledAttributes(attrs, R.styleable.PagerSlidingTabStrip);
 
 
-        indicatorColor = getContext().getResources().getColor(R.color.AppStockDrawerGreen);//a.getColor(R.styleable.PagerSlidingTabStrip_pstsIndicatorColor, indicatorColor);
-        underlineColor = getContext().getResources().getColor(R.color.AppStockDrawerLightGrey);//a.getColor(R.styleable.PagerSlidingTabStrip_pstsUnderlineColor, underlineColor);
-        dividerColor = getContext().getResources().getColor(R.color.AppStockDrawerGrey);//a.getColor(R.styleable.PagerSlidingTabStrip_pstsDividerColor, dividerColor);
+        indicatorColor = getContext().getResources().getColor(R.color.tab_indicator_color);//a.getColor
+        // (R.styleable.PagerSlidingTabStrip_pstsIndicatorColor, indicatorColor);
+        underlineColor = getContext().getResources().getColor(R.color.underline);//a.getColor
+        // (R.styleable.PagerSlidingTabStrip_pstsUnderlineColor, underlineColor);
+        dividerColor = getContext().getResources().getColor(R.color.transparent);//a.getColor(R
+        // .styleable.PagerSlidingTabStrip_pstsDividerColor, dividerColor);
         indicatorHeight = a.getDimensionPixelSize(R.styleable.PagerSlidingTabStrip_pstsIndicatorHeight, indicatorHeight);
         underlineHeight = a.getDimensionPixelSize(R.styleable.PagerSlidingTabStrip_pstsUnderlineHeight, underlineHeight);
         dividerPadding = a.getDimensionPixelSize(R.styleable.PagerSlidingTabStrip_pstsDividerPadding, dividerPadding);
@@ -292,7 +298,8 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
 
     }
 
-    private void scrollToChild(int position, int offset) {
+    @TargetApi(Build.VERSION_CODES.CUPCAKE)
+	private void scrollToChild(int position, int offset) {
 
         if (tabCount == 0) {
             return;

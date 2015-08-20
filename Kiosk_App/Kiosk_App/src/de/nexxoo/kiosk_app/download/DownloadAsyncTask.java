@@ -121,6 +121,7 @@ public class DownloadAsyncTask extends AsyncTask<Void, Integer, Boolean> {
             mAdditionalParams.add(new BasicNameValuePair("requesttask", Integer.toString(mTask)));
                         
             OutputStream os = connection.getOutputStream();
+
             BufferedWriter writer = new BufferedWriter(
                     new OutputStreamWriter(os, "UTF-8"));
             writer.write(getQuery(mAdditionalParams));

@@ -37,7 +37,7 @@ public class OptimizeGridAdapter extends ArrayAdapter<Manual> {
 		Item item = null;
 		View v = convertView;
 		if (v == null) {
-			v = mInflater.inflate(R.layout.manual_gridview_custom_item, parent, false);
+			v = mInflater.inflate(R.layout.manual_gridview_item, parent, false);
 
 			item = new Item();
 			item.information = (TextView) v

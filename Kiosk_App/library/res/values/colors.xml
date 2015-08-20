@@ -13,4 +13,11 @@
     <color name="AppStockDrawerTrueBlue">#009FE3</color>
 
     <color name="AppStockTransparentBlue">#AA00A9B5</color>
+
+    <color name="tab_text_color">#000000</color>
+    <color name="tab_indicator_color">#0072bc</color>
+
+    <color name="transparent">#00000000</color>
+    <color name="underline">#bcbcbc</color>
+
 </resources>

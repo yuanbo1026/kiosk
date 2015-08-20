@@ -93,6 +93,46 @@ public class NexxooHttpJsonRequest {
 		
 	    return null;
 	}
+
+	public String performDownloadJsonRequest(String url){
+		try {
+			HttpClient httpclient = createHttpClient(); //new DefaultHttpClient();
+			HttpPost httpPostRequest = new HttpPost(url);
+
+			if (mBasicAuth != null){
+				httpPostRequest.addHeader("Authorization", "Basic " + mBasicAuth);
+			}
+
+			/*UrlEncodedFormEntity form = new UrlEncodedFormEntity(postParameters, "UTF-8");
+			httpPostRequest.setEntity(form);*/
+
+			//long t = System.currentTimeMillis();
+			HttpResponse response = (HttpResponse) httpclient.execute(httpPostRequest);
+			//Log.i("Nexxoo", "HTTPResponse received in [" + (System.currentTimeMillis()-t) + "ms]");
+
+			HttpEntity entity = response.getEntity();
+
+			if (entity != null) {
+				InputStream instream = entity.getContent();
+
+				String resultString = convertStreamToString(instream);
+				instream.close();
+
+				return resultString;
+			}
+
+		} catch (ClientProtocolException e) {
+			Log.e("Exception", "ClientProtocolExpcetion: " + e.getMessage());
+			return "ClientProtocolExpcetion: " + e.getMessage();
+		} catch (IOException e) {
+			Log.e("Exception", "IOException: " + e.getMessage());
+			return "IOException: " + e.getMessage();
+		}
+
+		return null;
+	}
+
+
 	
 	private HttpClient createHttpClient()
 	{

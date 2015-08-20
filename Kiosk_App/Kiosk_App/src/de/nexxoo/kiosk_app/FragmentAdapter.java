@@ -1,19 +1,23 @@
 package de.nexxoo.kiosk_app;
 
+import android.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 
 import java.util.List;
 
-public class FragmentAdapter extends FragmentPagerAdapter {
+public class FragmentAdapter extends FragmentPagerAdapter implements ViewPager.OnPageChangeListener{
 
     private String[] titles = new String[]{"Manual", "Video", "Catalog"};
     private List<Fragment> fragmentList;
+	private ActionBar mActionBar;
 
-    public FragmentAdapter(FragmentManager fm,List<Fragment> objects) {
+    public FragmentAdapter(FragmentManager fm,List<Fragment> objects,ActionBar actionbar) {
         super(fm);
         fragmentList = objects;
+		mActionBar = actionbar;
     }
 
     @Override
@@ -31,4 +35,24 @@ public class FragmentAdapter extends FragmentPagerAdapter {
     public int getCount() {
         return 3;
     }
+
+	@Override
+	public void onPageScrolled(int i, float v, int i1) {
+
+	}
+
+	@Override
+	public void onPageSelected(int i) {
+//		mActionBar.setSelectedNavigationItem(i);
+////		int resIdLenght = resId.length;
+////		if (position < 0 || position >= resIdLenght)
+////			return;
+////		int drawableId = resId[position];
+//		mActionBar.setTitle(titles[i]);
+	}
+
+	@Override
+	public void onPageScrollStateChanged(int i) {
+
+	}
 }

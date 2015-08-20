@@ -243,7 +243,7 @@ containing a value of this type.
         public static final int video_listview_item=0x7f030012;
     }
     public static final class menu {
-        public static final int main=0x7f090000;
+        public static final int menu =0x7f090000;
     }
     public static final class string {
         public static final int action_contact=0x7f060002;

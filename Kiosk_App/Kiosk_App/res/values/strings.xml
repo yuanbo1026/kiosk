@@ -29,4 +29,20 @@
 
     <!-- protocol -->
     <string name="protocol_title">Protocol...</string>
+
+    <!-- drawer title list -->
+    <string-array name="drawer_titles">
+        <item>Contact</item>
+        <item>Imprint</item>
+        <item>Protocol</item>
+    </string-array>
+
+    <string-array name="fragment_titles">
+        <item>Manual</item>
+        <item>Video</item>
+        <item>Catalog</item>
+    </string-array>
+
+    <!-- drawer empty string title -->
+    <string name="drawer_title"></string>
 </resources>

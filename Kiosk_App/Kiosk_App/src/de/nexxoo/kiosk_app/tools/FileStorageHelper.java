@@ -1,9 +1,13 @@
 package de.nexxoo.kiosk_app.tools;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Environment;
 import android.util.Log;
+import de.nexxoo.kiosk_app.download.OnDownloadResult;
+import de.nexxoo.kiosk_app.entity.BaseEntity;
+import de.nexxoo.kiosk_app.webservice.NexxooWebservice;
 
 import java.io.File;
 
@@ -148,22 +152,16 @@ public class FileStorageHelper {
 //	}
 
 	/**
-	 * Function to download content Used in DOWNLOAD, INSTALL & UPDATE content
-	 * 
+	 *
 	 * @param content
-	 *            content to download
 	 * @param activity
-	 *            The context of the activity\app.
-	 * @param account
-	 *            account that will be checked for allowance to download content
+	 * @param callback
 	 */
-//	public static void download(final Content content, final Activity activity,
-//			Account account) {
-//
-//		NexxooWebservice.getDownload(true, activity, content,
-//				account.getAccountId(), account.getSessionKey(),
-//				getCallback(activity, content, false));
-//	}
+	public static void download(final BaseEntity content, final Activity activity,
+								OnDownloadResult callback) {
+
+		NexxooWebservice.getDownload(true, activity, content, callback);
+	}
 //	
 //	public static OnDownloadResult getCallback(final Activity activity, final Content content, boolean reattach){
 //		Intent intent = new Intent(activity, ContentDetailActivity.class);

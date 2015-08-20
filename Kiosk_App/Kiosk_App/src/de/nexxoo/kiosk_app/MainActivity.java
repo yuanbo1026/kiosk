@@ -1,50 +1,173 @@
 package de.nexxoo.kiosk_app;
 
 import android.app.ActionBar;
+import android.app.FragmentManager;
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.Intent;
+import android.content.res.Configuration;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.SearchView;
+import android.support.v4.widget.DrawerLayout;
+import android.view.*;
+import android.widget.*;
 import com.astuetz.PagerSlidingTabStrip;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends FragmentActivity {
+	private List<Fragment> fragmentList;
+	private FragmentAdapter fragmentAdapter;
+	private ViewPager pager;
+
+	private DrawerLayout mDrawerLayout;
+	private ListView mDrawerList;
+	private ActionBarDrawerToggle mDrawerToggle;
+
+	private CharSequence mDrawerTitle;
+	private CharSequence mTitle;
+	private String[] mTitles;
+
+	private String[] mFragmentTitles;
+	private Context context;
+	private ActionBar actionbar;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.drawer_container);
+		context = this;
+		mTitle = mDrawerTitle = getTitle();
+		mTitles = getResources().getStringArray(R.array.drawer_titles);
+		mFragmentTitles = getResources().getStringArray(R.array.fragment_titles);
+		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+		mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
-		ActionBar actionBar = getActionBar();
-		actionBar.setDisplayShowTitleEnabled(false);
+		// set a custom shadow that overlays the main content when the drawer opens
+		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+		// set up the drawer's list view with items and click listener
+		mDrawerList.setAdapter(new ArrayAdapter<String>(this,
+				R.layout.drawer_list_item, mTitles));
+		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
-		List<Fragment> fragmentList = new ArrayList<Fragment>();
+		// enable ActionBar app icon to behave as action to toggle nav drawer
+		actionbar = getActionBar();
+		getActionBar().setDisplayHomeAsUpEnabled(false);
+		getActionBar().setHomeButtonEnabled(true);
+		getActionBar().setDisplayUseLogoEnabled(false);
+		getActionBar().setTitle("Manual");
+
+		// ActionBarDrawerToggle ties together the the proper interactions
+		// between the sliding drawer and the action bar app icon
+		mDrawerToggle = new ActionBarDrawerToggle(
+				this,                  /* host Activity */
+				mDrawerLayout,         /* DrawerLayout object */
+				R.drawable.ic_drawer,  /* nav drawer image to replace 'Up' caret */
+				R.string.drawer_title,  /* "open drawer" description for accessibility */
+				R.string.drawer_title  /* "close drawer" description for accessibility */
+		) {
+			public void onDrawerClosed(View view) {
+//				getActionBar().setTitle(mFragmentTitles[pager.getCurrentItem()]);
+				invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+			}
+
+			public void onDrawerOpened(View drawerView) {
+//				getActionBar().setTitle(mFragmentTitles[pager.getCurrentItem()]);
+				invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+			}
+		};
+		mDrawerLayout.setDrawerListener(mDrawerToggle);
+
+
+		/**
+		 * begin: inflate content frame in container
+		 */
+		fragmentList = new ArrayList<Fragment>();
 		fragmentList.add(new ManualFragment());
 		fragmentList.add(new VideoFragment());
 		fragmentList.add(new CatalogFragment());
 
 
-		ViewPager pager = (ViewPager) findViewById(R.id.pager);
-		FragmentAdapter fragmentAdapter = new FragmentAdapter(getSupportFragmentManager(), fragmentList);
+		LayoutInflater inflater = getLayoutInflater();
+		FrameLayout container = (FrameLayout) findViewById(R.id.content_frame);
+		inflater.inflate(R.layout.activity_main, container);
+
+		pager = (ViewPager) findViewById(R.id.pager);
+		fragmentAdapter = new FragmentAdapter(getSupportFragmentManager(),
+				fragmentList,getActionBar());
 		pager.setAdapter(fragmentAdapter);
+		pager.setOffscreenPageLimit(5);
 
 		// Bind the tabs to the ViewPager
 		PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
+		tabs.setBackgroundColor(getResources().getColor(R.color.RealWhite));
+		tabs.setIndicatorColor(getResources().getColor(R.color.Tabs_Indicator_Color));
+		Typeface font = Typeface.createFromAsset(getAssets(),"OpenSans-Regular.ttf");
+		tabs.setTypeface(font, Typeface.NORMAL);
 		tabs.setViewPager(pager);
+
+		tabs.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+			@Override
+			public void onPageSelected(int position) {
+				actionbar.setTitle(mFragmentTitles[pager.getCurrentItem()]);
+			}
+		});
+
+		/**
+		 * end: inflate content frame in container
+		 */
+	}
+
+	private class DrawerItemClickListener implements ListView.OnItemClickListener {
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			selectItem(position);
+		}
+	}
+
+	private void selectItem(int position) {
+		// update the main content by replacing fragments
+		android.app.Fragment fragment = null;
+		switch (position) {
+			case 0:
+				fragment = new ContactFragment();
+				break;
+			case 1:
+				fragment = new ImprintFragment();
+				break;
+			case 2:
+				fragment = new ProtocolFragment();
+				break;
+			default:
+				fragment = new ContactFragment();
+
+		}
+
+		FragmentManager fragmentManager = getFragmentManager();
+		fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+
+		// update selected item and title, then close the drawer
+		mDrawerList.setItemChecked(position, true);
+		setTitle(mTitles[position]);
+		mDrawerLayout.closeDrawer(mDrawerList);
+	}
+
+	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		// If the nav drawer is open, hide action items related to the content view
+		boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
+		menu.findItem(R.id.search).setVisible(!drawerOpen);
+		return super.onPrepareOptionsMenu(menu);
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.main, menu);
-
+		getMenuInflater().inflate(R.menu.menu, menu);
 		// Associate searchable configuration with the SearchView
 		SearchManager searchManager =
 				(SearchManager) getSystemService(Context.SEARCH_SERVICE);
@@ -53,26 +176,39 @@ public class MainActivity extends FragmentActivity {
 		searchView.setSearchableInfo(
 				searchManager.getSearchableInfo(getComponentName()));
 
-		return true;
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	@Override
+	protected void onPostCreate(Bundle savedInstanceState) {
+		super.onPostCreate(savedInstanceState);
+		// Sync the toggle state after onRestoreInstanceState has occurred.
+		mDrawerToggle.syncState();
+	}
+
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+		// Pass any configuration change to the drawer toggles
+		mDrawerToggle.onConfigurationChanged(newConfig);
+	}
+
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-			case R.id.action_protocol:
-				Intent protocol = new Intent(this, ProtocolActivity.class);
-				startActivity(protocol);
-				return true;
-			case R.id.action_contact:
-				Intent contact = new Intent(this, ContactActivity.class);
-				startActivity(contact);
-				return true;
-			case R.id.action_imprint:
-				Intent imprint = new Intent(this, ImprintActivity.class);
-				startActivity(imprint);
-				return true;
-			default:
-				return super.onOptionsItemSelected(item);
+		// The action bar home/up action should open or close the drawer.
+		// ActionBarDrawerToggle will take care of this.
+		if (mDrawerToggle.onOptionsItemSelected(item)) {
+			return true;
 		}
+		// Handle action buttons
+		return super.onOptionsItemSelected(item);
 	}
+
 }

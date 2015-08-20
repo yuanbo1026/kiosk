@@ -4,13 +4,11 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.MediaController;
 import android.widget.SearchView;
 import android.widget.VideoView;
@@ -41,8 +39,6 @@ public class VideoActivity extends Activity {
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-//		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.video_view);
 
 		if (mediaControls == null) {
@@ -65,7 +61,11 @@ public class VideoActivity extends Activity {
 
 		try {
 			myVideoView.setMediaController(mediaControls);
-			myVideoView.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.kitkat));
+//			myVideoView.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.kitkat));
+			myVideoView.setVideoURI(Uri.parse("https://nexxoo:wenexxoo4kiosk!@www" +
+					".appstock" +
+					".de/kiosk/content/3/5/TechniTwin ISIO_Produktvideo.mp4"));
+//			myVideoView.setVideoURI(Uri.parse("https://archive.org/download/ksnn_compilation_master_the_internet/ksnn_compilation_master_the_internet_512kb.mp4"));
 
 		} catch (Exception e) {
 			Log.e("Error", e.getMessage());
@@ -104,7 +104,7 @@ public class VideoActivity extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.main, menu);
+		getMenuInflater().inflate(R.menu.menu, menu);
 
 		// Associate searchable configuration with the SearchView
 		SearchManager searchManager =
@@ -115,25 +115,5 @@ public class VideoActivity extends Activity {
 				searchManager.getSearchableInfo(getComponentName()));
 
 		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-			case R.id.action_protocol:
-				Intent protocol = new Intent(this, ProtocolActivity.class);
-				startActivity(protocol);
-				return true;
-			case R.id.action_contact:
-				Intent contact = new Intent(this, ContactActivity.class);
-				startActivity(contact);
-				return true;
-			case R.id.action_imprint:
-				Intent imprint = new Intent(this, ImprintActivity.class);
-				startActivity(imprint);
-				return true;
-			default:
-				return super.onOptionsItemSelected(item);
-		}
 	}
 }

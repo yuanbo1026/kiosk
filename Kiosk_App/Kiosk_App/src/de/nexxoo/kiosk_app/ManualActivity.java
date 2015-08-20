@@ -1,31 +1,45 @@
 package de.nexxoo.kiosk_app;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 import de.nexxoo.kiosk_app.tools.FileStorageHelper;
+import de.nexxoo.kiosk_app.tools.Nexxoo;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
 
 /**
  * Created by b.yuan on 05.08.2015.
  */
 public class ManualActivity extends Activity implements View.OnClickListener {
 
+	private static final String BASICAUTH = "nexxoo:wenexxoo4kiosk!";
+
 	private ProgressBar progressBar;
-//	private String filepath = "downloads";
-	private String fileAbsolutePath;
-	String filename = "sample.jpg";
-//	private File directory;
+	//	private String filepath = "downloads";
+//	private String fileAbsolutePath;
+//	String filename = "test.pdf";
+	//	private File directory;
+
+	private String filename;
+	private String url;
+
 	private TextView index;
 	private Button download;
 	private Button open;
@@ -39,11 +53,16 @@ public class ManualActivity extends Activity implements View.OnClickListener {
 
 		context = this;
 		fileStorageHelper = new FileStorageHelper(this);
-		File folder = new File(fileStorageHelper.getDownloadFolder() );
+
+		Intent intent = getIntent();
+		filename = intent.getStringExtra("filename");
+		url = intent.getStringExtra("url");
+
+		File folder = new File(fileStorageHelper.getDownloadFolder());
 		if (!folder.exists())
 			folder.mkdirs();
-		fileAbsolutePath = fileStorageHelper.getFileAbsolutePath(filename);
-		Log.d("fileAbsolutePath", fileAbsolutePath);
+//		fileAbsolutePath = fileStorageHelper.getFileAbsolutePath(filename);
+//		Log.d("fileAbsolutePath", fileAbsolutePath);
 
 
 		progressBar = (ProgressBar) findViewById(R.id.manual_view_progressBar);
@@ -63,18 +82,67 @@ public class ManualActivity extends Activity implements View.OnClickListener {
 
 			case R.id.manual_view_button_download:
 
+//				NexxooHttpJsonRequest request = new NexxooHttpJsonRequest
+//						(Base64.encodeToString(BASICAUTH.getBytes(), Base64.NO_WRAP));
+//				request.performDownloadJsonRequest("https://www.appstock" +
+//						".de/kiosk/content/1/4/bedanl_octophonF203040_key%20module_an%20octopusE300_800.pdf");
+
 				if (fileStorageHelper.isContentDownloaded(filename)) {
-					Toast.makeText(this,"Already Downloaded",Toast.LENGTH_LONG).show();
-				}else{
-					String url = "http://www.101apps.co.za/images/headers/101_logo_very_small.jpg";
+					Toast.makeText(this, "Already Downloaded", Toast.LENGTH_LONG).show();
+				} else {
+//					String url = "http://upload.wikimedia.org/wikipedia/commons/0/05/Sna_large.png";
+//					String url = "https://www.appstock" +
+//							".de/kiosk/content/1/4/bedanl_octophonF203040_key%20" +
+//							"module_an%20octopusE300_800.pdf";
 					grabURL(url);
 				}
+				/*FileStorageHelper.download(new BaseEntity(4,"Test1","bedanl_octophonF203040_key module_an octopusE300_800.pdf"), this, new
+						OnDownloadResult() {
+					@Override
+					public void onDownloadStarted(BaseEntity content) {
+						progressBar.setVisibility(View.VISIBLE);
+						progressBar.setProgress(0);
+						index.setVisibility(View.VISIBLE);
+						index.setText(" Start Downloading... ");
+					}
 
+					@Override
+					public void onDownloadSuccess(BaseEntity content) {
+						index.setVisibility(View.GONE);
+						progressBar.setVisibility(View.GONE);
+					}
+
+					@Override
+					public void onDownloadProgress(int percent) {
+						index.setText(String.valueOf(percent) + " % ");
+						progressBar.setProgress(percent);
+					}
+
+					@Override
+					public void onDownloadFailed(String msg, int code) {
+
+					}
+				});*/
 				break;
 
 			case R.id.manual_view_button_open:
-				Intent intent = new Intent(this, DownloadActivity.class);
-				startActivity(intent);
+				if(fileStorageHelper.isContentDownloaded(filename)){
+					File file = new File(fileStorageHelper.getFileAbsolutePath(filename));
+					Intent target = new Intent(Intent.ACTION_VIEW);
+					target.setDataAndType(Uri.fromFile(file),"application/pdf");
+					target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+
+					Intent intent = Intent.createChooser(target, "Open File");
+					try {
+						startActivity(intent);
+					} catch (ActivityNotFoundException e) {
+						// Instruct the user to install a PDF reader here, or something
+					}
+				}else{
+					Toast.makeText(this,"There is no such PDF file.",Toast.LENGTH_LONG)
+							.show();
+				}
+
 				break;
 
 		}
@@ -99,36 +167,64 @@ public class ManualActivity extends Activity implements View.OnClickListener {
 		}
 
 		protected String doInBackground(String... urls) {
-			File myFile = new File(fileAbsolutePath);
+			File myFile = new File(fileStorageHelper.getFileAbsolutePath(filename));
+			InputStream input = null;
+			OutputStream output = null;
 
+			Log.d(Nexxoo.TAG,urls[0]);
 
 			try {
 				URL url = new URL(urls[0]);
-				URLConnection connection = url.openConnection();
+				HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+				connection.setRequestProperty("User-Agent","nexxoo");
+				connection.setDoInput(true);
+				connection.setDoOutput(true);
 				connection.connect();
-				int fileSize = connection.getContentLength();
 
-				InputStream is = new BufferedInputStream(url.openStream());
-				OutputStream os = new FileOutputStream(myFile);
-
-				byte data[] = new byte[1024];
-				long total = 0;
-				int count;
-				while ((count = is.read(data)) != -1) {
-					total += count;
-					publishProgress((int) (total * 100 / fileSize));
-					os.write(data, 0, count);
+				// expect HTTP 200 OK, so we don't mistakenly save error report
+				// instead of the file
+				if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
+					Log.d("Kiosk Error", "connection.getResponseCode:" + connection
+							.getResponseCode());
 				}
 
-				os.flush();
-				os.close();
-				is.close();
+				int fileLength = connection.getContentLength();
+
+				// download the file
+				FileStorageHelper helper = new FileStorageHelper(context);
+
+				input = connection.getInputStream();
+
+				File folder = new File(helper.getDownloadFolder());
+				if (!folder.exists())
+					folder.mkdirs();
+
+				output = new FileOutputStream(fileStorageHelper.getFileAbsolutePath(filename));
+
+				byte data[] = new byte[4096];
+				long total = 0;
+				int count;
+				while ((count = input.read(data)) != -1) {
+					// allow canceling with back button
+					if (isCancelled()) {
+						input.close();
+						Log.e("ASYNC", "canceled somehow");
+						//mCallback.onDownloadFailed(JSONErrorHandler.getErrorDescriptionByErrorCode(JSONErrorHandler.WS_ERROR_DOWNLOAD_DLCANCELED), JSONErrorHandler.WS_ERROR_DOWNLOAD_DLCANCELED);
+						return "";
+					}
+					total += count;
+					// publishing the progress....
+					if (fileLength > 0) // only if total length is known
+						publishProgress((int) (total * 100 / fileLength));
+
+					output.write(data, 0, count);
+//                Log.d(Nexxoo.TAG, "Filedownload: Wrote " + count + "bytes");
+				}
 
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-
-			return fileAbsolutePath;
+			return fileStorageHelper.getFileAbsolutePath(filename);
 
 		}
 
@@ -145,12 +241,29 @@ public class ManualActivity extends Activity implements View.OnClickListener {
 
 		}
 
+		@Override
 		protected void onPostExecute(String filename) {
 			index.setVisibility(View.GONE);
 			progressBar.setVisibility(View.GONE);
-			File myFile = new File(filename);
+
+			/**
+			 * display PDF file
+			 */
+			File file = new File(filename);
+			Intent target = new Intent(Intent.ACTION_VIEW);
+			target.setDataAndType(Uri.fromFile(file),"application/pdf");
+			target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+
+			Intent intent = Intent.createChooser(target, "Open File");
+			try {
+				startActivity(intent);
+			} catch (ActivityNotFoundException e) {
+				// Instruct the user to install a PDF reader here, or something
+			}
+
+			/*File myFile = new File(filename);
 			ImageView myImage = (ImageView) findViewById(R.id.manual_view_cover);
-			myImage.setImageBitmap(BitmapFactory.decodeFile(myFile.getAbsolutePath()));
+			myImage.setImageBitmap(BitmapFactory.decodeFile(myFile.getAbsolutePath()));*/
 		}
 
 	}

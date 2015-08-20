@@ -9,5 +9,13 @@
     <color name="RadiothekWhite">#ececec</color>
     <color name="RealWhite">#fff</color>
     <color name="IABItemBackground">#eeeeee</color>
-    
+
+    <color name="Tabs_Indicator_Color">#0072bc</color>
+    <color name="actionbar_background">#494949</color>
+    <color name="swipe_listview_item_text_color">#0072bc</color>
+    <color name="swipe_listview_item_sub_text_color">#5f5f5f</color>
+    <color name="swipe_listview_divider_color">#e7e7e7</color>
+
+
+    <color name="manual_grid_list_item_cover_background_color">#e5f5ff</color>
 </resources>

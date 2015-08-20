@@ -137,7 +137,7 @@ public class SearchActivity extends Activity implements ISearchCallback {
 
 		for (int i = 0; i < 4; i++) {
 			Manual manual = new Manual();
-			manual.setmName("Muanl " + i);
+			manual.setName("Muanl " + i);
 			manuals.add(manual);
 		}
 

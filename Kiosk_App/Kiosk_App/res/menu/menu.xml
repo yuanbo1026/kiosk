@@ -1,18 +1,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="de.nexxoo.kiosk_app.MainActivity" >
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="de.nexxoo.kiosk_app.MainActivity">
 
     <item android:id="@+id/search"
           android:title="@string/search_title"
           android:icon="@drawable/ic_search"
           android:showAsAction="collapseActionView|ifRoom"
-          android:actionViewClass="android.widget.SearchView" />
+          android:actionViewClass="android.widget.SearchView"/>
 
-    <item
-        android:id="@+id/action_protocol"
-        android:orderInCategory="100"
-        android:showAsAction="never"
-        android:title="@string/action_protocol"/>
+    <!--<item
+            android:id="@+id/action_protocol"
+            android:orderInCategory="100"
+            android:showAsAction="never"
+            android:title="@string/action_protocol"/>
     <item
             android:id="@+id/action_contact"
             android:orderInCategory="200"
@@ -22,6 +22,6 @@
             android:id="@+id/action_imprint"
             android:orderInCategory="300"
             android:showAsAction="never"
-            android:title="@string/action_imprint"/>
+            android:title="@string/action_imprint"/>-->
 
 </menu>

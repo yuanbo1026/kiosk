@@ -20,36 +20,27 @@ public class JSONParser {
 				JSONObject BaseEntityObj;
 				BaseEntity BaseEntity = null;
 
-				long id = -1;
+				int id = -1;
 				String name = null;
 				String description = null;
 				String url = null;
 				String fileName = null;
-				String coverUrlBig = null;
-				String coverUrlSmall = null;
-				String size = null;
-				int category = -1;
+				long size;
 
 				for (int i = 0; i < count; i++) {
 					BaseEntityObj = jsonObj.getJSONObject(Integer.toString(i));
 
-					id = BaseEntityObj.getLong("id");
+					id = BaseEntityObj.getInt("contentid");
 					url = BaseEntityObj.getString("url");
 					name = BaseEntityObj.getString("name");
 					fileName = BaseEntityObj.getString("filename");
-					description = BaseEntityObj.getString("description");
-					coverUrlBig = BaseEntityObj.getString("coverUrlBig");
-					coverUrlSmall = BaseEntityObj.getString("coverUrlSmall");
-					size = BaseEntityObj.getString("size");
-					category = BaseEntityObj.getInt("category");
+					description = BaseEntityObj.getString("descriptionText");
+					size = BaseEntityObj.getLong("size");
 
-					BaseEntity = new BaseEntity(id, url, name,fileName);
+					BaseEntity = new BaseEntity(id, name,fileName);
 					BaseEntity.setDescription(description);
-					BaseEntity.setCoverUrlBig(coverUrlBig);
 					BaseEntity.setFileName(fileName);
-					BaseEntity.setCoverUrlSmall(coverUrlSmall);
 					BaseEntity.setSize(size);
-					BaseEntity.setCategory(category);
 					sList.add(BaseEntity);
 				}
 			} catch (JSONException e) {

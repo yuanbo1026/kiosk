@@ -4,36 +4,65 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-
-    <ImageView
-            android:id="@+id/manual_gridview_item_cover" android:layout_gravity="center_horizontal"
-            android:background="@color/RealWhite"
-            android:src="@drawable/catalog_cover_big"
-            android:scaleType="fitCenter"
-            android:layout_marginTop="10dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"/>
-
-    <TextView
+    <de.nexxoo.kiosk_app.layout.SquareLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:id="@+id/manual_gridview_item_name"
-            android:text="Manual 1"
-            android:gravity="center"
-            android:textSize="20sp"
-            />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1">
+        <ImageView
+                android:id="@+id/manual_gridview_item_cover"
+                android:background="@color/manual_grid_list_item_cover_background_color"
+                android:src="@drawable/audiomasterbt90"
+                android:scaleType="fitCenter"
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                android:padding="10dp"
+                />
+    </de.nexxoo.kiosk_app.layout.SquareLayout>
 
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:id="@+id/manual_gridview_item_size"
-            android:text="132 Pages / 45 MB"
-            android:gravity="center"
-            android:layout_below="@id/manual_gridview_item_name"
-            android:textSize="15sp"
-            />
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:orientation="horizontal"
+                  android:layout_weight="4"
+                  android:background="@android:color/white">
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="match_parent"
+                      android:orientation="vertical"
+                      android:layout_weight="1">
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/manual_gridview_item_name"
+                    android:text="AudioMaster BT 90"
+                    android:gravity="center"
+                    android:textSize="20sp"
+                    android:layout_weight="6"
+                    />
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/manual_gridview_item_size"
+                    android:text="132 Pages / 45 MB"
+                    android:gravity="center"
+                    android:layout_below="@id/manual_gridview_item_name"
+                    android:textSize="15sp"
+                    android:layout_weight="6"
+                    />
+        </LinearLayout>
+        <ImageButton android:layout_width="match_parent"
+                     android:layout_height="match_parent"
+                     android:src="@drawable/download" android:layout_weight="4"
+                     android:background="@android:color/white"
+                     android:padding="5dp"
+                     android:scaleType="fitCenter"/>
+        <ImageButton android:layout_width="match_parent"
+                     android:layout_height="match_parent"
+                     android:background="@android:color/white"
+                     android:src="@drawable/watch" android:scaleType="fitCenter"
+                     android:padding="5dp"
+                     android:layout_weight="4"/>
+    </LinearLayout>
+
+
 </LinearLayout>

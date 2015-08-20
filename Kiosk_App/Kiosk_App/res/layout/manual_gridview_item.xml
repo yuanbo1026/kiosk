@@ -28,41 +28,49 @@
         <LinearLayout android:layout_width="match_parent"
                       android:layout_height="match_parent"
                       android:orientation="vertical"
+                      android:gravity="center_vertical"
                       android:layout_weight="1">
             <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:id="@+id/manual_gridview_item_name"
                     android:text="AudioMaster BT 90"
-                    android:gravity="center"
+                    android:gravity="center_vertical"
+                    android:layout_gravity="center_vertical"
                     android:textSize="20sp"
-                    android:layout_weight="6"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="5dp"
                     />
 
             <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:id="@+id/manual_gridview_item_size"
                     android:text="132 Pages / 45 MB"
-                    android:gravity="center"
-                    android:layout_below="@id/manual_gridview_item_name"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_vertical"
+                    android:layout_gravity="center_vertical"
                     android:textSize="15sp"
-                    android:layout_weight="6"
                     />
         </LinearLayout>
+
         <ImageButton android:layout_width="match_parent"
                      android:layout_height="match_parent"
-                     android:src="@drawable/download" android:layout_weight="4"
+                     android:src="@drawable/download"
+                     android:layout_weight="4"
                      android:background="@android:color/white"
                      android:padding="5dp"
                      android:scaleType="fitCenter"/>
         <ImageButton android:layout_width="match_parent"
                      android:layout_height="match_parent"
                      android:background="@android:color/white"
-                     android:src="@drawable/watch" android:scaleType="fitCenter"
+                     android:src="@drawable/watch"
+                     android:scaleType="fitCenter"
                      android:padding="5dp"
                      android:layout_weight="4"/>
+
     </LinearLayout>
+    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/swipe_listview_divider_color"/>
 
 
 </LinearLayout>

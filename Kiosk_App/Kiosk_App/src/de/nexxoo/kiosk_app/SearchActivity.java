@@ -101,7 +101,7 @@ public class SearchActivity extends Activity implements ISearchCallback {
 		}
 
 		/**
-		 * get group list from callback method
+		 * get group list from callback(onSearchDone) method
 		 */
 		SearchResultGroupList srg = intent.getParcelableExtra(getString(R.string.kiosk_search_bundle_group));
 		SearchResultChildList src = intent.getParcelableExtra(getString(R.string.kiosk_search_bundle_child));
@@ -137,7 +137,7 @@ public class SearchActivity extends Activity implements ISearchCallback {
 
 		for (int i = 0; i < 4; i++) {
 			Manual manual = new Manual();
-			manual.setName("Muanl " + i);
+			manual.setName("Manual " + i);
 			manuals.add(manual);
 		}
 

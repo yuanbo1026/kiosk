@@ -1,76 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
-
-    <de.nexxoo.kiosk_app.layout.SquareLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="1">
-        <ImageView
-                android:id="@+id/manual_gridview_item_cover"
-                android:background="@color/manual_grid_list_item_cover_background_color"
-                android:src="@drawable/audiomasterbt90"
-                android:scaleType="fitCenter"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="500dp"
-                android:padding="10dp"
-                />
-    </de.nexxoo.kiosk_app.layout.SquareLayout>
+                android:layout_height="match_parent">
 
     <LinearLayout android:layout_width="match_parent"
                   android:layout_height="match_parent"
-                  android:orientation="horizontal"
-                  android:layout_weight="4"
-                  android:background="@android:color/white">
-        <LinearLayout android:layout_width="match_parent"
-                      android:layout_height="match_parent"
-                      android:orientation="vertical"
-                      android:gravity="center_vertical"
-                      android:layout_weight="1">
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/manual_gridview_item_name"
-                    android:text="AudioMaster BT 90"
-                    android:gravity="center_vertical"
-                    android:layout_gravity="center_vertical"
-                    android:textSize="20sp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginBottom="5dp"
+                  android:orientation="vertical">
+        <de.nexxoo.kiosk_app.layout.SquareLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+            <ImageView
+                    android:id="@+id/manual_gridview_item_cover"
+                    android:background="@color/manual_grid_list_item_cover_background_color"
+                    android:scaleType="fitCenter"
+                    android:layout_width="match_parent"
+                    android:layout_height="500dp"
+                    android:padding="10dp"
                     />
+        </de.nexxoo.kiosk_app.layout.SquareLayout>
 
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/manual_gridview_item_size"
-                    android:text="132 Pages / 45 MB"
-                    android:layout_marginLeft="10dp"
-                    android:gravity="center_vertical"
-                    android:layout_gravity="center_vertical"
-                    android:textSize="15sp"
-                    />
-        </LinearLayout>
+        <RelativeLayout android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:background="@android:color/white">
+            <LinearLayout android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:orientation="vertical"
+                          android:layout_alignParentLeft="true"
+                          android:layout_centerVertical="true">
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/manual_gridview_item_name"
+                        android:text="AudioMaster BT 90"
+                        android:textSize="20sp"
+                        android:textColor="@color/gridview_item_name"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginBottom="-4dp"
+                        />
 
-        <ImageButton android:layout_width="match_parent"
-                     android:layout_height="match_parent"
-                     android:src="@drawable/download"
-                     android:layout_weight="4"
-                     android:background="@android:color/white"
-                     android:padding="5dp"
-                     android:scaleType="fitCenter"/>
-        <ImageButton android:layout_width="match_parent"
-                     android:layout_height="match_parent"
-                     android:background="@android:color/white"
-                     android:src="@drawable/watch"
-                     android:scaleType="fitCenter"
-                     android:padding="5dp"
-                     android:layout_weight="4"/>
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/manual_gridview_item_size"
+                        android:text="132 Pages / 45 MB"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/gridview_item_size"
+                        android:textSize="15sp"
+                        />
+            </LinearLayout>
 
+            <ImageButton android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:src="@drawable/ic_list_download"
+                         android:layout_weight="4"
+                         android:gravity="center_vertical"
+                         android:layout_gravity="center_vertical"
+                         android:background="@android:color/white"
+                         android:layout_toLeftOf="@+id/gridview_item_watch_button"
+                         android:padding="5dp"
+                         android:scaleType="fitCenter"/>
+            <ImageButton android:id="@+id/gridview_item_watch_button"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:background="@android:color/white"
+                         android:src="@drawable/ic_list_view"
+                         android:scaleType="fitCenter"
+                         android:layout_alignParentRight="true"
+                         android:gravity="center_vertical"
+                         android:layout_gravity="center_vertical"
+                         android:padding="5dp"
+                         android:layout_weight="4"/>
+
+        </RelativeLayout>
+        <View android:layout_width="match_parent" android:layout_height="1dp"
+              android:background="@color/swipe_listview_divider_color"/>
+        <View android:layout_width="match_parent" android:layout_height="1dp"
+              android:background="@android:color/white"/>
     </LinearLayout>
-    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/swipe_listview_divider_color"/>
-
-
+    <View android:layout_width="1dp" android:layout_height="match_parent"
+          android:background="@color/swipe_listview_divider_color"
+          android:layout_marginLeft="-1dp"/>
 </LinearLayout>

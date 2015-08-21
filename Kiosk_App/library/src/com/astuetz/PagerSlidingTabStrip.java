@@ -207,7 +207,7 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
             } else {
                 SpannableString s = new SpannableString(pager.getAdapter().getPageTitle(i).toString().toUpperCase());
                 s.setSpan(new TypefaceSpan(getContext(),
-                                "TitilliumWeb-Bold.ttf"), 0, s.length(),
+                                "OpenSans-Regular.ttf"), 0, s.length(),
                         Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
                 addTextTab(i, pager.getAdapter().getPageTitle(i).toString());

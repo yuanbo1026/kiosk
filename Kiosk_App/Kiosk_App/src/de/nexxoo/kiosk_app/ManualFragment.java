@@ -58,15 +58,10 @@ public class ManualFragment extends Fragment {
 				if (mViewSwitcher.getDisplayedChild() == VIEW_GRID) {
 					mViewSwitcher.showNext();
 					Header.setVisibility(View.VISIBLE);
-					/*ImageButton mBList = (ImageButton) getActivity().findViewById(R.id.manual_b_list);
+					ImageButton mBList = (ImageButton) getActivity().findViewById(R.id.manual_b_list);
 					ImageButton mBGrid = (ImageButton) getActivity().findViewById(R.id.manual_b_grid);
-
-					mBList.setBackgroundResource(R.color.RadiothekBlueLight);
-					mBList.setImageResource(R.drawable.ic_stationlist);
-
-					mBGrid.setBackgroundResource(R.color.RadiothekWhite);
-					mBGrid.setImageResource(R.drawable.ic_grid_blue_light);*/
-
+					mBList.setImageResource(R.drawable.ic_list_active);
+					mBGrid.setImageResource(R.drawable.ic_grid);
 				}
 			}
 		});
@@ -77,18 +72,16 @@ public class ManualFragment extends Fragment {
 				if (mViewSwitcher.getDisplayedChild() == VIEW_LIST) {
 					mViewSwitcher.showPrevious();
 					Header.setVisibility(View.INVISIBLE);
-					/*ImageButton mBList = (ImageButton) getActivity().findViewById(R.id.manual_b_list);
+					ImageButton mBList = (ImageButton) getActivity().findViewById(R.id.manual_b_list);
 					ImageButton mBGrid = (ImageButton) getActivity().findViewById(R.id.manual_b_grid);
-
-					mBList.setBackgroundResource(R.color.RealWhite);
-					mBList.setImageResource(R.drawable.ic_stationlist_blue_light);
-
-					mBGrid.setBackgroundResource(R.color.RadiothekBlueLight);
-					mBGrid.setImageResource(R.drawable.ic_grid_white);*/
+					mBList.setImageResource(R.drawable.ic_list);
+					mBGrid.setImageResource(R.drawable.ic_grid_active);
 
 				}
 			}
 		});
+
+
 		listview = (SwipeMenuListView) rootView.findViewById(R.id.manual_list);
 		gridview = (GridView) rootView.findViewById(R.id.manual_grid);
 		gridview.setNumColumns(Global.isNormalScreenSize ? 1 : 2);
@@ -108,7 +101,7 @@ public class ManualFragment extends Fragment {
 		/**
 		 * init swipe listview
 		 */
-		initSwipeListView();
+		initSwipeListView(Global.isNormalScreenSize);
 
 		NexxooWebservice.getContent(true, 0, 10, 2, new OnJSONResponse() {
 			@Override
@@ -116,6 +109,7 @@ public class ManualFragment extends Fragment {
 				try {
 					int count = json.getInt("count");
 					prepareListData(json);
+
 					ManualGridViewAdapter gridAdapter = new ManualGridViewAdapter
 							(getActivity(), R.layout.manual_gridview_item, manualList);
 					gridview.setAdapter(gridAdapter);
@@ -124,16 +118,15 @@ public class ManualFragment extends Fragment {
 							(), Global.isNormalScreenSize ? R.layout
 							.manual_listview_item : R.layout.manual_listview_item_big, manualList);
 					listview.setAdapter(listAdapter);
-					Log.d("KioskSuccess", "get content from DB: " + count);
 
 				} catch (JSONException e) {
-					Log.d("KioskError", "error!" + e.getMessage());
+					Log.d("KioskError", "Error!" + e.getMessage());
 				}
 			}
 
 			@Override
 			public void onReceivedError(String msg, int code) {
-				Log.d("KioskError", "error!" + msg);
+				Log.d("KioskError", "Error!" + msg);
 			}
 		});
 
@@ -145,39 +138,21 @@ public class ManualFragment extends Fragment {
 	/**
 	 * initialize swipe listview component
 	 */
-	private void initSwipeListView() {
-		// step 1. create a MenuCreator
+	private void initSwipeListView(final Boolean isNormal) {
 		SwipeMenuCreator creator = new SwipeMenuCreator() {
 
 			@Override
 			public void create(SwipeMenu menu) {
-				// create "open" item
-				SwipeMenuItem openItem = new SwipeMenuItem(
-						context);
-				// set item background
-				openItem.setBackground(new ColorDrawable(Color.rgb(0xC9, 0xC9,
-						0xCE)));
-				// set item width
-				openItem.setWidth(dp2px(90));
-				// set item title
-				openItem.setTitle("Open");
-				// set item title fontsize
-				openItem.setTitleSize(18);
-				// set item title font color
-				openItem.setTitleColor(Color.WHITE);
-				// add to menu
+				SwipeMenuItem openItem = new SwipeMenuItem(context);
+				openItem.setBackground(new ColorDrawable(Color.rgb(0xF3, 0xF3,0xF3)));
+				openItem.setWidth(dp2px(isNormal?90:120));
+				openItem.setIcon(R.drawable.ic_list_download);
 				menu.addMenuItem(openItem);
 
-				// create "delete" item
 				SwipeMenuItem deleteItem = new SwipeMenuItem(context);
-				// set item background
-				deleteItem.setBackground(new ColorDrawable(Color.rgb(0xF9,
-						0x3F, 0x25)));
-				// set item width
-				deleteItem.setWidth(dp2px(90));
-				// set a icon
-				deleteItem.setIcon(R.drawable.ic_delete);
-				// add to menu
+				deleteItem.setBackground(new ColorDrawable(Color.rgb(0xE5,0xF5, 0xFF)));
+				deleteItem.setWidth(dp2px(isNormal?90:120));
+				deleteItem.setIcon(R.drawable.ic_list_view);
 				menu.addMenuItem(deleteItem);
 			}
 		};
@@ -260,19 +235,7 @@ public class ManualFragment extends Fragment {
 				getResources().getDisplayMetrics());
 	}
 
-	/*private List<Manual> getManualList() {
-		String[] manual_name = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M"};
-		for (String str : manual_name) {
-			Manual manual = new Manual();
-			manual.setName("Manual " + str);
-			manualList.add(manual);
-		}
-		return manualList;
-	}*/
-
 	private void prepareListData(JSONObject json) {
-
-
 		try {
 			int count = json.getInt("count");
 			Manual manual = null;

@@ -18,4 +18,8 @@
 
 
     <color name="manual_grid_list_item_cover_background_color">#e5f5ff</color>
+
+    <color name="actionbar_background_color">#494949</color>
+    <color name="gridview_item_name">#0072bc</color>
+    <color name="gridview_item_size">#5f5f5f</color>
 </resources>

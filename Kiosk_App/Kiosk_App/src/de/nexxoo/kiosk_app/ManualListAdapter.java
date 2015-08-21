@@ -2,6 +2,7 @@ package de.nexxoo.kiosk_app;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import de.nexxoo.kiosk_app.entity.Manual;
 import de.nexxoo.kiosk_app.tools.Misc;
+import de.nexxoo.kiosk_app.tools.Nexxoo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +28,6 @@ public class ManualListAdapter extends ArrayAdapter<Manual> {
 	private Context mContext;
 	private List<Manual> mManualList;
 	private int mLayoutId;
-	//	private List<Cover> mPictureList = new ArrayList<Cover>();
-	private List<Bitmap> mBitmaps = new ArrayList<Bitmap>();
-	private Bitmap bitmap;
 
 
 	public ManualListAdapter(Context context, int layoutId, List<Manual> objects) {
@@ -48,21 +47,7 @@ public class ManualListAdapter extends ArrayAdapter<Manual> {
 			v = mInflater.inflate(mLayoutId, parent, false);
 			v.setBackgroundColor(mContext.getResources().getColor(
 					R.color.RealWhite));
-			if (mLayoutId == R.layout.manual_gridview_item) {
-				// grid view
-				item = new Item();
-				item.manualName = (TextView) v
-						.findViewById(R.id.manual_gridview_item_name);
-				item.manualName.setTypeface(Misc.getCustomFont(mContext,
-						Misc.FONT_BOLD));
-				item.manualSize = (TextView) v.findViewById(R.id.manual_gridview_item_size);
-				item.manualSize.setTypeface(Misc.getCustomFont(mContext,
-						Misc.FONT_NORMAL));
-				item.manualCover = (ImageView) v.findViewById(R.id.manual_gridview_item_cover);
-
-			} else {
-				// list view
-
+				Log.d(Nexxoo.TAG,"ListView Adapter Position: "+position);
 				item = new Item();
 				item.manualName = (TextView) v
 						.findViewById(R.id.manual_listview_item_name);
@@ -73,8 +58,6 @@ public class ManualListAdapter extends ArrayAdapter<Manual> {
 						Misc.FONT_NORMAL));
 				item.manualCover = (ImageView) v.findViewById(R.id.manual_listview_item_cover);
 
-			}
-
 			item.manualName.setText(mManualList.get(position).getName());
 
 			ImageLoader imageLoader = ImageLoader.getInstance(); // Get singleton instance
@@ -84,7 +67,7 @@ public class ManualListAdapter extends ArrayAdapter<Manual> {
 
 						@Override
 						public void onLoadingStarted(String imageUri, View view) {
-
+							Log.d(Nexxoo.TAG, "Image loading starts: " + imageUri);
 						}
 
 						@Override
@@ -95,7 +78,7 @@ public class ManualListAdapter extends ArrayAdapter<Manual> {
 
 						@Override
 						public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-
+							Log.d(Nexxoo.TAG,"Image loading completes: "+imageUri);
 						}
 
 						@Override

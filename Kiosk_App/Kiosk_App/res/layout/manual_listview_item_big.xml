@@ -7,15 +7,15 @@
 
     <ImageView
             android:id="@+id/manual_listview_item_cover"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:background="@color/manual_grid_list_item_cover_background_color"
             android:layout_margin="5dp"
             android:src="@drawable/manual_cover_small" />
     <LinearLayout
             android:id="@+id/manual_listview_item_linearlayout"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_height="100dp"
             android:layout_weight="1"
             android:gravity="center_vertical|left"
             android:orientation="vertical">

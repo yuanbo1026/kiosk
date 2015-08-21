@@ -9,10 +9,6 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import de.nexxoo.kiosk_app.tools.Global;
 import de.nexxoo.kiosk_app.tools.Nexxoo;
 
-import javax.net.ssl.*;
-import java.security.SecureRandom;
-import java.security.cert.X509Certificate;
-
 public class AppStart extends Application {
 
 	@Override
@@ -60,11 +56,11 @@ public class AppStart extends Application {
 			default:
 				toastMsg = "Unknown screen";
 		}
-		nuke();
+//		nuke();
 		Log.d(Nexxoo.TAG, toastMsg+"-"+screenSize);
 	}
 
-	public void nuke() {
+	/*public void nuke() {
 		try {
 			TrustManager[] trustAllCerts = new TrustManager[]{new X509TrustManager() {
 				public X509Certificate[] getAcceptedIssuers() {
@@ -92,6 +88,6 @@ public class AppStart extends Application {
 			});
 		} catch (Exception e) {
 		}
-	}
+	}*/
 
 }

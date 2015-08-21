@@ -15,7 +15,7 @@
     <LinearLayout
             android:id="@+id/manual_listview_item_linearlayout"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="70dp"
             android:layout_weight="1"
             android:gravity="center_vertical|left"
             android:orientation="vertical">
@@ -52,7 +52,7 @@
                android:layout_gravity="right|center_vertical"
                android:gravity="right"
                android:layout_weight="2"
-               android:src="@drawable/ic_more_vert_black_36dp"
+               android:src="@drawable/ic_dots"
                android:layout_marginRight="10dp"
             />
 

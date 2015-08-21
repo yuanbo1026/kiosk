@@ -13,9 +13,15 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.view.*;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.*;
 import com.astuetz.PagerSlidingTabStrip;
+import com.astuetz.TypefaceSpan;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +66,7 @@ public class MainActivity extends FragmentActivity {
 		getActionBar().setDisplayHomeAsUpEnabled(false);
 		getActionBar().setHomeButtonEnabled(true);
 		getActionBar().setDisplayUseLogoEnabled(false);
-		getActionBar().setTitle("Manual");
+		getActionBar().setTitle(getStyledText("Manual"));
 
 		// ActionBarDrawerToggle ties together the the proper interactions
 		// between the sliding drawer and the action bar app icon
@@ -114,7 +120,7 @@ public class MainActivity extends FragmentActivity {
 		tabs.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
 			@Override
 			public void onPageSelected(int position) {
-				actionbar.setTitle(mFragmentTitles[pager.getCurrentItem()]);
+				actionbar.setTitle(getStyledText(mFragmentTitles[pager.getCurrentItem()]));
 			}
 		});
 
@@ -153,7 +159,7 @@ public class MainActivity extends FragmentActivity {
 
 		// update selected item and title, then close the drawer
 		mDrawerList.setItemChecked(position, true);
-		setTitle(mTitles[position]);
+		setTitle(getStyledText(mTitles[position]));
 		mDrawerLayout.closeDrawer(mDrawerList);
 	}
 
@@ -209,6 +215,13 @@ public class MainActivity extends FragmentActivity {
 		}
 		// Handle action buttons
 		return super.onOptionsItemSelected(item);
+	}
+
+	private SpannableString getStyledText(String title){
+		SpannableString s = new SpannableString(title);
+		s.setSpan(new TypefaceSpan(this, "OpenSans-Regular.ttf"), 0, s.length(),
+				Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+		return s;
 	}
 
 }

@@ -16,7 +16,7 @@
                 android:layout_height="wrap_content"
                 android:contentDescription="@null"
                 android:background="@android:color/white"
-                android:src="@drawable/ic_grid_hover"
+                android:src="@drawable/ic_grid_active"
                 />
 
         <ImageButton
@@ -41,7 +41,7 @@
             android:clipToPadding="false"
             android:cacheColorHint="#00000000"
             android:paddingBottom="5dp">
-        <GridView
+        <!--<GridView
                 android:id="@+id/manual_grid"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
@@ -54,6 +54,12 @@
                 android:dividerHeight="2dp"
                 android:smoothScrollbar="true"
                 android:cacheColorHint="@android:color/transparent">
+        </GridView>-->
+        <GridView
+                android:id="@+id/manual_grid"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                >
         </GridView>
         <de.nexxoo.kiosk_app.layout.SwipeMenuListView
                 android:id="@+id/manual_list"

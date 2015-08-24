@@ -1,6 +1,8 @@
 package de.nexxoo.kiosk_app;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,8 +10,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import de.nexxoo.kiosk_app.entity.Video;
 import de.nexxoo.kiosk_app.tools.Misc;
+import de.nexxoo.kiosk_app.tools.Nexxoo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,46 +43,63 @@ public class VideoListAdapter extends ArrayAdapter<Video> {
 	public View getView(int position, View convertView, ViewGroup parent) {
 
 		Item item;
-		View v = convertView;
-		if (v == null) {
-			v = mInflater.inflate(mLayoutId, parent, false);
-			v.setBackgroundColor(mContext.getResources().getColor(
+		if (convertView  == null) {
+			convertView = mInflater.inflate(mLayoutId, parent, false);
+			convertView.setBackgroundColor(mContext.getResources().getColor(
 					R.color.RealWhite));
 			if (mLayoutId == R.layout.video_gridview_item) {
 				// grid view
 				item = new Item();
-				item.videoName = (TextView) v
-						.findViewById(R.id.video_gridview_item_name);
-				item.videoName.setTypeface(Misc.getCustomFont(mContext,
-						Misc.FONT_BOLD));
-				item.videoCover = (ImageView) v.findViewById(R.id.video_gridview_item_cover);
+				item.videoCover = (ImageView) convertView.findViewById(R.id.video_gridview_item_cover);
 
 			} else {
 				// list layout
 				item = new Item();
-				item.videoName = (TextView) v
+				item.videoName = (TextView) convertView
 						.findViewById(R.id.video_listview_item_name);
 				item.videoName.setTypeface(Misc.getCustomFont(mContext,
 						Misc.FONT_BOLD));
-				item.videoSize = (TextView) v
+				item.videoSize = (TextView) convertView
 						.findViewById(R.id.video_listview_item_size);
 				item.videoSize.setTypeface(Misc.getCustomFont(mContext,
 						Misc.FONT_BOLD));
-				item.videoCover = (ImageView) v.findViewById(R.id.video_listview_item_cover);
+				item.videoCover = (ImageView) convertView.findViewById(R.id.video_listview_item_cover);
 
 			}
 
-			v.setTag(item);
+			convertView.setTag(item);
 		} else {
-			item = (Item) v.getTag();
+			item = (Item) convertView.getTag();
 		}
+		item.videoName.setText(mVideoList.get(position).getName()+position);
 
-		if (mVideoList != null) {
-			item.videoName.setText("Video Tutorial");
-//			Video video = mVideoList.get(position);
-//			item.videoName.setText(video.getmName());
-		}
-		return v;
+		mImageLoader.displayImage(mVideoList.get(position).getmPictureList().get
+						(0).getmUrl(),
+				item.videoCover,new ImageLoadingListener(){
+
+					@Override
+					public void onLoadingStarted(String imageUri, View view) {
+//							Log.d(Nexxoo.TAG, "Image loading starts: " + imageUri);
+					}
+
+					@Override
+					public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+						ImageView mImageView = (ImageView) view;
+						mImageView.setImageResource(R.drawable.video_cover_small);
+					}
+
+					@Override
+					public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+						Log.e(Nexxoo.TAG, "Image loading completes: " + imageUri);
+					}
+
+					@Override
+					public void onLoadingCancelled(String imageUri, View view) {
+
+					}
+				});
+
+		return convertView;
 	}
 
 	private static class Item {

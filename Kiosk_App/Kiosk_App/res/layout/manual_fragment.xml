@@ -28,33 +28,19 @@
                 android:src="@drawable/ic_list"
                 />
     </LinearLayout>
-    <View   android:id="@+id/header"
-            android:layout_width="match_parent"
-            android:layout_height="1dip"
-            android:background="@color/swipe_listview_divider_color"
-            android:layout_below="@+id/manual_tapbar" />
+    <View android:id="@+id/manual_header"
+          android:layout_width="match_parent"
+          android:layout_height="1dip"
+          android:background="@color/swipe_listview_divider_color"
+          android:layout_below="@+id/manual_tapbar"/>
     <ViewSwitcher
             android:id="@+id/manual_viewswitcher"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_below="@id/header"
+            android:layout_below="@id/manual_header"
             android:clipToPadding="false"
             android:cacheColorHint="#00000000"
             android:paddingBottom="5dp">
-        <!--<GridView
-                android:id="@+id/manual_grid"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:background="#e5f5ff"
-                android:verticalSpacing="1dp"
-                android:horizontalSpacing="1dp"
-                android:stretchMode="columnWidth"
-                android:divider="#000000"
-                android:numColumns="auto_fit"
-                android:dividerHeight="2dp"
-                android:smoothScrollbar="true"
-                android:cacheColorHint="@android:color/transparent">
-        </GridView>-->
         <GridView
                 android:id="@+id/manual_grid"
                 android:layout_width="fill_parent"

@@ -85,7 +85,7 @@ public class ManualFragment extends Fragment {
 		listview = (SwipeMenuListView) rootView.findViewById(R.id.manual_list);
 		gridview = (GridView) rootView.findViewById(R.id.manual_grid);
 		gridview.setNumColumns(Global.isNormalScreenSize ? 1 : 2);
-		Header = (View) rootView.findViewById(R.id.header);
+		Header = (View) rootView.findViewById(R.id.manual_header);
 		Header.setVisibility(View.INVISIBLE);
 
 		gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {

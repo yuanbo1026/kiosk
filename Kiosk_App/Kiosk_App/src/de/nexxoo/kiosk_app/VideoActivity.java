@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,16 +12,19 @@ import android.util.Log;
 import android.view.Menu;
 import android.widget.MediaController;
 import android.widget.SearchView;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 /**
  * Created by b.yuan on 05.08.2015.
  */
 public class VideoActivity extends Activity {
+	private Context context;
 	private VideoView myVideoView;
 	private int position = 0;
 	private ProgressDialog progressDialog;
 	private MediaController mediaControls;
+	private String url;
 
 	/*@Override
 	public void onWindowFocusChanged(boolean hasFocus) {
@@ -40,51 +44,58 @@ public class VideoActivity extends Activity {
 	protected void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.video_view);
-
+		context = this;
+		Intent intent = getIntent();
+		url = intent.getStringExtra(getString(R.string
+				.video_activity_intent_url_extra));
 		if (mediaControls == null) {
 			mediaControls = new MediaController(this);
 		}
+		if (!url.isEmpty() && !url.contains(getString(R.string.video_url_keywork))) {
+			// Find your VideoView in your video_main.xml layout
+			myVideoView = (VideoView) findViewById(R.id.video_view);
 
-		// Find your VideoView in your video_main.xml layout
-		myVideoView = (VideoView) findViewById(R.id.video_view);
+			// Create a progressbar
+			progressDialog = new ProgressDialog(this);
+			// Set progressbar title
+			progressDialog.setTitle("Playing Video...");
+			// Set progressbar message
+			progressDialog.setMessage("Loading...");
 
-		// Create a progressbar
-		progressDialog = new ProgressDialog(this);
-		// Set progressbar title
-		progressDialog.setTitle("Playing Video...");
-		// Set progressbar message
-		progressDialog.setMessage("Loading...");
+			progressDialog.setCancelable(false);
+			// Show progressbar
+			progressDialog.show();
 
-		progressDialog.setCancelable(false);
-		// Show progressbar
-		progressDialog.show();
-
-		try {
-			myVideoView.setMediaController(mediaControls);
-//			myVideoView.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.kitkat));
-			myVideoView.setVideoURI(Uri.parse("https://nexxoo:wenexxoo4kiosk!@www" +
-					".appstock" +
-					".de/kiosk/content/3/5/TechniTwin ISIO_Produktvideo.mp4"));
+			try {
+				myVideoView.setMediaController(mediaControls);
+			myVideoView.setVideoURI(Uri.parse(url));
+				/*myVideoView.setVideoURI(Uri.parse("https://nexxoo:wenexxoo4kiosk!@www" +
+						".appstock" +
+						".de/kiosk/content/3/5/TechniTwin ISIO_Produktvideo.mp4"));*/
 //			myVideoView.setVideoURI(Uri.parse("https://archive.org/download/ksnn_compilation_master_the_internet/ksnn_compilation_master_the_internet_512kb.mp4"));
 
-		} catch (Exception e) {
-			Log.e("Error", e.getMessage());
-			e.printStackTrace();
+			} catch (Exception e) {
+				Log.e("Error", e.getMessage());
+				e.printStackTrace();
+			}
+
+			myVideoView.requestFocus();
+			myVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+				// Close the progress bar and play the video
+				public void onPrepared(MediaPlayer mp) {
+					progressDialog.dismiss();
+					myVideoView.seekTo(position);
+					if (position == 0) {
+						myVideoView.start();
+					} else {
+						myVideoView.pause();
+					}
+				}
+			});
+		} else {
+			Toast.makeText(context, getString(R.string.video_empty_url_alert_text), Toast.LENGTH_LONG).show();
 		}
 
-		myVideoView.requestFocus();
-		myVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-			// Close the progress bar and play the video
-			public void onPrepared(MediaPlayer mp) {
-				progressDialog.dismiss();
-				myVideoView.seekTo(position);
-				if (position == 0) {
-					myVideoView.start();
-				} else {
-					myVideoView.pause();
-				}
-			}
-		});
 
 	}
 

@@ -82,7 +82,7 @@ public class ManualGridViewAdapter extends ArrayAdapter<Manual> {
 
 					@Override
 					public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-						Log.e(Nexxoo.TAG,"Image loading completes: "+imageUri);
+//						Log.e(Nexxoo.TAG,"Image loading completes: "+imageUri);
 					}
 
 					@Override
@@ -96,7 +96,7 @@ public class ManualGridViewAdapter extends ArrayAdapter<Manual> {
 
 	@Override
 	public int getCount() {
-		Log.e(Nexxoo.TAG,"GridviewAdapter get count:" +mManualList.size());
+//		Log.e(Nexxoo.TAG,"GridviewAdapter get count:" +mManualList.size());
 		return mManualList.size();
 	}
 

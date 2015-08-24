@@ -45,4 +45,8 @@
 
     <!-- drawer empty string title -->
     <string name="drawer_title"></string>
+
+    <string name="video_activity_intent_url_extra">url</string>
+    <string name="video_empty_url_alert_text">There is no video to play!</string>
+    <string name="video_url_keywork">nexxoo</string>
 </resources>

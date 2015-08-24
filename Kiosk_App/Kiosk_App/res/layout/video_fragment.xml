@@ -4,44 +4,40 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
     <LinearLayout
-            android:gravity="center_horizontal"
+            android:gravity="right"
             android:id="@+id/video_tapbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:visibility="visible">
+            android:visibility="visible" android:layout_margin="10dp">
         <ImageButton
                 android:id="@+id/video_b_grid"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:contentDescription="@null"
-                android:src="@drawable/ic_grid_white"
-                android:background="@color/RadiothekBlueLight"
+                android:background="@android:color/white"
+                android:src="@drawable/ic_grid_active"
                 />
+
         <ImageButton
                 android:id="@+id/video_b_list"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:contentDescription="@null"
-                android:src="@drawable/ic_stationlist_blue_light"
-                android:background="@color/RadiothekWhite"
+                android:background="@android:color/white"
+                android:src="@drawable/ic_list"
                 />
-
-
     </LinearLayout>
+    <View   android:id="@+id/video_header"
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:background="@color/swipe_listview_divider_color"
+            android:layout_below="@+id/video_tapbar" />
     <ViewSwitcher
             android:id="@+id/video_viewswitcher"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/video_tapbar"
+            android:layout_below="@id/video_header"
             android:clipToPadding="false"
             android:cacheColorHint="#00000000"
             android:paddingBottom="5dp">
@@ -60,7 +56,7 @@
                 android:smoothScrollbar="true"
                 android:cacheColorHint="@android:color/transparent">
         </GridView>
-        <ListView
+        <de.nexxoo.kiosk_app.layout.SwipeMenuListView
                 android:id="@+id/video_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -70,6 +66,6 @@
                 android:cacheColorHint="@android:color/transparent"
                 android:smoothScrollbar="true"
                 >
-        </ListView>
+        </de.nexxoo.kiosk_app.layout.SwipeMenuListView>
     </ViewSwitcher>
 </RelativeLayout>

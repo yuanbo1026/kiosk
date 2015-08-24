@@ -62,6 +62,7 @@
         <activity android:name=".ProtocolActivity"/>
         <activity android:name=".StreamActivity"/>
         <activity android:name=".SplashActivity"/>
+        <activity android:name=".layout.RectangleLayout"/>
 
     </application>
 

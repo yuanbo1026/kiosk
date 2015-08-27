@@ -98,7 +98,6 @@ public class MainActivity extends FragmentActivity {
 		fragmentList.add(new VideoFragment());
 		fragmentList.add(new CatalogFragment());
 
-
 		LayoutInflater inflater = getLayoutInflater();
 		FrameLayout container = (FrameLayout) findViewById(R.id.content_frame);
 		inflater.inflate(R.layout.activity_main, container);

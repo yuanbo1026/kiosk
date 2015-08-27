@@ -28,11 +28,11 @@
                 android:src="@drawable/ic_list"
                 />
     </LinearLayout>
-    <View   android:id="@+id/video_header"
-            android:layout_width="match_parent"
-            android:layout_height="1dip"
-            android:background="@color/swipe_listview_divider_color"
-            android:layout_below="@+id/video_tapbar" />
+    <View android:id="@+id/video_header"
+          android:layout_width="match_parent"
+          android:layout_height="1dip"
+          android:background="@color/swipe_listview_divider_color"
+          android:layout_below="@+id/video_tapbar"/>
     <ViewSwitcher
             android:id="@+id/video_viewswitcher"
             android:layout_width="match_parent"
@@ -43,26 +43,18 @@
             android:paddingBottom="5dp">
         <GridView
                 android:id="@+id/video_grid"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/RealWhite"
-                android:numColumns="1"
-                android:gravity="center"
-                android:verticalSpacing="5dp"
-                android:horizontalSpacing="5dp"
-                android:stretchMode="columnWidth"
-                android:divider="@color/RadiothekBlueLight"
-                android:dividerHeight="1dp"
-                android:smoothScrollbar="true"
-                android:cacheColorHint="@android:color/transparent">
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                >
         </GridView>
         <de.nexxoo.kiosk_app.layout.SwipeMenuListView
                 android:id="@+id/video_list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
                 android:background="@color/RealWhite"
-                android:divider="@color/RadiothekBlueLight"
+                android:divider="@color/swipe_listview_divider_color"
                 android:dividerHeight="1dp"
+                android:headerDividersEnabled="true"
                 android:cacheColorHint="@android:color/transparent"
                 android:smoothScrollbar="true"
                 >

@@ -235,7 +235,6 @@ public class SwipeMenuListView extends ListView {
 
 		void onSwipeEnd(int position);
 	}
-
 	public void setSwipeDirection(int direction) {
 		mDirection = direction;
 	}

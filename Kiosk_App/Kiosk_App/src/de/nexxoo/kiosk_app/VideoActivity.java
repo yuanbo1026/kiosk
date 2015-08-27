@@ -14,6 +14,10 @@ import android.widget.MediaController;
 import android.widget.SearchView;
 import android.widget.Toast;
 import android.widget.VideoView;
+import de.nexxoo.kiosk_app.tools.FileStorageHelper;
+import de.nexxoo.kiosk_app.tools.Nexxoo;
+
+import java.io.File;
 
 /**
  * Created by b.yuan on 05.08.2015.
@@ -25,6 +29,9 @@ public class VideoActivity extends Activity {
 	private ProgressDialog progressDialog;
 	private MediaController mediaControls;
 	private String url;
+	private String filename;
+	private boolean isVideoDownloaded;
+	private FileStorageHelper fileHelper;
 
 	/*@Override
 	public void onWindowFocusChanged(boolean hasFocus) {
@@ -48,50 +55,91 @@ public class VideoActivity extends Activity {
 		Intent intent = getIntent();
 		url = intent.getStringExtra(getString(R.string
 				.video_activity_intent_url_extra));
+		filename = intent.getStringExtra("filename");
+		isVideoDownloaded = intent.getBooleanExtra("isVideoDownloaded", false);
+
+		fileHelper = new FileStorageHelper(this);
+
 		if (mediaControls == null) {
 			mediaControls = new MediaController(this);
 		}
 		if (!url.isEmpty() && !url.contains(getString(R.string.video_url_keywork))) {
-			// Find your VideoView in your video_main.xml layout
 			myVideoView = (VideoView) findViewById(R.id.video_view);
 
-			// Create a progressbar
 			progressDialog = new ProgressDialog(this);
-			// Set progressbar title
 			progressDialog.setTitle("Playing Video...");
-			// Set progressbar message
 			progressDialog.setMessage("Loading...");
-
 			progressDialog.setCancelable(false);
-			// Show progressbar
 			progressDialog.show();
-
+			/*myVideoView.setVideoURI(Uri.parse("https://nexxoo:wenexxoo4kiosk!@www.appstock" +
+					".de/kiosk/content/3/5/TechniTwin ISIO_Produktvideo.mp4"));*/
 			try {
 				myVideoView.setMediaController(mediaControls);
-			myVideoView.setVideoURI(Uri.parse(url));
-				/*myVideoView.setVideoURI(Uri.parse("https://nexxoo:wenexxoo4kiosk!@www" +
-						".appstock" +
-						".de/kiosk/content/3/5/TechniTwin ISIO_Produktvideo.mp4"));*/
-//			myVideoView.setVideoURI(Uri.parse("https://archive.org/download/ksnn_compilation_master_the_internet/ksnn_compilation_master_the_internet_512kb.mp4"));
+				if (isVideoDownloaded) {
+					File temp = new File(fileHelper.getFileAbsolutePath(filename));
+					if(temp.exists()){
+						myVideoView.setVideoPath(fileHelper.getFileAbsolutePath(filename));
+						Log.e(Nexxoo.TAG, fileHelper.getFileAbsolutePath(filename)+" " +
+								"exists");
+					}else{
+						Log.e(Nexxoo.TAG,fileHelper.getFileAbsolutePath(filename)+" " +
+								"doesn't exist.");
+					}
+
+				}else
+					myVideoView.setVideoURI(Uri.parse(url));
+				myVideoView.requestFocus();
+				myVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+					// Close the progress bar and play the video
+					public void onPrepared(MediaPlayer mp) {
+						progressDialog.dismiss();
+						myVideoView.seekTo(position);
+						if (position == 0) {
+							myVideoView.start();
+						} else {
+							myVideoView.pause();
+						}
+					}
+				});
+
 
 			} catch (Exception e) {
 				Log.e("Error", e.getMessage());
 				e.printStackTrace();
 			}
-
-			myVideoView.requestFocus();
-			myVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-				// Close the progress bar and play the video
-				public void onPrepared(MediaPlayer mp) {
-					progressDialog.dismiss();
-					myVideoView.seekTo(position);
-					if (position == 0) {
-						myVideoView.start();
-					} else {
-						myVideoView.pause();
+			/*try {
+				String tmp = "https://archive.org/download/ksnn_compilation_master_the_internet/ksnn_compilation_master_the_internet_512kb.mp4";
+				Cache cache = new FileCache(new File(getExternalCacheDir(), name));
+				HttpUrlSource source = new HttpUrlSource(tmp);
+				HttpProxyCache proxyCache = new HttpProxyCache(source, cache);
+				proxyCache.setCacheListener(new CacheListener() {
+					@Override
+					public void onError(ProxyCacheException e) {
+						Log.e(Nexxoo.TAG, "Error playing video", e);
 					}
-				}
-			});
+
+					@Override
+					public void onCacheDataAvailable(int cachePercentage) {
+					}
+				});
+				myVideoView.setMediaController(mediaControls);
+				myVideoView.setVideoPath(proxyCache.getUrl());
+				myVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+					// Close the progress bar and play the video
+					public void onPrepared(MediaPlayer mp) {
+						progressDialog.dismiss();
+						myVideoView.seekTo(position);
+						if (position == 0) {
+							myVideoView.start();
+						} else {
+							myVideoView.pause();
+						}
+					}
+				});
+			} catch (ProxyCacheException e) {
+				// do nothing. onError() handles all errors
+			}*/
+
 		} else {
 			Toast.makeText(context, getString(R.string.video_empty_url_alert_text), Toast.LENGTH_LONG).show();
 		}

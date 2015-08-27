@@ -9,14 +9,16 @@
             android:id="@+id/video_listview_item_cover"
             android:layout_width="80dp"
             android:layout_height="80dp"
+            android:layout_gravity="center_vertical"
             android:background="@color/manual_grid_list_item_cover_background_color"
             android:layout_margin="5dp"
             android:src="@drawable/video_cover_small" />
     <LinearLayout
             android:id="@+id/video_listview_item_linearlayout"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="80dp"
             android:layout_weight="1"
+            android:layout_gravity="center_vertical"
             android:gravity="center_vertical|left"
             android:orientation="vertical">
 
@@ -27,11 +29,13 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="5dp"
                 android:text="Video"
+                android:ellipsize="end"
+                android:maxLines="1"
                 android:textSize="20sp"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="@color/swipe_listview_item_text_color"
                 android:textStyle="bold"
-                android:layout_marginBottom="2dp"/>
+                android:layout_marginBottom="0dp"/>
 
         <TextView
                 android:id="@+id/video_listview_item_size"

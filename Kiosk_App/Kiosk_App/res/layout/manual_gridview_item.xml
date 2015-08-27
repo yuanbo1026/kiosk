@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
 
     <LinearLayout android:layout_width="match_parent"
                   android:layout_height="match_parent"
@@ -29,7 +29,9 @@
                           android:layout_height="wrap_content"
                           android:orientation="vertical"
                           android:layout_alignParentLeft="true"
-                          android:layout_centerVertical="true">
+                          android:layout_centerVertical="true"
+                          android:gravity="center_vertical"
+                          android:padding="15dp">
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -38,7 +40,7 @@
                         android:textSize="20sp"
                         android:textColor="@color/gridview_item_name"
                         android:layout_marginLeft="10dp"
-                        android:layout_marginBottom="-4dp"
+                        android:layout_marginBottom="-1dp"
                         />
 
                 <TextView
@@ -52,27 +54,31 @@
                         />
             </LinearLayout>
 
-            <ImageButton android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:src="@drawable/ic_list_download"
-                         android:layout_weight="4"
-                         android:gravity="center_vertical"
-                         android:layout_gravity="center_vertical"
-                         android:background="@android:color/white"
-                         android:layout_toLeftOf="@+id/gridview_item_watch_button"
-                         android:padding="5dp"
-                         android:scaleType="fitCenter"/>
-            <ImageButton android:id="@+id/gridview_item_watch_button"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:background="@android:color/white"
-                         android:src="@drawable/ic_list_view"
-                         android:scaleType="fitCenter"
-                         android:layout_alignParentRight="true"
-                         android:gravity="center_vertical"
-                         android:layout_gravity="center_vertical"
-                         android:padding="5dp"
-                         android:layout_weight="4"/>
+            <ImageView android:id="@+id/manual_grid_item_trash_button"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:src="@drawable/ic_grid_trash"
+                       android:layout_weight="4"
+                       android:gravity="center_vertical"
+                       android:layout_gravity="center_vertical"
+                       android:layout_centerVertical="true"
+                       android:background="@android:color/white"
+                       android:layout_toLeftOf="@+id/manual_grid_item_watch_button"
+                       android:padding="5dp"
+                       android:scaleType="fitCenter" android:visibility="invisible"/>
+            <ImageView android:id="@+id/manual_grid_item_watch_button"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:background="@android:color/white"
+                       android:layout_centerVertical="true"
+                       android:src="@drawable/ic_grid_view"
+                       android:scaleType="fitCenter"
+                       android:layout_marginRight="15dp"
+                       android:layout_alignParentRight="true"
+                       android:gravity="center_vertical"
+                       android:layout_gravity="center_vertical"
+                       android:padding="5dp"
+                       android:layout_weight="4"/>
 
         </RelativeLayout>
         <View android:layout_width="match_parent" android:layout_height="1dp"
@@ -82,5 +88,5 @@
     </LinearLayout>
     <View android:layout_width="1dp" android:layout_height="match_parent"
           android:background="@color/swipe_listview_divider_color"
-          android:layout_marginLeft="-1dp"/>
+          android:layout_marginLeft="-1dp" android:layout_marginBottom="1dp"/>
 </LinearLayout>

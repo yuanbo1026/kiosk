@@ -40,6 +40,7 @@
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:background="@android:color/white"
+                            android:padding="15dp"
                             android:layout_weight="7">
                 <LinearLayout android:layout_width="wrap_content"
                               android:layout_height="wrap_content"
@@ -54,7 +55,7 @@
                             android:textSize="20sp"
                             android:textColor="@color/gridview_item_name"
                             android:layout_marginLeft="10dp"
-                            android:layout_marginBottom="-4dp"
+                            android:layout_marginBottom="-1dp"
                             />
 
                     <TextView
@@ -68,16 +69,17 @@
                             />
                 </LinearLayout>
 
-                <ImageButton android:id="@+id/gridview_item_watch_button"
-                             android:layout_width="wrap_content"
-                             android:layout_height="wrap_content"
-                             android:background="@android:color/white"
-                             android:layout_centerVertical="true"
-                             android:src="@drawable/ic_list_view"
-                             android:scaleType="fitCenter"
-                             android:layout_alignParentRight="true"
-                             android:padding="5dp"
-                             android:layout_weight="4"/>
+                <ImageView android:id="@+id/video_gridview_item_download_button"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:background="@android:color/white"
+                           android:layout_centerVertical="true"
+                           android:src="@drawable/ic_grid_download"
+                           android:adjustViewBounds="true"
+                           android:scaleType="centerCrop"
+                           android:layout_alignParentRight="true"
+                           android:padding="5dp"
+                           android:layout_weight="4"/>
 
             </RelativeLayout>
             <View android:layout_width="match_parent" android:layout_height="1dp"
@@ -90,6 +92,6 @@
     </LinearLayout>
     <View android:layout_width="1dp" android:layout_height="match_parent"
           android:background="@color/swipe_listview_divider_color"
-          android:layout_marginLeft="-1dp"/>
+          android:layout_marginLeft="-1dp" android:layout_marginBottom="1dp"/>
 
 </LinearLayout>

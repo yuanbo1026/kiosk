@@ -3,42 +3,41 @@
               android:orientation="horizontal"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:gravity="center">
+              android:layout_margin="10dp">
 
     <ImageView
             android:id="@+id/catalog_listview_item_cover"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:contentDescription="@null"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@color/manual_grid_list_item_cover_background_color"
+            android:layout_margin="5dp"
             android:src="@drawable/catalog_cover_small" />
     <LinearLayout
             android:id="@+id/catalog_listview_item_linearlayout"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_alignParentTop="true"
-            android:layout_toLeftOf="@+id/catalog_listview_item_favicon"
-            android:gravity="center_vertical"
-            android:orientation="vertical" >
+            android:layout_height="70dp"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical|left"
+            android:orientation="vertical">
 
         <TextView
                 android:id="@+id/catalog_listview_item_name"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
                 android:paddingRight="5dp"
-                android:text="catalog 1"
+                android:text="Catalog"
+                android:maxLines="2"
                 android:textSize="20sp"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="@color/RadiothekBlueLight"
+                android:textColor="@color/swipe_listview_item_text_color"
                 android:textStyle="bold"
-                android:layout_marginBottom="5dp"/>
+                android:layout_marginBottom="0dp"/>
 
         <TextView
                 android:id="@+id/catalog_listview_item_size"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:paddingLeft="10dp"
@@ -47,6 +46,16 @@
                 android:textSize="15sp"
                 android:text="132 Pages / 45 MB"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="@color/RadiothekGrey" />
+                android:textColor="@color/swipe_listview_item_sub_text_color"/>
     </LinearLayout>
+    <ImageView android:id="@+id/catalog_listview_item_dots"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_gravity="right|center_vertical"
+               android:gravity="right"
+               android:layout_weight="2"
+               android:src="@drawable/ic_dots"
+               android:layout_marginRight="10dp"
+            />
+
 </LinearLayout>

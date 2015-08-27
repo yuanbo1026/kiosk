@@ -2,7 +2,6 @@ package de.nexxoo.kiosk_app;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +12,8 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import de.nexxoo.kiosk_app.entity.Video;
+import de.nexxoo.kiosk_app.tools.FileStorageHelper;
 import de.nexxoo.kiosk_app.tools.Misc;
-import de.nexxoo.kiosk_app.tools.Nexxoo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +61,7 @@ public class VideoListAdapter extends ArrayAdapter<Video> {
 				item.videoSize = (TextView) convertView
 						.findViewById(R.id.video_listview_item_size);
 				item.videoSize.setTypeface(Misc.getCustomFont(mContext,
-						Misc.FONT_BOLD));
+						Misc.FONT_NORMAL));
 				item.videoCover = (ImageView) convertView.findViewById(R.id.video_listview_item_cover);
 
 			}
@@ -71,35 +70,52 @@ public class VideoListAdapter extends ArrayAdapter<Video> {
 		} else {
 			item = (Item) convertView.getTag();
 		}
-		item.videoName.setText(mVideoList.get(position).getName()+position);
+		item.videoName.setText(mVideoList.get(position).getName());
+		if (!mVideoList.get(position).getmPictureList().isEmpty()) {
+			mImageLoader.displayImage(mVideoList.get(position).getmPictureList().get
+							(0).getmUrl(),
+					item.videoCover,new ImageLoadingListener(){
 
-		mImageLoader.displayImage(mVideoList.get(position).getmPictureList().get
-						(0).getmUrl(),
-				item.videoCover,new ImageLoadingListener(){
+						@Override
+						public void onLoadingStarted(String imageUri, View view) {
+						}
 
-					@Override
-					public void onLoadingStarted(String imageUri, View view) {
-//							Log.d(Nexxoo.TAG, "Image loading starts: " + imageUri);
-					}
+						@Override
+						public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+							ImageView mImageView = (ImageView) view;
+							mImageView.setImageResource(R.drawable.default_no_image);
+						}
 
-					@Override
-					public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-						ImageView mImageView = (ImageView) view;
-						mImageView.setImageResource(R.drawable.video_cover_small);
-					}
+						@Override
+						public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+						}
 
-					@Override
-					public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-						Log.e(Nexxoo.TAG, "Image loading completes: " + imageUri);
-					}
+						@Override
+						public void onLoadingCancelled(String imageUri, View view) {
 
-					@Override
-					public void onLoadingCancelled(String imageUri, View view) {
+						}
+					});
+		}else{
+			item.videoCover.setImageResource(R.drawable.default_no_image);
+		}
 
-					}
-				});
 
 		return convertView;
+	}
+
+	@Override
+	public int getViewTypeCount() {
+		// menu type count
+		return 2;
+	}
+
+	@Override
+	public int getItemViewType(int position) {
+		// current menu type
+		Video video = mVideoList.get(position);
+		FileStorageHelper helper = new FileStorageHelper(mContext);
+		boolean isVideoDownloaded = helper.isContentDownloaded(video.getName());
+		return isVideoDownloaded?1:0;
 	}
 
 	private static class Item {

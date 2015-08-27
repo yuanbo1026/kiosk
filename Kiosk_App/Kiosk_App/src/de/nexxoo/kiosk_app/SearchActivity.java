@@ -143,13 +143,13 @@ public class SearchActivity extends Activity implements ISearchCallback {
 
 		for (int i = 0; i < 4; i++) {
 			Video video = new Video();
-			video.setmName("Video " + i);
+			video.setName("Video " + i);
 			videos.add(video);
 		}
 
 		for (int i = 0; i < 4; i++) {
 			Catalog video = new Catalog();
-			video.setmName("Catalog " + i);
+			video.setName("Catalog " + i);
 			catalogs.add(video);
 		}
 

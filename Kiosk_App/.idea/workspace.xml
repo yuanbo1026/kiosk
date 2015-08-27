@@ -69,23 +69,63 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="app: de.nexxoo.kiosk_app" />
   </component>
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/ManualFragment.java" line="63" mnemonic="8" />
+    <bookmark url="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/ManualFragment.java" line="69" mnemonic="8" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2d658278-2e9a-4010-b96b-6583d5d957fe" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Kiosk_App/res/drawable-hdpi/ic_video_play.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Kiosk_App/res/drawable-hdpi/ic_video_prev.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/layout/RectangleLayout.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/layout/SquareFrameLayout.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/VideoGridViewAdapter.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Kiosk_App/res/layout/video_listview_item_big.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Kiosk_App/res/drawable-hdpi/default_no_image.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Kiosk_App/res/drawable-hdpi/ic_grid_download.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Kiosk_App/res/drawable-hdpi/ic_grid_trash.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Kiosk_App/res/drawable-hdpi/ic_grid_view.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Kiosk_App/res/drawable-hdpi/ic_list_play.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Kiosk_App/res/drawable-hdpi/ic_list_trash.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Kiosk_App/res/drawable/splash_portrait_bg.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Kiosk_App/res/drawable/splash_portrait_logo.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/CatalogGridViewAdapter.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/DownloadAsyncTask.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/SearchResultFragment.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/SearchResultGridViewAdapter.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/SearchResultListViewAdapter.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Kiosk_App/res/layout/catalog_listview_item_big.xml" />
+      <change type="DELETED" beforePath="D:\GitHub\kiosk\Kiosk_App\Kiosk_App\res\layout\history_listview_item.xml" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/entity/Catalog.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/entity/Catalog.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/CatalogFragment$1.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/CatalogFragment$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/CatalogFragment$2.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/CatalogFragment$2.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/CatalogFragment.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/CatalogFragment.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/CatalogListAdapter$1.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/CatalogListAdapter$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/CatalogListAdapter$Item.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/CatalogListAdapter$Item.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/CatalogListAdapter.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/CatalogListAdapter.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/DisplayActivity.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/DisplayActivity.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/DownloadActivity.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/DownloadActivity.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/tools/Global.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/tools/Global.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/HistoryActivity.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/HistoryActivity.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/Kiosk_App.apk" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/Kiosk_App.apk" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/Kiosk_App.unaligned.apk" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/Kiosk_App.unaligned.apk" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/MainActivity$2.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/MainActivity$2.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/MainActivity$DrawerItemClickListener.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/MainActivity$DrawerItemClickListener.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/MainActivity.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/MainActivity.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/ManualActivity.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/ManualActivity.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/ManualFragment$1.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/ManualFragment$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/ManualFragment$2.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/ManualFragment$2.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/ManualFragment$3.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/ManualFragment$3.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/ManualFragment$4.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/ManualFragment$4.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/ManualFragment$5.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/ManualFragment$5.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/ManualFragment$6.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/ManualFragment$6.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/ManualFragment$7.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/ManualFragment$7.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/ManualFragment$8.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/ManualFragment$8.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/ManualFragment.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/ManualFragment.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/ManualGridViewAdapter$1.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/ManualGridViewAdapter$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/ManualGridViewAdapter$Item.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/ManualGridViewAdapter$Item.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/ManualGridViewAdapter.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/ManualGridViewAdapter.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/ManualListAdapter$1.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/ManualListAdapter$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/ManualListAdapter$Item.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/ManualListAdapter$Item.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/ManualListAdapter.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/ManualListAdapter.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/layout/OptimizeGridAdapter.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/layout/OptimizeGridAdapter.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/ProtocolActivity.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/ProtocolActivity.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/com/astuetz/pagerslidingtabstrip/R$drawable.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/com/astuetz/pagerslidingtabstrip/R$drawable.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/R$drawable.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/R$drawable.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/R$id.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/R$id.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/com/astuetz/pagerslidingtabstrip/R$layout.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/com/astuetz/pagerslidingtabstrip/R$layout.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/R$layout.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/R$layout.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/R$menu.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/R$menu.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/R$raw.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/R$raw.class" />
@@ -94,6 +134,12 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/R$styleable.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/R$styleable.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/R$xml.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/R$xml.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/R.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/R.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/SearchActivity.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/SearchActivity.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/SearchAsyncTask.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/SearchAsyncTask.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/SearchListAdapter.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/SearchListAdapter.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/SplashActivity.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/SplashActivity.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/layout/SwipeMenuItem.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/layout/SwipeMenuItem.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/layout/SwipeMenuListView.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/layout/SwipeMenuListView.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/entity/Video.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/entity/Video.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/VideoActivity$1.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/VideoActivity$1.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/VideoActivity.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/VideoActivity.class" />
@@ -101,26 +147,55 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/VideoFragment$2.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/VideoFragment$2.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/VideoFragment$3.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/VideoFragment$3.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/VideoFragment$4.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/VideoFragment$4.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/VideoFragment$5.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/VideoFragment$5.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/VideoFragment$6.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/VideoFragment$6.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/VideoFragment$7.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/VideoFragment$7.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/VideoFragment$8.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/VideoFragment$8.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/VideoFragment$9.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/VideoFragment$9.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/VideoFragment.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/VideoFragment.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/VideoGridViewAdapter$1.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/VideoGridViewAdapter$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/VideoGridViewAdapter$2.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/VideoGridViewAdapter$2.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/VideoGridViewAdapter$Item.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/VideoGridViewAdapter$Item.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/VideoGridViewAdapter.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/VideoGridViewAdapter.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/VideoListAdapter$1.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/VideoListAdapter$1.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/VideoListAdapter$Item.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/VideoListAdapter$Item.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/VideoListAdapter.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/VideoListAdapter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/res/drawable-hdpi/logo.png" afterPath="$PROJECT_DIR$/Kiosk_App/res/drawable-hdpi/logo.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/AndroidManifest.xml" afterPath="$PROJECT_DIR$/Kiosk_App/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/Kiosk_App.iml" afterPath="$PROJECT_DIR$/Kiosk_App/Kiosk_App.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/entity/Catalog.java" afterPath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/entity/Catalog.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/CatalogFragment.java" afterPath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/CatalogFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/CatalogListAdapter.java" afterPath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/CatalogListAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/tools/Global.java" afterPath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/tools/Global.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/HistoryActivity.java" afterPath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/HistoryActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/MainActivity.java" afterPath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/MainActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/ManualFragment.java" afterPath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/ManualFragment.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/ManualGridViewAdapter.java" afterPath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/ManualGridViewAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/ManualListAdapter.java" afterPath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/ManualListAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/SearchActivity.java" afterPath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/SearchActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/SearchAsyncTask.java" afterPath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/SearchAsyncTask.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/SplashActivity.java" afterPath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/SplashActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/layout/SwipeMenuAdapter.java" afterPath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/layout/SwipeMenuAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/layout/SwipeMenuItem.java" afterPath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/layout/SwipeMenuItem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/layout/SwipeMenuListView.java" afterPath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/layout/SwipeMenuListView.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/entity/Video.java" afterPath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/entity/Video.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/VideoActivity.java" afterPath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/VideoActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/VideoFragment.java" afterPath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/VideoFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/VideoGridViewAdapter.java" afterPath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/VideoGridViewAdapter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/VideoListAdapter.java" afterPath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/VideoListAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/res/layout/manual_fragment.xml" afterPath="$PROJECT_DIR$/Kiosk_App/res/layout/manual_fragment.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/res/layout/catalog_fragment.xml" afterPath="$PROJECT_DIR$/Kiosk_App/res/layout/catalog_fragment.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/res/layout/catalog_gridview_item.xml" afterPath="$PROJECT_DIR$/Kiosk_App/res/layout/catalog_gridview_item.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/res/layout/catalog_listview_item.xml" afterPath="$PROJECT_DIR$/Kiosk_App/res/layout/catalog_listview_item.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/res/layout/history_fragment.xml" afterPath="$PROJECT_DIR$/Kiosk_App/res/layout/history_fragment.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/res/layout/manual_gridview_item.xml" afterPath="$PROJECT_DIR$/Kiosk_App/res/layout/manual_gridview_item.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/res/layout/manual_listview_item.xml" afterPath="$PROJECT_DIR$/Kiosk_App/res/layout/manual_listview_item.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/res/layout/manual_listview_item_big.xml" afterPath="$PROJECT_DIR$/Kiosk_App/res/layout/manual_listview_item_big.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/res/values/strings.xml" afterPath="$PROJECT_DIR$/Kiosk_App/res/values/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/universal_image_loader_1_9_3.xml" afterPath="$PROJECT_DIR$/.idea/libraries/universal_image_loader_1_9_3.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/res/layout/video_fragment.xml" afterPath="$PROJECT_DIR$/Kiosk_App/res/layout/video_fragment.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/res/layout/video_gridview_item.xml" afterPath="$PROJECT_DIR$/Kiosk_App/res/layout/video_gridview_item.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/res/layout/video_listview_item.xml" afterPath="$PROJECT_DIR$/Kiosk_App/res/layout/video_listview_item.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/res/layout/video_listview_item_big.xml" afterPath="$PROJECT_DIR$/Kiosk_App/res/layout/video_listview_item_big.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/res/layout/video_view.xml" afterPath="$PROJECT_DIR$/Kiosk_App/res/layout/video_view.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MOVED" beforePath="D:\GitHub\kiosk\Kiosk_App\Kiosk_App\res\layout\history_grid_item.xml" afterPath="$PROJECT_DIR$/Kiosk_App/res/layout/splash.xml" />
     </list>
     <ignored path="Kiosk_App.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -144,67 +219,124 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
+      <file leaf-file-name="catalog_gridview_item.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Kiosk_App/res/layout/catalog_gridview_item.xml">
+          <provider editor-type-id="android-designer">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-14.15">
+              <caret line="40" column="58" selection-start-line="40" selection-start-column="58" selection-end-line="40" selection-end-column="58" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="video_gridview_item.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Kiosk_App/res/layout/video_gridview_item.xml">
+          <provider editor-type-id="android-designer">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-5.25">
+              <caret line="7" column="54" selection-start-line="7" selection-start-column="54" selection-end-line="7" selection-end-column="54" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="VideoFragment.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/VideoFragment.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="86" column="69" selection-start-line="86" selection-start-column="69" selection-end-line="86" selection-end-column="69" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="VideoListAdapter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/VideoListAdapter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="48" column="60" selection-start-line="48" selection-start-column="60" selection-end-line="48" selection-end-column="60" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SplashActivity.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/SplashActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.5976096">
+              <caret line="14" column="42" selection-start-line="14" selection-start-column="42" selection-end-line="14" selection-end-column="42" />
+              <folding>
+                <element signature="e#522#969#0" expanded="true" />
+                <element signature="e#968#969#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Kiosk_App/AndroidManifest.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="30" column="19" selection-start-line="30" selection-start-column="19" selection-end-line="30" selection-end-column="19" />
+              <folding>
+                <element signature="e#1012#1030#0" expanded="true" />
+                <element signature="e#1575#1593#0" expanded="true" />
+                <element signature="e#1853#1871#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AppStart.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/app/AppStart.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="splash.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Kiosk_App/res/layout/splash.xml">
+          <provider editor-type-id="android-designer">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-9.0">
+              <caret line="12" column="14" selection-start-line="12" selection-start-column="14" selection-end-line="12" selection-end-column="14" />
+              <folding>
+                <element signature="e#281#314#0" expanded="true" />
+                <element signature="e#351#386#0" expanded="true" />
+                <element signature="e#424#459#0" expanded="true" />
+                <element signature="e#495#528#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Misc.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/tools/Misc.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="70" column="28" selection-start-line="70" selection-start-column="28" selection-end-line="70" selection-end-column="28" />
+              <folding>
+                <element signature="imports" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="VideoGridViewAdapter.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/VideoGridViewAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="33" column="54" selection-start-line="33" selection-start-column="54" selection-end-line="33" selection-end-column="54" />
-              <folding>
-                <element signature="e#2537#2958#0" expanded="true" />
-                <element signature="e#2843#2910#0" expanded="true" />
-                <element signature="e#2957#2958#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ManualActivity.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/ManualActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.2264574">
-              <caret line="126" column="0" selection-start-line="126" selection-start-column="0" selection-end-line="126" selection-end-column="0" />
-              <folding>
-                <element signature="e#4697#4698#0" expanded="true" />
-                <element signature="e#4730#4731#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FileStorageHelper.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/tools/FileStorageHelper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="40" column="43" selection-start-line="40" selection-start-column="43" selection-end-line="40" selection-end-column="43" />
-              <folding>
-                <element signature="e#539#540#0" expanded="true" />
-                <element signature="e#564#565#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="VideoActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/VideoActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-              <folding>
-                <element signature="e#1441#1497#0" expanded="true" />
-                <element signature="e#1619#1656#0" expanded="true" />
-                <element signature="e#2683#2993#0" expanded="true" />
-                <element signature="e#2992#2993#0" expanded="true" />
-                <element signature="e#3034#3080#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="strings.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Kiosk_App/res/values/strings.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-18.736841">
-              <caret line="50" column="43" selection-start-line="50" selection-start-column="43" selection-end-line="50" selection-end-column="43" />
+              <caret line="81" column="63" selection-start-line="81" selection-start-column="63" selection-end-line="81" selection-end-column="63" />
               <folding />
             </state>
           </provider>
@@ -217,12 +349,12 @@
       <list>
         <option value="valueResourceFile" />
         <option value="Interface" />
-        <option value="Class" />
         <option value="layoutResourceFile" />
-        <option value="layoutResourceFile_vertical" />
-        <option value="Fragment" />
         <option value="resourceFile" />
+        <option value="Class" />
+        <option value="Fragment" />
         <option value="Activity" />
+        <option value="layoutResourceFile_vertical" />
       </list>
     </option>
   </component>
@@ -249,57 +381,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/tools/NetWorkImageLoader.java" />
-        <option value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/layout/OptimizeGridAdapter.java" />
-        <option value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/entity/BaseEntity.java" />
-        <option value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/tools/Nexxoo.java" />
-        <option value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/tools/Global.java" />
-        <option value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/layout/SquareLayout.java" />
-        <option value="$PROJECT_DIR$/library/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/Kiosk_App/res/layout/kiosk_actionbar.xml" />
-        <option value="$PROJECT_DIR$/Kiosk_App/res/layout/drawer_contrainer.xml" />
-        <option value="$PROJECT_DIR$/Kiosk_App/res/drawable-hdpi/drawer_list_item.xml" />
-        <option value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/ContactFragment.java" />
-        <option value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/ImprintFragment.java" />
-        <option value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/ProtocolFragment.java" />
-        <option value="$PROJECT_DIR$/Kiosk_App/res/menu/drawer_menu.xml" />
-        <option value="$PROJECT_DIR$/Kiosk_App/res/menu/menu.xml" />
-        <option value="$PROJECT_DIR$/Kiosk_App/res/layout/drawer_list_item.xml" />
-        <option value="$PROJECT_DIR$/Kiosk_App/res/layout/drawer_container.xml" />
-        <option value="$PROJECT_DIR$/Kiosk_App/res/values/styles.xml" />
-        <option value="$PROJECT_DIR$/Kiosk_App/res/drawable/actionbar_space_between_icon_and_title.xml" />
-        <option value="$PROJECT_DIR$/library/res/values/colors.xml" />
-        <option value="$PROJECT_DIR$/Kiosk_App/res/layout/activity_main.xml" />
-        <option value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/layout/swipelistview/SwipeMenu.java" />
-        <option value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/tools/Misc.java" />
-        <option value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/FragmentAdapter.java" />
-        <option value="$PROJECT_DIR$/Kiosk_App/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/SearchActivity.java" />
-        <option value="$PROJECT_DIR$/Kiosk_App/res/layout/manual_listview_item.xml" />
-        <option value="$PROJECT_DIR$/Kiosk_App/res/drawable/grid_button.xml" />
-        <option value="$PROJECT_DIR$/Kiosk_App/res/drawable/list_button.xml" />
-        <option value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/MainActivity.java" />
         <option value="$PROJECT_DIR$/library/src/com/astuetz/PagerSlidingTabStrip.java" />
-        <option value="$PROJECT_DIR$/Kiosk_App/res/layout/manual_listview_item_big.xml" />
         <option value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/app/AppStart.java" />
-        <option value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/ManualListAdapter.java" />
         <option value="$PROJECT_DIR$/Kiosk_App/res/values/colors.xml" />
-        <option value="$PROJECT_DIR$/Kiosk_App/res/layout/manual_gridview_item.xml" />
-        <option value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/ManualFragment.java" />
         <option value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/layout/SquareFrameLayout.java" />
         <option value="$PROJECT_DIR$/Kiosk_App/res/layout/manual_fragment.xml" />
-        <option value="$PROJECT_DIR$/Kiosk_App/res/layout/video_fragment.xml" />
-        <option value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/entity/Video.java" />
-        <option value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/VideoListAdapter.java" />
-        <option value="$PROJECT_DIR$/Kiosk_App/res/layout/video_listview_item.xml" />
-        <option value="$PROJECT_DIR$/Kiosk_App/res/layout/video_listview_item_big.xml" />
-        <option value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/VideoFragment.java" />
         <option value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/layout/RectangleLayout.java" />
-        <option value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/ManualGridViewAdapter.java" />
-        <option value="$PROJECT_DIR$/Kiosk_App/res/layout/video_gridview_item.xml" />
+        <option value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/layout/SwipeMenuAdapter.java" />
+        <option value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/layout/SwipeMenuItem.java" />
+        <option value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/videocache/ByteArrayCache.java" />
+        <option value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/videocache/ProxyCacheUtils.java" />
+        <option value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/videocache/ProxyCache.java" />
+        <option value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/videocache/FileCache.java" />
+        <option value="$PROJECT_DIR$/Kiosk_App/res/layout/video_view.xml" />
+        <option value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/entity/Video.java" />
+        <option value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/SearchAsyncTask.java" />
+        <option value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/layout/SwipeMenuListView.java" />
+        <option value="$PROJECT_DIR$/Kiosk_App/res/layout/catalog_fragment.xml" />
+        <option value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/entity/Catalog.java" />
+        <option value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/SearchActivity.java" />
         <option value="$PROJECT_DIR$/Kiosk_App/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/VideoActivity.java" />
+        <option value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/SearchResultListViewAdapter.java" />
+        <option value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/CatalogListAdapter.java" />
+        <option value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/ManualListAdapter.java" />
+        <option value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/SearchResultFragment.java" />
+        <option value="$PROJECT_DIR$/Kiosk_App/res/layout/manual_gridview_item.xml" />
+        <option value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/CatalogGridViewAdapter.java" />
+        <option value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/SearchResultGridViewAdapter.java" />
+        <option value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/ManualGridViewAdapter.java" />
+        <option value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/ManualFragment.java" />
+        <option value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/CatalogFragment.java" />
+        <option value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/tools/Global.java" />
         <option value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/VideoGridViewAdapter.java" />
+        <option value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/VideoActivity.java" />
+        <option value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/VideoFragment.java" />
+        <option value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/DownloadAsyncTask.java" />
+        <option value="$PROJECT_DIR$/Kiosk_App/res/layout/catalog_listview_item_big.xml" />
+        <option value="$PROJECT_DIR$/Kiosk_App/res/layout/manual_listview_item_big.xml" />
+        <option value="$PROJECT_DIR$/Kiosk_App/res/layout/video_fragment.xml" />
+        <option value="$PROJECT_DIR$/Kiosk_App/res/layout/history_fragment.xml" />
+        <option value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/MainActivity.java" />
+        <option value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/HistoryActivity.java" />
+        <option value="$PROJECT_DIR$/Kiosk_App/res/layout/catalog_listview_item.xml" />
+        <option value="$PROJECT_DIR$/Kiosk_App/res/layout/manual_listview_item.xml" />
+        <option value="$PROJECT_DIR$/Kiosk_App/res/layout/video_listview_item_big.xml" />
+        <option value="$PROJECT_DIR$/Kiosk_App/res/layout/video_listview_item.xml" />
+        <option value="$PROJECT_DIR$/Kiosk_App/res/layout/catalog_gridview_item.xml" />
+        <option value="$PROJECT_DIR$/Kiosk_App/res/layout/video_gridview_item.xml" />
+        <option value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/VideoListAdapter.java" />
+        <option value="$PROJECT_DIR$/Kiosk_App/res/layout/splash.xml" />
+        <option value="$PROJECT_DIR$/Kiosk_App/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/SplashActivity.java" />
       </list>
     </option>
   </component>
@@ -408,6 +540,11 @@
             <id>XSLT</id>
           </State>
         </expanded-state>
+        <selected-state>
+          <State>
+            <id>AndroidLintValidFragment</id>
+          </State>
+        </selected-state>
       </profile-state>
     </entry>
   </component>
@@ -557,50 +694,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="layout" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Kiosk_App" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Kiosk_App" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="kiosk_app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="entity" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Kiosk_App" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Kiosk_App" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="kiosk_app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -633,24 +726,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="values" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Kiosk_App" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Kiosk_App" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="layout" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -669,7 +744,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="drawable-hdpi" />
+              <option name="myItemId" value="drawable" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -690,7 +765,7 @@
   <component name="PropertiesComponent">
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
     <property name="settings.editor.splitter.proportion" value="0.216763" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/ManualListAdapter.java" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Kiosk_App/res/layout/manual_gridview_item.xml" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.16212003" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -698,23 +773,23 @@
     <property name="restartRequiresConfirmation" value="true" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="f3e32083" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="Nexus_5_API_21_x86" />
-    <property name="SearchEverywhereHistoryKey" value="compare&#9;ACTION&#9;CompareTwoFiles&#10;keymap&#9;ACTION&#9;ChangeKeymap&#10;debug&#9;ACTION&#9;ActivateDebugToolWindow&#10;replace&#9;ACTION&#9;Replace" />
+    <property name="SearchEverywhereHistoryKey" value="debug&#9;ACTION&#9;UiDebugger&#10;compare&#9;ACTION&#9;CompareTwoFiles&#10;keymap&#9;ACTION&#9;ChangeKeymap&#10;replace&#9;ACTION&#9;Replace" />
     <property name="UI_DESIGNER_EDITOR_MODE.PaletteToolWindowManager.WIDTH" value="393" />
     <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager2.WIDTH" value="424" />
     <property name="OverrideImplement.combined" value="true" />
     <property name="OverrideImplement.overriding.sorted" value="false" />
-    <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/ManualListAdapter.java" />
+    <property name="two.files.diff.last.used.file" value="$PROJECT_DIR$/Kiosk_App/res/layout/manual_gridview_item.xml" />
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="de.nexxoo.kiosk_app" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\GitHub\kiosk\Kiosk_App\Kiosk_App\res\layout" />
+      <recent name="D:\GitHub\kiosk\Kiosk_App\Kiosk_App\res\drawable" />
       <recent name="D:\GitHub\kiosk\Kiosk_App\Kiosk_App\res\drawable-hdpi" />
+      <recent name="D:\GitHub\kiosk\Kiosk_App\Kiosk_App\src\de\nexxoo\kiosk_app\videocache" />
+      <recent name="D:\GitHub\kiosk\Kiosk_App\Kiosk_App\res\layout" />
       <recent name="D:\GitHub\kiosk\Kiosk_App\Kiosk_App\assets\fonts" />
-      <recent name="D:\GitHub\kiosk\Kiosk_App\Kiosk_App\libs" />
-      <recent name="D:\GitHub\kiosk\Kiosk_App\Kiosk_App\assets" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\GitHub\kiosk\Kiosk_App\Kiosk_App\src\de\nexxoo\kiosk_app\layout\swipelistview" />
@@ -930,37 +1005,37 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1911" y="-9" width="1938" height="1098" extended-state="6" />
+    <frame x="1911" y="-9" width="1938" height="1098" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32975295" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3179377" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2717508" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297414" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32917964" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297414" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24622844" sideWeight="0.5051852" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.17672414" sideWeight="0.5051852" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2019334" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2706767" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18045112" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32975295" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21804512" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.4189044" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23114224" sideWeight="0.5037594" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18211207" sideWeight="0.5037594" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Memory Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5510204" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15625" sideWeight="0.27497315" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297414" sideWeight="0.4948148" order="4" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33942" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.41245973" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5934315" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5510204" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1008,46 +1083,40 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/ManualFragment.java</url>
-          <line>118</line>
+          <url>file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/VideoGridViewAdapter.java</url>
+          <line>89</line>
           <properties />
-          <option name="timeStamp" value="74" />
+          <option name="timeStamp" value="158" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/VideoListAdapter.java</url>
-          <line>33</line>
+          <url>file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/VideoGridViewAdapter.java</url>
+          <line>90</line>
           <properties />
-          <option name="timeStamp" value="77" />
+          <option name="timeStamp" value="159" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/VideoListAdapter.java</url>
-          <line>38</line>
+          <url>file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/VideoGridViewAdapter.java</url>
+          <line>96</line>
           <properties />
-          <option name="timeStamp" value="78" />
+          <option name="timeStamp" value="160" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/VideoListAdapter.java</url>
-          <line>37</line>
+          <url>file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/VideoGridViewAdapter.java</url>
+          <line>95</line>
           <properties />
-          <option name="timeStamp" value="79" />
+          <option name="timeStamp" value="161" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/VideoFragment.java</url>
-          <line>116</line>
+          <url>file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/VideoGridViewAdapter.java</url>
+          <line>88</line>
           <properties />
-          <option name="timeStamp" value="80" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/VideoFragment.java</url>
-          <line>253</line>
-          <properties />
-          <option name="timeStamp" value="81" />
+          <option name="timeStamp" value="162" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="82" />
+      <option name="time" value="163" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1056,321 +1125,381 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/layout/SwipeMenuView.java">
+    <entry file="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/SearchListAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.15022421">
-          <caret line="79" column="5" selection-start-line="79" selection-start-column="5" selection-end-line="79" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Kiosk_App/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.706278">
-          <caret line="21" column="37" selection-start-line="21" selection-start-column="37" selection-end-line="21" selection-end-column="37" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="23" column="36" selection-start-line="23" selection-start-column="36" selection-end-line="23" selection-end-column="36" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Kiosk_App/res/values/styles.xml">
+    <entry file="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/SearchResultListViewAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="15" column="49" selection-start-line="15" selection-start-column="49" selection-end-line="15" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Kiosk_App/res/drawable/grid_button.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.23542601">
-          <caret line="7" column="48" selection-start-line="0" selection-start-column="0" selection-end-line="8" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Kiosk_App/res/drawable/list_button.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2690583">
-          <caret line="8" column="11" selection-start-line="8" selection-start-column="11" selection-end-line="8" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Kiosk_App/res/layout/activity_main.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.59859157">
-          <caret line="17" column="20" selection-start-line="17" selection-start-column="20" selection-end-line="17" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/library/src/com/astuetz/TypefaceSpan.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="26" column="11" selection-start-line="26" selection-start-column="11" selection-end-line="26" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/library/src/com/astuetz/PagerSlidingTabStrip.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.1773142">
-          <caret line="210" column="28" selection-start-line="210" selection-start-column="28" selection-end-line="210" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/Kiosk_App/libs/universal-image-loader-1.9.3.jar!/com/nostra13/universalimageloader/core/download/BaseImageDownloader.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.66496164">
-          <caret line="74" column="72" selection-start-line="74" selection-start-column="72" selection-end-line="74" selection-end-column="72" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/adt-bundle/sdk/sources/android-22/java/net/URL.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.28699553">
-          <caret line="479" column="5" selection-start-line="479" selection-start-column="5" selection-end-line="479" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/Kiosk_App/libs/universal-image-loader-1.9.3.jar!/com/nostra13/universalimageloader/core/listener/ImageLoadingListener.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.105263">
-          <caret line="14" column="9" selection-start-line="14" selection-start-column="9" selection-end-line="14" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/adt-bundle/sdk/sources/android-22/android/widget/AbsListView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="2162" column="0" selection-start-line="2162" selection-start-column="0" selection-end-line="2162" selection-end-column="0" />
+          <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Kiosk_App/res/drawable-hdpi/manual_cover_big.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Kiosk_App/res/drawable-hdpi/manual_cover_small.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Kiosk_App/res/drawable-hdpi/ic_view_headline_black_36dp.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://C:/adt-bundle/sdk/sources/android-22/android/content/res/Configuration.java">
+    <entry file="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/layout/SwipeMenuAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.60225445">
-          <caret line="102" column="28" selection-start-line="102" selection-start-column="28" selection-end-line="102" selection-end-column="28" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="48" column="0" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Kiosk_App/res/drawable-hdpi/catalog_cover_small.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/MainActivity.java">
+    <entry file="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/SearchResultFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="166" column="52" selection-start-line="166" selection-start-column="52" selection-end-line="166" selection-end-column="52" />
+          <caret line="111" column="48" selection-start-line="111" selection-start-column="48" selection-end-line="111" selection-end-column="48" />
           <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#4540#4732#0" expanded="false" />
-            <element signature="e#4731#4732#0" expanded="false" />
+            <element signature="method#onReceivedError#0;class#4263:5069" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Kiosk_App/res/values/colors.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="23" column="38" selection-start-line="23" selection-start-column="38" selection-end-line="23" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Kiosk_App/res/drawable-hdpi/logo_big.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Kiosk_App/res/drawable-hdpi/logo.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/layout/SquareLayout.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="17" column="5" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/layout/SquareFrameLayout.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.56962025">
-          <caret line="19" column="31" selection-start-line="19" selection-start-column="31" selection-end-line="19" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Kiosk_App/res/layout/manual_fragment.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.5">
-          <caret line="35" column="8" selection-start-line="35" selection-start-column="8" selection-end-line="35" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/Kiosk_App/res/layout/catalog_fragment.xml">
       <provider editor-type-id="android-designer">
         <state />
       </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.05">
+          <caret line="44" column="46" selection-start-line="44" selection-start-column="46" selection-end-line="44" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/entity/Manual.java">
+    <entry file="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/entity/Catalog.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="14" column="5" selection-start-line="10" selection-start-column="4" selection-end-line="14" selection-end-column="5" />
+          <caret line="12" column="9" selection-start-line="12" selection-start-column="9" selection-end-line="12" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/layout/OptimizeGridAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4955157">
+          <caret line="81" column="31" selection-start-line="81" selection-start-column="31" selection-end-line="81" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/CatalogGridViewAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="128" column="51" selection-start-line="128" selection-start-column="51" selection-end-line="128" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/SearchResultGridViewAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="89" column="87" selection-start-line="89" selection-start-column="87" selection-end-line="89" selection-end-column="87" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/ManualGridViewAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="133" column="51" selection-start-line="133" selection-start-column="51" selection-end-line="133" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/ManualFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="116" column="93" selection-start-line="116" selection-start-column="93" selection-end-line="116" selection-end-column="93" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/tools/Global.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="10" column="56" selection-start-line="10" selection-start-column="56" selection-end-line="10" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/adt-bundle/sdk/sources/android-22/android/content/Context.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33295965">
+          <caret line="1194" column="25" selection-start-line="1194" selection-start-column="25" selection-end-line="1194" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Kiosk_App/res/drawable-hdpi/ic_grid_download.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Kiosk_App/res/drawable-hdpi/ic_grid_trash.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/DownloadAsyncTask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.40375587">
+          <caret line="168" column="65" selection-start-line="168" selection-start-column="65" selection-end-line="168" selection-end-column="65" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/VideoActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.731511">
+          <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/entity/Video.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="13" column="19" selection-start-line="13" selection-start-column="19" selection-end-line="13" selection-end-column="19" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/adt-bundle/sdk/sources/android-22/android/widget/ArrayAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.1984305">
-          <caret line="42" column="70" selection-start-line="42" selection-start-column="70" selection-end-line="42" selection-end-column="70" />
+        <state vertical-scroll-proportion="0.33632287">
+          <caret line="11" column="9" selection-start-line="11" selection-start-column="9" selection-end-line="11" selection-end-column="9" />
           <folding />
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Kiosk_App/res/layout/manual_listview_item_big.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.52816904">
-          <caret line="15" column="63" selection-start-line="15" selection-start-column="63" selection-end-line="15" selection-end-column="63" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Kiosk_App/gen/de/nexxoo/kiosk_app/R.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3319838">
-          <caret line="218" column="32" selection-start-line="218" selection-start-column="32" selection-end-line="218" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Kiosk_App/res/layout/manual_listview_item.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.53892213">
-          <caret line="19" column="50" selection-start-line="19" selection-start-column="50" selection-end-line="19" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Kiosk_App/res/layout/video_listview_item_big.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.05">
-          <caret line="45" column="59" selection-start-line="45" selection-start-column="59" selection-end-line="45" selection-end-column="59" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Kiosk_App/res/layout/video_fragment.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.3917525">
-          <caret line="59" column="35" selection-start-line="59" selection-start-column="35" selection-end-line="59" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Kiosk_App/res/layout/video_listview_item.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3281787">
-          <caret line="23" column="28" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/ManualListAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="35" column="27" selection-start-line="35" selection-start-column="27" selection-end-line="35" selection-end-column="27" />
-          <folding>
-            <element signature="method#onLoadingStarted#0;class#2246:2924" expanded="false" />
-            <element signature="method#onLoadingCancelled#0;class#2246:2924" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/ManualFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33076075">
-          <caret line="93" column="74" selection-start-line="93" selection-start-column="74" selection-end-line="93" selection-end-column="74" />
+          <caret line="75" column="87" selection-start-line="75" selection-start-column="87" selection-end-line="75" selection-end-column="87" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Kiosk_App/res/drawable-hdpi/ic_video_prev.png">
-      <provider selected="true" editor-type-id="images">
+    <entry file="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/CatalogListAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.9753363">
+          <caret line="75" column="87" selection-start-line="75" selection-start-column="87" selection-end-line="75" selection-end-column="87" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Kiosk_App/res/layout/video_fragment.xml">
+      <provider editor-type-id="android-designer">
         <state />
       </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6690141">
+          <caret line="54" column="69" selection-start-line="54" selection-start-column="69" selection-end-line="54" selection-end-column="69" />
+          <folding />
+        </state>
+      </provider>
     </entry>
-    <entry file="file://C:/adt-bundle/sdk/sources/android-22/android/view/View.java">
+    <entry file="file://$PROJECT_DIR$/Kiosk_App/res/layout/manual_fragment.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5633803">
+          <caret line="51" column="16" selection-start-line="0" selection-start-column="0" selection-end-line="61" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Kiosk_App/res/layout/history_fragment.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.25">
+          <caret line="7" column="45" selection-start-line="7" selection-start-column="45" selection-end-line="7" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/library/libs/android-support-v4.jar!/android/support/v4/app/Fragment.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.21077283">
+          <caret line="44" column="13" selection-start-line="44" selection-start-column="13" selection-end-line="44" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/CatalogFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="17732" column="22" selection-start-line="17732" selection-start-column="22" selection-end-line="17732" selection-end-column="22" />
+          <caret line="33" column="47" selection-start-line="33" selection-start-column="47" selection-end-line="33" selection-end-column="47" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/layout/RectangleLayout.java">
+    <entry file="jar://$PROJECT_DIR$/library/libs/android-support-v4.jar!/android/support/v4/view/PagerAdapter.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.736842">
+          <caret line="13" column="22" selection-start-line="13" selection-start-column="22" selection-end-line="13" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/library/libs/android-support-v4.jar!/android/support/v4/app/FragmentPagerAdapter.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.736842">
+          <caret line="15" column="55" selection-start-line="15" selection-start-column="55" selection-end-line="15" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/FragmentAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+          <caret line="16" column="11" selection-start-line="16" selection-start-column="11" selection-end-line="16" selection-end-column="11" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$PROJECT_DIR$/Kiosk_App/libs/universal-image-loader-1.9.3.jar!/com/nostra13/universalimageloader/core/ImageLoader.class">
+    <entry file="jar://$PROJECT_DIR$/library/libs/android-support-v4.jar!/android/support/v4/view/ViewPager.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.8947369">
-          <caret line="110" column="33" selection-start-line="110" selection-start-column="33" selection-end-line="110" selection-end-column="33" />
+        <state vertical-scroll-proportion="0.21077283">
+          <caret line="54" column="13" selection-start-line="54" selection-start-column="13" selection-end-line="54" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$USER_HOME$/.ideaLibSources/universal-image-loader-1.9.3-sources.jar!/com/nostra13/universalimageloader/core/ImageLoader.java">
+    <entry file="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.1401346">
-          <caret line="208" column="33" selection-start-line="208" selection-start-column="33" selection-end-line="208" selection-end-column="33" />
+        <state vertical-scroll-proportion="0.63901347">
+          <caret line="130" column="83" selection-start-line="130" selection-start-column="83" selection-end-line="130" selection-end-column="83" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/HistoryActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="8" column="47" selection-start-line="8" selection-start-column="47" selection-end-line="8" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/BaseFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/entity/BaseEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="45" column="55" selection-start-line="45" selection-start-column="55" selection-end-line="45" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/webservice/NexxooWebservice.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.52572346">
+          <caret line="124" column="58" selection-start-line="124" selection-start-column="58" selection-end-line="124" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Kiosk_App/res/layout/catalog_listview_item.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.4">
+          <caret line="35" column="51" selection-start-line="35" selection-start-column="51" selection-end-line="35" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Kiosk_App/res/layout/catalog_listview_item_big.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-9.7">
+          <caret line="27" column="42" selection-start-line="27" selection-start-column="42" selection-end-line="27" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Kiosk_App/res/layout/manual_listview_item.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.55">
+          <caret line="35" column="46" selection-start-line="35" selection-start-column="46" selection-end-line="35" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Kiosk_App/res/layout/video_listview_item_big.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-9.3">
+          <caret line="36" column="51" selection-start-line="36" selection-start-column="51" selection-end-line="36" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Kiosk_App/res/layout/video_listview_item.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.075">
+          <caret line="37" column="46" selection-start-line="37" selection-start-column="46" selection-end-line="37" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Kiosk_App/res/layout/manual_listview_item_big.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.35">
+          <caret line="25" column="59" selection-start-line="25" selection-start-column="59" selection-end-line="25" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Kiosk_App/res/layout/manual_gridview_item.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.55">
+          <caret line="42" column="55" selection-start-line="42" selection-start-column="53" selection-end-line="42" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Kiosk_App/res/layout/catalog_gridview_item.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-14.15">
+          <caret line="40" column="58" selection-start-line="40" selection-start-column="58" selection-end-line="40" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Kiosk_App/res/layout/video_gridview_item.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.25">
+          <caret line="7" column="54" selection-start-line="7" selection-start-column="54" selection-end-line="7" selection-end-column="54" />
           <folding />
         </state>
       </provider>
@@ -1378,120 +1507,80 @@
     <entry file="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/VideoFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="81" column="69" selection-start-line="81" selection-start-column="69" selection-end-line="81" selection-end-column="69" />
-          <folding>
-            <element signature="e#2703#3203#0" expanded="true" />
-            <element signature="e#3202#3203#0" expanded="true" />
-            <element signature="e#3235#3742#0" expanded="true" />
-            <element signature="e#3741#3742#0" expanded="true" />
-            <element signature="e#5084#5703#0" expanded="true" />
-            <element signature="e#5702#5703#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/VideoListAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.78699553">
-          <caret line="49" column="60" selection-start-line="49" selection-start-column="60" selection-end-line="49" selection-end-column="60" />
-          <folding>
-            <element signature="method#onLoadingCancelled#0;class#2505:3170" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Kiosk_App/res/layout/manual_gridview_item.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.31141868">
-          <caret line="12" column="47" selection-start-line="12" selection-start-column="47" selection-end-line="12" selection-end-column="47" />
+          <caret line="86" column="69" selection-start-line="86" selection-start-column="69" selection-end-line="86" selection-end-column="69" />
           <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/app/AppStart.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="21" column="29" selection-start-line="21" selection-start-column="29" selection-end-line="21" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Kiosk_App/res/layout/video_gridview_item.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.6">
-          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Kiosk_App/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-18.736841">
-          <caret line="50" column="43" selection-start-line="50" selection-start-column="43" selection-end-line="50" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/VideoActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-          <folding>
-            <element signature="e#1441#1497#0" expanded="true" />
-            <element signature="e#1619#1656#0" expanded="true" />
-            <element signature="e#2683#2993#0" expanded="true" />
-            <element signature="e#2992#2993#0" expanded="true" />
-            <element signature="e#3034#3080#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/VideoGridViewAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="33" column="54" selection-start-line="33" selection-start-column="54" selection-end-line="33" selection-end-column="54" />
-          <folding>
-            <element signature="e#2537#2958#0" expanded="true" />
-            <element signature="e#2843#2910#0" expanded="true" />
-            <element signature="e#2957#2958#0" expanded="true" />
-          </folding>
+          <caret line="81" column="63" selection-start-line="81" selection-start-column="63" selection-end-line="81" selection-end-column="63" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/tools/FileStorageHelper.java">
+    <entry file="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/tools/Misc.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="40" column="43" selection-start-line="40" selection-start-column="43" selection-end-line="40" selection-end-column="43" />
+          <caret line="70" column="28" selection-start-line="70" selection-start-column="28" selection-end-line="70" selection-end-column="28" />
           <folding>
-            <element signature="e#539#540#0" expanded="true" />
-            <element signature="e#564#565#0" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/ManualGridViewAdapter.java">
+    <entry file="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/VideoListAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.42998898">
-          <caret line="99" column="34" selection-start-line="99" selection-start-column="34" selection-end-line="99" selection-end-column="34" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="48" column="60" selection-start-line="48" selection-start-column="60" selection-end-line="48" selection-end-column="60" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Kiosk_App/res/layout/splash.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-9.0">
+          <caret line="12" column="14" selection-start-line="12" selection-start-column="14" selection-end-line="12" selection-end-column="14" />
           <folding>
-            <element signature="method#onLoadingCancelled#0;class#2354:3020" expanded="false" />
+            <element signature="e#281#314#0" expanded="true" />
+            <element signature="e#351#386#0" expanded="true" />
+            <element signature="e#424#459#0" expanded="true" />
+            <element signature="e#495#528#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/ManualActivity.java">
+    <entry file="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/app/AppStart.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2264574">
-          <caret line="126" column="0" selection-start-line="126" selection-start-column="0" selection-end-line="126" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Kiosk_App/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="30" column="19" selection-start-line="30" selection-start-column="19" selection-end-line="30" selection-end-column="19" />
           <folding>
-            <element signature="e#4697#4698#0" expanded="true" />
-            <element signature="e#4730#4731#0" expanded="true" />
+            <element signature="e#1012#1030#0" expanded="true" />
+            <element signature="e#1575#1593#0" expanded="true" />
+            <element signature="e#1853#1871#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/SplashActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5976096">
+          <caret line="14" column="42" selection-start-line="14" selection-start-column="42" selection-end-line="14" selection-end-column="42" />
+          <folding>
+            <element signature="e#522#969#0" expanded="true" />
+            <element signature="e#968#969#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -1,6 +1,8 @@
 package de.nexxoo.kiosk_app;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,8 +10,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import de.nexxoo.kiosk_app.entity.Catalog;
 import de.nexxoo.kiosk_app.tools.Misc;
+import de.nexxoo.kiosk_app.tools.Nexxoo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,15 +25,14 @@ import java.util.List;
 public class CatalogListAdapter extends ArrayAdapter<Catalog> {
 
 	private LayoutInflater mInflater;
-	private ImageLoader mImageLoader;
 	private Context mContext;
 	private List<Catalog> mCatalogList;
 	private int mLayoutId;
 
+
 	public CatalogListAdapter(Context context, int layoutId, List<Catalog> objects) {
 		super(context, layoutId, objects);
 		mInflater = LayoutInflater.from(context);
-		mImageLoader = ImageLoader.getInstance();
 		mContext = context;
 		mCatalogList = new ArrayList<Catalog>(objects);
 		mLayoutId = layoutId;
@@ -43,45 +47,66 @@ public class CatalogListAdapter extends ArrayAdapter<Catalog> {
 			v = mInflater.inflate(mLayoutId, parent, false);
 			v.setBackgroundColor(mContext.getResources().getColor(
 					R.color.RealWhite));
-			if (mLayoutId == R.layout.catalog_gridview_item) {
-				// list view
-				item = new Item();
-				item.catalogName = (TextView) v
-						.findViewById(R.id.catalog_gridview_item_name);
-				item.catalogName.setTypeface(Misc.getCustomFont(mContext,
-						Misc.FONT_BOLD));
-				item.catalogSize = (TextView) v.findViewById(R.id.catalog_gridview_item_size);
-				item.catalogSize.setTypeface(Misc.getCustomFont(mContext,
-						Misc.FONT_NORMAL));
-				item.catalogCover = (ImageView) v.findViewById(R.id.catalog_gridview_item_cover);
+			Log.d(Nexxoo.TAG, "ListView Adapter Position: " + position);
+			item = new Item();
+			item.catalogName = (TextView) v
+					.findViewById(R.id.catalog_listview_item_name);
+			item.catalogName.setTypeface(Misc.getCustomFont(mContext,
+					Misc.FONT_BOLD));
+			item.catalogSize = (TextView) v.findViewById(R.id.catalog_listview_item_size);
+			item.catalogSize.setTypeface(Misc.getCustomFont(mContext,
+					Misc.FONT_NORMAL));
+			item.catalogCover = (ImageView) v.findViewById(R.id.catalog_listview_item_cover);
 
-			} else {
-				// grid layout
+			item.catalogName.setText(mCatalogList.get(position).getName());
+			if (!mCatalogList.get(position).getmPictureList().isEmpty()) {
+				ImageLoader imageLoader = ImageLoader.getInstance(); // Get singleton instance
+				imageLoader.displayImage(mCatalogList.get(position).getmPictureList().get
+								(0).getmUrl(),
+						item.catalogCover,new ImageLoadingListener(){
 
-				item = new Item();
-				item.catalogName = (TextView) v
-						.findViewById(R.id.catalog_listview_item_name);
-				item.catalogName.setTypeface(Misc.getCustomFont(mContext,
-						Misc.FONT_BOLD));
-				item.catalogSize = (TextView) v.findViewById(R.id.catalog_listview_item_size);
-				item.catalogSize.setTypeface(Misc.getCustomFont(mContext,
-						Misc.FONT_NORMAL));
-				item.catalogCover = (ImageView) v.findViewById(R.id.catalog_listview_item_cover);
+							@Override
+							public void onLoadingStarted(String imageUri, View view) {
+								Log.d(Nexxoo.TAG, "Image loading starts: " + imageUri);
+							}
 
+							@Override
+							public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+								ImageView mImageView = (ImageView) view;
+								mImageView.setImageResource(R.drawable.default_no_image);
+							}
+
+							@Override
+							public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+								Log.d(Nexxoo.TAG,"Image loading completes: "+imageUri);
+							}
+
+							@Override
+							public void onLoadingCancelled(String imageUri, View view) {
+
+							}
+						});
+			}else{
+				item.catalogCover.setImageResource(R.drawable.default_no_image);
 			}
+
 
 			v.setTag(item);
 		} else {
 			item = (Item) v.getTag();
 		}
 
-		if (mCatalogList != null) {
-			item.catalogName.setText("Catalog");
-//			Catalog catalog = mCatalogList.get(position);
-//			item.catalogName.setText(catalog.getmName());
-		}
-
 		return v;
+	}
+
+	@Override
+	public int getCount() {
+		return mCatalogList.size();
+	}
+
+	@Override
+	public Catalog getItem(int position) {
+		return mCatalogList.get(position);
 	}
 
 	private static class Item {
@@ -89,4 +114,5 @@ public class CatalogListAdapter extends ArrayAdapter<Catalog> {
 		TextView catalogSize;
 		ImageView catalogCover;
 	}
+
 }

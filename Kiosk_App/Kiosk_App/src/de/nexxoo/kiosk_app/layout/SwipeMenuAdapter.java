@@ -49,7 +49,7 @@ public class SwipeMenuAdapter implements WrapperListAdapter,
 			View contentView = mAdapter.getView(position, convertView, parent);
 			SwipeMenu menu = new SwipeMenu(mContext);
 			menu.setViewType(mAdapter.getItemViewType(position));
-			createMenu(menu);
+			createMenu(menu);//invoke createMenu callback
 			SwipeMenuView menuView = new SwipeMenuView(menu,
 					(SwipeMenuListView) parent);
 			menuView.setOnSwipeItemClickListener(this);

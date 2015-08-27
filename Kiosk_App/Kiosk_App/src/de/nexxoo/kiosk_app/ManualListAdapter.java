@@ -59,33 +59,37 @@ public class ManualListAdapter extends ArrayAdapter<Manual> {
 				item.manualCover = (ImageView) v.findViewById(R.id.manual_listview_item_cover);
 
 			item.manualName.setText(mManualList.get(position).getName());
+			if (!mManualList.get(position).getmPictureList().isEmpty()) {
+				ImageLoader imageLoader = ImageLoader.getInstance(); // Get singleton instance
+				imageLoader.displayImage(mManualList.get(position).getmPictureList().get
+								(0).getmUrl(),
+						item.manualCover,new ImageLoadingListener(){
 
-			ImageLoader imageLoader = ImageLoader.getInstance(); // Get singleton instance
-			imageLoader.displayImage(mManualList.get(position).getmPictureList().get
-							(0).getmUrl(),
-					item.manualCover,new ImageLoadingListener(){
+							@Override
+							public void onLoadingStarted(String imageUri, View view) {
+								Log.d(Nexxoo.TAG, "Image loading starts: " + imageUri);
+							}
 
-						@Override
-						public void onLoadingStarted(String imageUri, View view) {
-							Log.d(Nexxoo.TAG, "Image loading starts: " + imageUri);
-						}
+							@Override
+							public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+								ImageView mImageView = (ImageView) view;
+								mImageView.setImageResource(R.drawable.default_no_image);
+							}
 
-						@Override
-						public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-							ImageView mImageView = (ImageView) view;
-							mImageView.setImageResource(R.drawable.catalog_cover_small);
-						}
+							@Override
+							public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+								Log.d(Nexxoo.TAG,"Image loading completes: "+imageUri);
+							}
 
-						@Override
-						public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-							Log.d(Nexxoo.TAG,"Image loading completes: "+imageUri);
-						}
+							@Override
+							public void onLoadingCancelled(String imageUri, View view) {
 
-						@Override
-						public void onLoadingCancelled(String imageUri, View view) {
+							}
+						});
+			}else{
+				item.manualCover.setImageResource(R.drawable.default_no_image);
+			}
 
-						}
-					});
 
 			v.setTag(item);
 		} else {

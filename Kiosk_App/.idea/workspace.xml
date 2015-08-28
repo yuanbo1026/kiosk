@@ -72,57 +72,7 @@
     <bookmark url="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/ManualFragment.java" line="69" mnemonic="8" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2d658278-2e9a-4010-b96b-6583d5d957fe" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Kiosk_App/res/drawable-hdpi/splashscreen.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/CatalogFragment$4.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/CatalogFragment$4.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/CatalogFragment$5.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/CatalogFragment$5.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/CatalogFragment$6.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/CatalogFragment$6.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/CatalogFragment$7.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/CatalogFragment$7.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/CatalogFragment$8.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/CatalogFragment$8.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/CatalogFragment.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/CatalogFragment.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/CatalogListAdapter.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/CatalogListAdapter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/Kiosk_App.apk" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/Kiosk_App.apk" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/Kiosk_App.unaligned.apk" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/Kiosk_App.unaligned.apk" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/ManualFragment$4.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/ManualFragment$4.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/ManualFragment$5.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/ManualFragment$5.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/ManualFragment$6.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/ManualFragment$6.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/ManualFragment$7.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/ManualFragment$7.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/ManualFragment$8.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/ManualFragment$8.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/ManualFragment.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/ManualFragment.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/ManualListAdapter.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/ManualListAdapter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/webservice/NexxooWebservice$1.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/webservice/NexxooWebservice$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/webservice/NexxooWebservice.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/webservice/NexxooWebservice.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/R$drawable.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/R$drawable.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/R$id.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/R$id.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/R$layout.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/R$layout.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/R$menu.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/R$menu.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/R$raw.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/R$raw.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/R$string.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/R$string.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/R$style.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/R$style.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/R$styleable.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/R$styleable.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/R$xml.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/R$xml.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/R.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/R.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/VideoFragment$5.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/VideoFragment$5.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/VideoListAdapter.class" afterPath="$PROJECT_DIR$/Kiosk_App/bin/classes/de/nexxoo/kiosk_app/VideoListAdapter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/AndroidManifest.xml" afterPath="$PROJECT_DIR$/Kiosk_App/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/CatalogFragment.java" afterPath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/CatalogFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/CatalogListAdapter.java" afterPath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/CatalogListAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/db/Content.java" afterPath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/db/Content.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/db/DatabaseHandler.java" afterPath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/db/DatabaseHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/ManualFragment.java" afterPath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/ManualFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/ManualListAdapter.java" afterPath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/ManualListAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/webservice/NexxooWebservice.java" afterPath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/webservice/NexxooWebservice.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/VideoFragment.java" afterPath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/VideoFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/VideoListAdapter.java" afterPath="$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/VideoListAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/res/layout/catalog_listview_item.xml" afterPath="$PROJECT_DIR$/Kiosk_App/res/layout/catalog_listview_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/res/layout/catalog_listview_item_big.xml" afterPath="$PROJECT_DIR$/Kiosk_App/res/layout/catalog_listview_item_big.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/res/layout/manual_listview_item.xml" afterPath="$PROJECT_DIR$/Kiosk_App/res/layout/manual_listview_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/res/layout/manual_listview_item_big.xml" afterPath="$PROJECT_DIR$/Kiosk_App/res/layout/manual_listview_item_big.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/res/layout/splash.xml" afterPath="$PROJECT_DIR$/Kiosk_App/res/layout/splash.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/res/layout/video_listview_item.xml" afterPath="$PROJECT_DIR$/Kiosk_App/res/layout/video_listview_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Kiosk_App/res/layout/video_listview_item_big.xml" afterPath="$PROJECT_DIR$/Kiosk_App/res/layout/video_listview_item_big.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="2d658278-2e9a-4010-b96b-6583d5d957fe" name="Default" comment="" />
     <ignored path="Kiosk_App.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/.metadata/.plugins/org.eclipse.jdt.core/.org.eclipse.jdt.core.external.folders/bin/" />
@@ -175,8 +125,8 @@
       <file leaf-file-name="DatabaseHandler.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/db/DatabaseHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.16816144">
-              <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.3026906">
+              <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -1429,8 +1379,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Kiosk_App/src/de/nexxoo/kiosk_app/db/DatabaseHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.16816144">
-          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.3026906">
+          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
           <folding />
         </state>
       </provider>

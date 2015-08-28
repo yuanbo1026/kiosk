@@ -8,6 +8,7 @@ import android.util.Log;
 import de.nexxoo.kiosk_app.download.DownloadAsyncTask;
 import de.nexxoo.kiosk_app.download.OnDownloadResult;
 import de.nexxoo.kiosk_app.entity.BaseEntity;
+import de.nexxoo.kiosk_app.tools.Nexxoo;
 import de.nexxoo.kiosk_app.webservice.error.JSONErrorHandler;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -155,7 +156,7 @@ public class NexxooWebservice {
 		String basicAuthBase64 = null;
 		if (BASICAUTH != null) {
 			basicAuthBase64 =  Base64.encodeToString(BASICAUTH.getBytes(), Base64.NO_WRAP);
-			Log.e("BASIC", basicAuthBase64);
+//			Log.e("BASIC", basicAuthBase64);
 		}
 		
 		if (async){
@@ -171,7 +172,7 @@ public class NexxooWebservice {
 //							Log.d(Nexxoo.TAG, "Response: " + json);
 							try {
 								JSONObject obj = new JSONObject(json);
-//								Log.d(Nexxoo.TAG, "JSON: " + json.toString());
+								Log.d(Nexxoo.TAG, "JSON: " + json.toString());
 								//check if result == 1
 								int resultCode = obj.getInt("result");
 								if (resultCode == 1)								

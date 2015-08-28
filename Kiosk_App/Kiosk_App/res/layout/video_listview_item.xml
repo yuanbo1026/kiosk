@@ -34,7 +34,6 @@
                 android:textSize="20sp"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="@color/swipe_listview_item_text_color"
-                android:textStyle="bold"
                 android:layout_marginBottom="0dp"/>
 
         <TextView

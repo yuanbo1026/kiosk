@@ -130,8 +130,9 @@ public class CatalogFragment extends Fragment {
 			public void onReceivedJSONResponse(JSONObject json) {
 				try {
 					int count = json.getInt("count");
-					prepareListData(json);
+					Log.d(Nexxoo.TAG,"get catalog list size is : "+count);
 
+					prepareListData(json);
 					CatalogGridViewAdapter gridAdapter = new CatalogGridViewAdapter
 							(getActivity(), R.layout.catalog_gridview_item, catalogList);
 					gridview.setAdapter(gridAdapter);

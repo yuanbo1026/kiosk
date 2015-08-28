@@ -52,7 +52,7 @@ public class CatalogListAdapter extends ArrayAdapter<Catalog> {
 			item.catalogName = (TextView) v
 					.findViewById(R.id.catalog_listview_item_name);
 			item.catalogName.setTypeface(Misc.getCustomFont(mContext,
-					Misc.FONT_BOLD));
+					Misc.FONT_NORMAL));
 			item.catalogSize = (TextView) v.findViewById(R.id.catalog_listview_item_size);
 			item.catalogSize.setTypeface(Misc.getCustomFont(mContext,
 					Misc.FONT_NORMAL));

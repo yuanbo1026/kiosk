@@ -57,7 +57,7 @@ public class VideoListAdapter extends ArrayAdapter<Video> {
 				item.videoName = (TextView) convertView
 						.findViewById(R.id.video_listview_item_name);
 				item.videoName.setTypeface(Misc.getCustomFont(mContext,
-						Misc.FONT_BOLD));
+						Misc.FONT_NORMAL));
 				item.videoSize = (TextView) convertView
 						.findViewById(R.id.video_listview_item_size);
 				item.videoSize.setTypeface(Misc.getCustomFont(mContext,

@@ -22,11 +22,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	private static final String TABLE_CONTENTS = "contents";
 
 	// Contacts Table Columns names
+	private static final String KEY_ID = "id";
+	private static final String KEY_CONTENT_ID ="contentid";
+
+	/*unused
 	private static final String KEY_NAME = "name";
 	private static final String KEY_URL = "url";
 	private static final String KEY_DESCRIPTION = "description";
 	private static final String KEY_FILENAME = "filename";
-	private static final String KEY_CATEGORY = "category";
+	private static final String KEY_CATEGORY = "category";*/
+
 
 	// data type
 	private static final String TEXT_TYPE = " TEXT";
@@ -40,15 +45,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	// Creating Tables
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		String CREATE_CONTENTS_TABLE =
+		/*String CREATE_CONTENTS_TABLE =
 				"CREATE TABLE "
 						+ TABLE_CONTENTS + "("
-						+ KEY_NAME + " TEXT PRIMARY KEY,"
-						+ KEY_URL + TEXT_TYPE + COMMA_SEP
+						+ KEY_ID + " TEXT PRIMARY KEY,"
+						+ KEY_CONTENT_ID + INTEGER_TYPE + COMMA_SEP
 						+ KEY_DESCRIPTION + TEXT_TYPE + COMMA_SEP
 						+ KEY_FILENAME + TEXT_TYPE + COMMA_SEP
 						+ KEY_CATEGORY + INTEGER_TYPE
-						+ ")";
+						+ ")";*/
+		String CREATE_CONTENTS_TABLE =
+				"CREATE TABLE "
+						+ TABLE_CONTENTS + "("
+						+ KEY_ID + " TEXT PRIMARY KEY" + COMMA_SEP
+						+ KEY_CONTENT_ID + INTEGER_TYPE + ")";
 		db.execSQL(CREATE_CONTENTS_TABLE);
 	}
 
@@ -70,11 +80,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getWritableDatabase();
 
 		ContentValues values = new ContentValues();
-		values.put(KEY_NAME, content.getName());
-		values.put(KEY_URL, content.getUrl());
+		values.put(KEY_CONTENT_ID, content.getContentid());
+		/*values.put(KEY_URL, content.getUrl());
 		values.put(KEY_DESCRIPTION, content.getDescription());
 		values.put(KEY_FILENAME, content.getFilename());
-		values.put(KEY_CATEGORY, content.getCategory());
+		values.put(KEY_CATEGORY, content.getCategory());*/
 
 		// Inserting Row
 		db.insert(TABLE_CONTENTS, null, values);
@@ -83,7 +93,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	}
 
 	// Getting single content
-	public Content getContent(String name) {
+	/*public Content getContent(String name) {
 		SQLiteDatabase db = this.getReadableDatabase();
 		Content content;
 		Cursor cursor = db.query(TABLE_CONTENTS, new String[]{
@@ -111,7 +121,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		}
 		// return content
 
-	}
+	}*/
 
 	// Getting All Contents
 	public List<Content> getAllContents() {
@@ -126,11 +136,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		if (cursor.moveToFirst()) {
 			do {
 				Content content = new Content();
-				content.setName(cursor.getString(0));
+				content.setContentid(cursor.getInt(0));
+				/*content.setName(cursor.getString(0));
 				content.setUrl(cursor.getString(1));
 				content.setDescription(cursor.getString(2));
 				content.setFilename(cursor.getString(3));
-				content.setCategory(cursor.getInt(4));
+				content.setCategory(cursor.getInt(4));*/
 
 				// Adding content to list
 				contentList.add(content);
@@ -146,22 +157,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getWritableDatabase();
 
 		ContentValues values = new ContentValues();
-		values.put(KEY_NAME, content.getName());
-		values.put(KEY_DESCRIPTION, content.getDescription());
+		values.put(KEY_CONTENT_ID, content.getContentid());
+		/*values.put(KEY_DESCRIPTION, content.getDescription());
 		values.put(KEY_URL, content.getUrl());
 		values.put(KEY_FILENAME, content.getFilename());
-		values.put(KEY_CATEGORY, content.getCategory());
+		values.put(KEY_CATEGORY, content.getCategory());*/
 
 		// updating row
-		return db.update(TABLE_CONTENTS, values, KEY_NAME + " = ?",
-				new String[]{String.valueOf(content.getName())});
+		return db.update(TABLE_CONTENTS, values, KEY_CONTENT_ID + " = ?",
+				new String[]{String.valueOf(content.getContentid())});
 	}
 
 	// Deleting single content
 	public void deleteContent(Content content) {
 		SQLiteDatabase db = this.getWritableDatabase();
-		db.delete(TABLE_CONTENTS, KEY_NAME + " = ?",
-				new String[]{String.valueOf(content.getName())});
+		db.delete(TABLE_CONTENTS, KEY_CONTENT_ID + " = ?",
+				new String[]{String.valueOf(content.getContentid())});
 		db.close();
 	}
 
@@ -170,11 +181,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getReadableDatabase();
 
 		Cursor cursor = db.query(TABLE_CONTENTS, new String[]{
-						KEY_NAME,
-						KEY_URL,
-						KEY_DESCRIPTION,
-						KEY_FILENAME,
-						KEY_CATEGORY}, KEY_NAME + "=?",
+						KEY_CONTENT_ID}, KEY_CONTENT_ID + "=?",
 				new String[]{name}, null, null, null, null);
 		if (cursor != null)
 			return true;

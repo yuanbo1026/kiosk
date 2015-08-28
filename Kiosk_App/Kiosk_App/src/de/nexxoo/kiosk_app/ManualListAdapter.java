@@ -52,7 +52,7 @@ public class ManualListAdapter extends ArrayAdapter<Manual> {
 				item.manualName = (TextView) v
 						.findViewById(R.id.manual_listview_item_name);
 				item.manualName.setTypeface(Misc.getCustomFont(mContext,
-						Misc.FONT_BOLD));
+						Misc.FONT_NORMAL));
 				item.manualSize = (TextView) v.findViewById(R.id.manual_listview_item_size);
 				item.manualSize.setTypeface(Misc.getCustomFont(mContext,
 						Misc.FONT_NORMAL));

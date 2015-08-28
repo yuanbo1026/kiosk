@@ -130,6 +130,7 @@ public class ManualFragment extends Fragment {
 			public void onReceivedJSONResponse(JSONObject json) {
 				try {
 					int count = json.getInt("count");
+					Log.d(Nexxoo.TAG,"get manual list size is : "+count);
 					prepareListData(json);
 
 					ManualGridViewAdapter gridAdapter = new ManualGridViewAdapter

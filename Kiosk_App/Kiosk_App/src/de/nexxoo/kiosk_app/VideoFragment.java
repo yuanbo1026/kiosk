@@ -117,8 +117,8 @@ public class VideoFragment extends Fragment {
 			public void onReceivedJSONResponse(JSONObject json) {
 				try {
 					int count = json.getInt("count");
+					Log.d(Nexxoo.TAG,"get Video list size is : "+count);
 					prepareListData(json);
-
 					VideoGridViewAdapter gridAdapter = new VideoGridViewAdapter
 							(getActivity(), R.layout.video_gridview_item,
 									videoList);

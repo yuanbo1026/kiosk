@@ -7,6 +7,6 @@ import java.util.List;
 /**
  * Created by b.yuan on 03.08.2015.
  */
-public interface ISearchCallback {
+public interface SearchCallback {
 	public void onSearchDone(List<List<BaseEntity>> entityList);
 }

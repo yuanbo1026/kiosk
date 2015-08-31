@@ -16,7 +16,7 @@ import java.util.concurrent.RejectedExecutionException;
 /**
  * Created by b.yuan on 03.08.2015.
  */
-public class SearchActivity extends Activity implements ISearchCallback {
+public class SearchActivity extends Activity implements SearchCallback {
 	private ExpandableListView listview;
 
 	@Override

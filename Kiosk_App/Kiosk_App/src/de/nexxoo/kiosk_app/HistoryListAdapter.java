@@ -54,13 +54,13 @@ public class HistoryListAdapter extends ArrayAdapter<BaseEntity> {
 				Log.d(Nexxoo.TAG,"ListView Adapter Position: "+position);
 				item = new Item();
 				item.name = (TextView) v
-						.findViewById(R.id.manual_listview_item_name);
+						.findViewById(R.id.history_listview_item_name);
 				item.name.setTypeface(Misc.getCustomFont(mContext,
 						Misc.FONT_NORMAL));
-				item.size = (TextView) v.findViewById(R.id.manual_listview_item_size);
+				item.size = (TextView) v.findViewById(R.id.history_listview_item_size);
 				item.size.setTypeface(Misc.getCustomFont(mContext,
 						Misc.FONT_NORMAL));
-				item.cover = (ImageView) v.findViewById(R.id.manual_listview_item_cover);
+				item.cover = (ImageView) v.findViewById(R.id.history_listview_item_cover);
 
 			item.name.setText(mBaseEntityList.get(position).getName());
 			if (!mBaseEntityList.get(position).getmPictureList().isEmpty()) {
@@ -105,9 +105,8 @@ public class HistoryListAdapter extends ArrayAdapter<BaseEntity> {
 
 	@Override
 	public int getItemViewType(int position) {
-		String fileName = mBaseEntityList.get(position).getFileName();
-		boolean isContentDownloaded = helper.isContentDownloaded(fileName);
-		return isContentDownloaded?1:0;
+		int contentTypeId = mBaseEntityList.get(position).getContentTypeId();
+		return contentTypeId;
 	}
 
 	@Override

@@ -16,10 +16,10 @@ import java.util.List;
 public class SearchAsyncTask extends AsyncTask<String, Integer, Boolean> {
 
 	private String mQuery;
-	private ISearchCallback mCallback;
+	private SearchCallback mCallback;
 	private List<List<BaseEntity>> mResultList;
 
-	public SearchAsyncTask(Context ctx, String query, ISearchCallback callback) {
+	public SearchAsyncTask(Context ctx, String query, SearchCallback callback) {
 		mCallback = callback;
 		mQuery = query;
 	}
@@ -37,6 +37,10 @@ public class SearchAsyncTask extends AsyncTask<String, Integer, Boolean> {
 		if (result && mCallback != null && mResultList != null) {
 			mCallback.onSearchDone(mResultList);
 		}
+	}
+
+	private void getSearchResultFromServer(String query){
+
 	}
 
 	private List<List<BaseEntity>> setData() {

@@ -179,13 +179,13 @@ public class ManualFragment extends Fragment {
 				}*/
 				SwipeMenuItem download = new SwipeMenuItem(context);
 				download.setBackground(new ColorDrawable(Color.rgb(0xF3, 0xF3, 0xF3)));
-				download.setWidth(dp2px(isNormal ? 90 : 120));
+				download.setWidth(Nexxoo.dp2px(context,isNormal ? 90 : 120));
 				download.setIcon(R.drawable.ic_list_download);
 				menu.addMenuItem(download);
 
 				SwipeMenuItem view = new SwipeMenuItem(context);
 				view.setBackground(new ColorDrawable(Color.rgb(0xE5, 0xF5, 0xFF)));
-				view.setWidth(dp2px(isNormal ? 90 : 120));
+				view.setWidth(Nexxoo.dp2px(context, isNormal ? 90 : 120));
 				view.setIcon(R.drawable.ic_list_view);
 				menu.addMenuItem(view);
 
@@ -290,10 +290,7 @@ public class ManualFragment extends Fragment {
 		});
 	}
 
-	private int dp2px(int dp) {
-		return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
-				getResources().getDisplayMetrics());
-	}
+
 
 	private void prepareListData(JSONObject json) {
 		try {

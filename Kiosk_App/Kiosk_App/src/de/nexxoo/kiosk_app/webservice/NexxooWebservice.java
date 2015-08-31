@@ -116,6 +116,7 @@ public class NexxooWebservice {
 	private static final String PARA_ACCOUNTID = "accid";
 	private static final String PARA_SESSIONKEY = "sessionkey";
 	private static final String PARA_CONTENTID = "contentid";
+	private static final String PARA_CONTENTIDS = "contentid[]";
 	private static final String PARA_FIRSTNAME = "firstname";
 	private static final String PARA_LASTNAME = "lastname";
 	private static final String PARA_STREET = "street";
@@ -234,6 +235,15 @@ public class NexxooWebservice {
 		params.add(new BasicNameValuePair(PARA_STARTCOUNT, Integer.toString(startWith)));
 		params.add(new BasicNameValuePair(PARA_ENDCOUNT, Integer.toString(endWith)));
 		params.add(new BasicNameValuePair(PARA_CONTENTTYPE, Integer.toString(contentType)));
+		doWebCall(WEBTASK_GETCONTENT, params, callback, executeAsync);
+	}
+
+	public static void getContentByIds(boolean executeAsync, Integer[] contentIds, OnJSONResponse callback){
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		for(int id: contentIds){
+			params.add(new BasicNameValuePair(PARA_CONTENTIDS, Integer.toString(id)));
+		}
+
 		doWebCall(WEBTASK_GETCONTENT, params, callback, executeAsync);
 	}
 	

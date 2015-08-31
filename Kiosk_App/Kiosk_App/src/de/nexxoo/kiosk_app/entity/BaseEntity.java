@@ -117,7 +117,7 @@ public class BaseEntity implements Parcelable {
 				description = jsonObj.getString(DESCRIPTION);
 				url = jsonObj.getString(URL);
 				fileName = jsonObj.getString(FILENAME);
-				contentId = jsonObj.getInt(CONTENTTYPE);
+				contentTypeId = jsonObj.getInt(CONTENTTYPE);
 
 				JSONObject jsonObjPics = jsonObj.getJSONObject(PICTURES);
 				if (jsonObjPics != null) {

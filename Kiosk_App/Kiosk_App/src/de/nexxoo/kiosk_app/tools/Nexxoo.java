@@ -3,6 +3,7 @@ package de.nexxoo.kiosk_app.tools;
 import android.content.Context;
 import android.os.Build;
 import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import de.nexxoo.kiosk_app.db.DatabaseHandler;
 
 import java.net.InetAddress;
@@ -73,6 +74,11 @@ public class Nexxoo {
 		helper.addContent(id);
 		helper.close();
 		return false;
+	}
+
+	public static int dp2px(Context mContext, int dp) {
+		return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
+				mContext.getResources().getDisplayMetrics());
 	}
 
 }

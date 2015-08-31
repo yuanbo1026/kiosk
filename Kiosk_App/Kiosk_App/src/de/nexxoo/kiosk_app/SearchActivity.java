@@ -5,7 +5,6 @@ import android.app.SearchManager;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ExpandableListView;
 import de.nexxoo.kiosk_app.db.DatabaseHandler;
 import de.nexxoo.kiosk_app.entity.*;
@@ -55,11 +54,11 @@ public class SearchActivity extends Activity implements ISearchCallback {
 
 			DatabaseHandler db = new DatabaseHandler(this);
 
-			if(db.getContent("g")!= null){
+			/*if(db.getContent("g")!= null){
 				Log.d("search context","we get the context");
 			}else{
 				Log.d("search context","we don't get the context");
-			}
+			}*/
 			/*db.addContent(new Content("d", "d", "d", "d", 1));
 			db.addContent(new Content("e", "e", "e", "e", 1));
 			db.addContent(new Content("f", "f", "f", "f", 1));

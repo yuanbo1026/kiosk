@@ -11,30 +11,16 @@ import java.util.List;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
-	// All Static variables
-	// Database Version
 	private static final int DATABASE_VERSION = 1;
 
 	// Database Name
 	private static final String DATABASE_NAME = "kiosk";
-
 	// Contacts table name
 	private static final String TABLE_CONTENTS = "contents";
-
 	// Contacts Table Columns names
-	private static final String KEY_ID = "id";
-	private static final String KEY_CONTENT_ID ="contentid";
-
-	/*unused
-	private static final String KEY_NAME = "name";
-	private static final String KEY_URL = "url";
-	private static final String KEY_DESCRIPTION = "description";
-	private static final String KEY_FILENAME = "filename";
-	private static final String KEY_CATEGORY = "category";*/
-
-
+	private static final String KEY_ID = "_id";
+	private static final String KEY_CONTENT_ID = "contentid";
 	// data type
-	private static final String TEXT_TYPE = " TEXT";
 	private static final String INTEGER_TYPE = " INTEGER";
 	private static final String COMMA_SEP = ",";
 
@@ -45,15 +31,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	// Creating Tables
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		/*String CREATE_CONTENTS_TABLE =
-				"CREATE TABLE "
-						+ TABLE_CONTENTS + "("
-						+ KEY_ID + " TEXT PRIMARY KEY,"
-						+ KEY_CONTENT_ID + INTEGER_TYPE + COMMA_SEP
-						+ KEY_DESCRIPTION + TEXT_TYPE + COMMA_SEP
-						+ KEY_FILENAME + TEXT_TYPE + COMMA_SEP
-						+ KEY_CATEGORY + INTEGER_TYPE
-						+ ")";*/
 		String CREATE_CONTENTS_TABLE =
 				"CREATE TABLE "
 						+ TABLE_CONTENTS + "("
@@ -75,58 +52,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	 * All CRUD(Create, Read, Update, Delete) Operations
 	 */
 
-	// Adding new CONTENT
-	public void addContent(Content content) {
+	public void addContent(int id) {
 		SQLiteDatabase db = this.getWritableDatabase();
 
-		ContentValues values = new ContentValues();
-		values.put(KEY_CONTENT_ID, content.getContentid());
-		/*values.put(KEY_URL, content.getUrl());
-		values.put(KEY_DESCRIPTION, content.getDescription());
-		values.put(KEY_FILENAME, content.getFilename());
-		values.put(KEY_CATEGORY, content.getCategory());*/
+		if (!isContentExist(id)) {
+			ContentValues values = new ContentValues();
+			values.put(KEY_CONTENT_ID, id);
+			db.insert(TABLE_CONTENTS, null, values);
+			db.close();
+		}
 
-		// Inserting Row
-		db.insert(TABLE_CONTENTS, null, values);
-//		db.insertOrThrow(TABLE_CONTENTS, null, values);
-		db.close(); // Closing database connection
 	}
 
-	// Getting single content
-	/*public Content getContent(String name) {
-		SQLiteDatabase db = this.getReadableDatabase();
-		Content content;
-		Cursor cursor = db.query(TABLE_CONTENTS, new String[]{
-						KEY_NAME,
-						KEY_URL,
-						KEY_DESCRIPTION,
-						KEY_FILENAME,
-						KEY_CATEGORY}, KEY_NAME + "=?",
-				new String[]{name}, null, null, null, null);
-
-		if (cursor.getCount()>0) {
-			cursor.moveToFirst();
-			content = new Content(
-					cursor.getString(0),
-					cursor.getString(1),
-					cursor.getString(2),
-					cursor.getString(3),
-					Integer.parseInt(cursor.getString(4)));
-			cursor.close();
-			db.close();
-			return content;
-		} else{
-			db.close();
-			return null;
-		}
-		// return content
-
-	}*/
-
-	// Getting All Contents
-	public List<Content> getAllContents() {
-		List<Content> contentList = new ArrayList<Content>();
-		// Select All Query
+	public List<Integer> getAllContents() {
+		List<Integer> contentList = new ArrayList<Integer>();
 		String selectQuery = "SELECT  * FROM " + TABLE_CONTENTS;
 
 		SQLiteDatabase db = this.getWritableDatabase();
@@ -135,20 +74,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		// looping through all rows and adding to list
 		if (cursor.moveToFirst()) {
 			do {
-				Content content = new Content();
-				content.setContentid(cursor.getInt(0));
-				/*content.setName(cursor.getString(0));
-				content.setUrl(cursor.getString(1));
-				content.setDescription(cursor.getString(2));
-				content.setFilename(cursor.getString(3));
-				content.setCategory(cursor.getInt(4));*/
-
-				// Adding content to list
-				contentList.add(content);
+				if (!cursor.isNull(0))
+					contentList.add(cursor.getInt(0));
 			} while (cursor.moveToNext());
 		}
 
-		// return content list
 		return contentList;
 	}
 
@@ -158,12 +88,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 		ContentValues values = new ContentValues();
 		values.put(KEY_CONTENT_ID, content.getContentid());
-		/*values.put(KEY_DESCRIPTION, content.getDescription());
-		values.put(KEY_URL, content.getUrl());
-		values.put(KEY_FILENAME, content.getFilename());
-		values.put(KEY_CATEGORY, content.getCategory());*/
-
-		// updating row
 		return db.update(TABLE_CONTENTS, values, KEY_CONTENT_ID + " = ?",
 				new String[]{String.valueOf(content.getContentid())});
 	}
@@ -177,12 +101,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	}
 
 
-	public Boolean isContextExist(String name) {
+	public Boolean isContentExist(int id) {
 		SQLiteDatabase db = this.getReadableDatabase();
 
 		Cursor cursor = db.query(TABLE_CONTENTS, new String[]{
 						KEY_CONTENT_ID}, KEY_CONTENT_ID + "=?",
-				new String[]{name}, null, null, null, null);
+				new String[]{Integer.toString(id)}, null, null, null, null);
 		if (cursor != null)
 			return true;
 		else

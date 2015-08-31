@@ -13,6 +13,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import de.nexxoo.kiosk_app.entity.Manual;
+import de.nexxoo.kiosk_app.tools.FileStorageHelper;
 import de.nexxoo.kiosk_app.tools.Misc;
 import de.nexxoo.kiosk_app.tools.Nexxoo;
 
@@ -28,6 +29,7 @@ public class ManualListAdapter extends ArrayAdapter<Manual> {
 	private Context mContext;
 	private List<Manual> mManualList;
 	private int mLayoutId;
+	private FileStorageHelper helper;
 
 
 	public ManualListAdapter(Context context, int layoutId, List<Manual> objects) {
@@ -36,6 +38,7 @@ public class ManualListAdapter extends ArrayAdapter<Manual> {
 		mContext = context;
 		mManualList = new ArrayList<Manual>(objects);
 		mLayoutId = layoutId;
+		helper = new FileStorageHelper(context);
 	}
 
 	@Override
@@ -97,6 +100,13 @@ public class ManualListAdapter extends ArrayAdapter<Manual> {
 		}
 
 		return v;
+	}
+
+	@Override
+	public int getItemViewType(int position) {
+		String fileName = mManualList.get(position).getFileName();
+		boolean isContentDownloaded = helper.isContentDownloaded(fileName);
+		return isContentDownloaded?1:0;
 	}
 
 	@Override

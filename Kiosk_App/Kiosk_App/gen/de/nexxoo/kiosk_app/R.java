@@ -227,7 +227,7 @@ containing a value of this type.
         public static final int catalog_fragment=0x7f030002;
         public static final int catalog_gridview_item=0x7f030003;
         public static final int catalog_listview_item=0x7f030004;
-        public static final int history_fragment=0x7f030005;
+        public static final int history =0x7f030005;
         public static final int history_grid_item=0x7f030006;
         public static final int history_listview_item=0x7f030007;
         public static final int main=0x7f030008;

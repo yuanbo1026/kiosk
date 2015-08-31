@@ -1,20 +1,11 @@
 package de.nexxoo.kiosk_app.entity;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 import de.nexxoo.kiosk_app.exception.KioskContentError;
-import de.nexxoo.kiosk_app.tools.Nexxoo;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +23,7 @@ public class BaseEntity implements Parcelable {
 	private String fileName;
 	private long size;
 	private List<Cover> mPictureList = new ArrayList<Cover>();
-	private List<Bitmap> mBitmap = new ArrayList<Bitmap>();
+	private int contentTypeId;
 
 	public static String CONTENTID = "contentId";
 	public static String NAME = "name";
@@ -46,6 +37,13 @@ public class BaseEntity implements Parcelable {
 	public static String CONTENTTYPE = "contentTypeId";
 
 
+	public int getContentTypeId() {
+		return contentTypeId;
+	}
+
+	public void setContentTypeId(int contentTypeId) {
+		this.contentTypeId = contentTypeId;
+	}
 
 	public long getSize() {
 		return size;
@@ -103,14 +101,6 @@ public class BaseEntity implements Parcelable {
 		this.mPictureList = mPictureList;
 	}
 
-	public List<Bitmap> getmBitmap() {
-		return mBitmap;
-	}
-
-	public void setmBitmap(List<Bitmap> mBitmap) {
-		this.mBitmap = mBitmap;
-	}
-
 	public BaseEntity(int id, String name, String fileName) {
 		setContentId(id);
 		setName(name);
@@ -127,6 +117,7 @@ public class BaseEntity implements Parcelable {
 				description = jsonObj.getString(DESCRIPTION);
 				url = jsonObj.getString(URL);
 				fileName = jsonObj.getString(FILENAME);
+				contentId = jsonObj.getInt(CONTENTTYPE);
 
 				JSONObject jsonObjPics = jsonObj.getJSONObject(PICTURES);
 				if (jsonObjPics != null) {
@@ -152,45 +143,6 @@ public class BaseEntity implements Parcelable {
 		}
 	}
 
-	private class GrabBitmap extends AsyncTask<String, Integer, Bitmap> {
-
-		protected void onPreExecute() {
-		}
-
-		protected Bitmap doInBackground(String... urls) {
-			Log.d(Nexxoo.TAG, "Bitmap URL : "+urls[0]);
-			Bitmap bitmap = null;
-			HttpURLConnection connection = null;
-			try {
-				connection = (HttpURLConnection) new URL(urls[0])
-						.openConnection();
-				connection.setRequestProperty("User-Agent", "nexxoo");
-				connection.connect();
-				InputStream input = connection.getInputStream();
-				bitmap = BitmapFactory.decodeStream(input);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			return bitmap;
-
-		}
-
-		protected void onProgressUpdate(Integer... progress) {
-		}
-
-		protected void onCancelled() {
-		}
-		protected void onPostExecute(Bitmap bitmap) {
-			if (bitmap != null){
-//				item.manualCover.setImageBitmap(bitmap);
-				mBitmap.add(bitmap);
-			}
-			else{
-				Log.d(Nexxoo.TAG, "cannot download Cover Image");
-			}
-		}
-	}
-
 	public BaseEntity(int id) {
 		setContentId(contentId);
 	}
@@ -209,13 +161,14 @@ public class BaseEntity implements Parcelable {
 		dest.writeString(fileName);
 		dest.writeLong(size);
 		dest.writeList(mPictureList);
+		dest.writeInt(contentTypeId);
 	}
 
 	public BaseEntity(Parcel in) {
 
 		long[] longData = new long[1];
 		String[] stringData = new String[4];
-		int[] intData = new int[1];
+		int[] intData = new int[2];
 
 		in.readIntArray(intData);
 		contentId = intData[0];
@@ -230,5 +183,6 @@ public class BaseEntity implements Parcelable {
 		size = longData[0];
 
 		in.readList(mPictureList, Cover.class.getClassLoader());
+		contentTypeId = intData[1];
 	}
 }

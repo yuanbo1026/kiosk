@@ -3,6 +3,7 @@ package de.nexxoo.kiosk_app.tools;
 import android.content.Context;
 import android.os.Build;
 import android.util.DisplayMetrics;
+import de.nexxoo.kiosk_app.db.DatabaseHandler;
 
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -65,6 +66,13 @@ public class Nexxoo {
 	        ex.printStackTrace();
 	    }
 	    return result;
+	}
+
+	public static boolean addContentToDB(Context cxt, int id){
+		DatabaseHandler helper = new DatabaseHandler(cxt);
+		helper.addContent(id);
+		helper.close();
+		return false;
 	}
 
 }

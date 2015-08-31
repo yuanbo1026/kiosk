@@ -10,12 +10,6 @@ import android.view.animation.Interpolator;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
-/**
- * 
- * @author baoyz
- * @date 2014-8-18
- * 
- */
 public class SwipeMenuListView extends ListView {
 
 	private static final int TOUCH_STATE_NONE = 0;
@@ -83,6 +77,7 @@ public class SwipeMenuListView extends ListView {
 					mTouchView.smoothCloseMenu();
 				}
 			}
+
 		});
 	}
 

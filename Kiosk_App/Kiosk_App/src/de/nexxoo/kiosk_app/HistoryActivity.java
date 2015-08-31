@@ -10,6 +10,18 @@ public class HistoryActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.history);
+	}
+
+	private void getContentIdFromDB(){
 
 	}
+
+	private void getHistoryContetnsFromWebServer(){
+
+	}
+
+
+
+
 }

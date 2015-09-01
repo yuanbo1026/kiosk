@@ -104,7 +104,7 @@ public class DownloadAsyncTask extends AsyncTask<Void, Integer, String> {
 		FileStorageHelper helper = new FileStorageHelper(mContext);
 		try {
 			URL url = new URL(mUrl);
-			Log.e(Nexxoo.TAG, "URL: " + mUrl);
+//			Log.e(Nexxoo.TAG, "URL: " + mUrl);
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestProperty("Authorization", basicAuthBase64);
 			connection.setRequestProperty("Accept-Encoding", "identity");
@@ -124,7 +124,7 @@ public class DownloadAsyncTask extends AsyncTask<Void, Integer, String> {
 			}
 
 			int fileLength = connection.getContentLength();
-			Log.e(Nexxoo.TAG, "fileLength: " + fileLength);
+//			Log.e(Nexxoo.TAG, "fileLength: " + fileLength);
 			input = connection.getInputStream();
 
 			File folder = new File(helper.getDownloadFolder());

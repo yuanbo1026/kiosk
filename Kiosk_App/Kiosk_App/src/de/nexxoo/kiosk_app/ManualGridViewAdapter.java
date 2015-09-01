@@ -11,11 +11,13 @@ import android.widget.*;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import de.nexxoo.kiosk_app.db.DatabaseHandler;
 import de.nexxoo.kiosk_app.entity.Manual;
 import de.nexxoo.kiosk_app.layout.SquareLayout;
 import de.nexxoo.kiosk_app.tools.FileStorageHelper;
 import de.nexxoo.kiosk_app.tools.Global;
 import de.nexxoo.kiosk_app.tools.Misc;
+import de.nexxoo.kiosk_app.tools.Nexxoo;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -31,6 +33,7 @@ public class ManualGridViewAdapter extends ArrayAdapter<Manual> {
 	private List<Manual> mManualList;
 	private int mLayoutId;
 	private FileStorageHelper fileHelper;
+	private DatabaseHandler dbHandler;
 
 	public ManualGridViewAdapter(Context context, int layoutId, List<Manual> objects) {
 		super(context, layoutId, objects);
@@ -39,6 +42,7 @@ public class ManualGridViewAdapter extends ArrayAdapter<Manual> {
 		mManualList = new ArrayList<Manual>(objects);
 		mLayoutId = layoutId;
 		fileHelper = new FileStorageHelper(context);
+		dbHandler = new DatabaseHandler(context);
 	}
 
 	@Override
@@ -80,6 +84,8 @@ public class ManualGridViewAdapter extends ArrayAdapter<Manual> {
 		item.manualCover.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+//				dbHandler.addContent(mManualList.get(position).getContentId());
+				Nexxoo.saveContentId(mContext,mManualList.get(position).getContentId());
 				/*DownloadAsyncTask task = new DownloadAsyncTask(mContext,
 						mManualList
 								.get(position).getUrl(), mManualList.get
@@ -113,6 +119,7 @@ public class ManualGridViewAdapter extends ArrayAdapter<Manual> {
 		item.watch_button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				Nexxoo.saveContentId(mContext,mManualList.get(position).getContentId());
 				RelativeLayout parent = (RelativeLayout) v.getParent();
 				ImageView mImageView = (ImageView) parent.findViewById(R.id
 						.manual_grid_item_trash_button);

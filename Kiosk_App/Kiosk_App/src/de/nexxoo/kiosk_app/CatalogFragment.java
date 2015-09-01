@@ -1,6 +1,5 @@
 package de.nexxoo.kiosk_app;
 
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -14,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+import de.nexxoo.kiosk_app.db.DatabaseHandler;
 import de.nexxoo.kiosk_app.entity.Catalog;
 import de.nexxoo.kiosk_app.layout.SwipeMenu;
 import de.nexxoo.kiosk_app.layout.SwipeMenuCreator;
@@ -44,12 +44,14 @@ public class CatalogFragment extends Fragment {
 
 	private Context context;
 	private FileStorageHelper fileHelper;
+	private DatabaseHandler dbHandler;
 
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		context = this.getActivity();
 		fileHelper = new FileStorageHelper(context);
+		dbHandler = new DatabaseHandler(context);
 
 		View rootView = inflater.inflate(R.layout.catalog_fragment, container, false);
 		mViewSwitcher = (ViewSwitcher) rootView.findViewById(R.id.catalog_viewswitcher);
@@ -97,7 +99,7 @@ public class CatalogFragment extends Fragment {
 		gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				String filename = catalogList.get(position).getFileName();
+				/*String filename = catalogList.get(position).getFileName();
 				if (fileHelper.isContentDownloaded(filename)) {
 					File file = new File(fileHelper.getFileAbsolutePath(filename));
 					Intent target = new Intent(Intent.ACTION_VIEW);
@@ -105,10 +107,8 @@ public class CatalogFragment extends Fragment {
 					target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 
 					Intent i = Intent.createChooser(target, "Open File");
-					try {
-						context.startActivity(i);
-					} catch (ActivityNotFoundException e) {
-					}
+					context.startActivity(i);
+					dbHandler.addContent(catalogList.get(position).getContentId());
 				}else{
 					ImageView mImageView = (ImageView) view.findViewById(R.id
 							.catalog_grid_item_trash_button);
@@ -117,7 +117,8 @@ public class CatalogFragment extends Fragment {
 									.get(position).getUrl(), catalogList.get
 							(position).getFileName(),mImageView,Global.DOWNLOAD_TASK_TYPE_PDF);
 					task.execute();
-				}
+					dbHandler.addContent(catalogList.get(position).getContentId());
+				}*/
 			}
 		});
 		/**
@@ -185,7 +186,9 @@ public class CatalogFragment extends Fragment {
 		listview.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
 			@Override
 			public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+				Nexxoo.saveContentId(context,catalogList.get(position).getContentId());
 				switch (index) {
+
 					case 0:
 						DownloadAsyncTask task = new DownloadAsyncTask(context,
 								catalogList
@@ -209,6 +212,7 @@ public class CatalogFragment extends Fragment {
 											.get(position).getUrl(), catalogList.get
 									(position).getFileName());
 							task1.execute();
+							dbHandler.addContent(catalogList.get(position).getContentId());
 						}
 						break;
 				}

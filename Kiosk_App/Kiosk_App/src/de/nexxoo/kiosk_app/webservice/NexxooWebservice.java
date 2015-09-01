@@ -116,7 +116,7 @@ public class NexxooWebservice {
 	private static final String PARA_ACCOUNTID = "accid";
 	private static final String PARA_SESSIONKEY = "sessionkey";
 	private static final String PARA_CONTENTID = "contentid";
-	private static final String PARA_CONTENTIDS = "contentid[]";
+	private static final String PARA_CONTENTIDS = "ids[]";
 	private static final String PARA_FIRSTNAME = "firstname";
 	private static final String PARA_LASTNAME = "lastname";
 	private static final String PARA_STREET = "street";

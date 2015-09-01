@@ -34,7 +34,7 @@
     <string-array name="drawer_titles">
         <item>Contact</item>
         <item>Imprint</item>
-        <item>Protocol</item>
+        <item>History</item>
     </string-array>
 
     <string-array name="fragment_titles">

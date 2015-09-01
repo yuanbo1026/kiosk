@@ -1,9 +1,9 @@
 package de.nexxoo.kiosk_app;
 
 import android.app.ActionBar;
-import android.app.FragmentManager;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -13,15 +13,13 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.text.Spannable;
-import android.text.SpannableString;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
 import com.astuetz.PagerSlidingTabStrip;
-import com.astuetz.TypefaceSpan;
+import de.nexxoo.kiosk_app.tools.Nexxoo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +64,8 @@ public class MainActivity extends FragmentActivity {
 		getActionBar().setDisplayHomeAsUpEnabled(false);
 		getActionBar().setHomeButtonEnabled(true);
 		getActionBar().setDisplayUseLogoEnabled(false);
-		getActionBar().setTitle(getStyledText("Manual"));
+		getActionBar().setIcon(R.drawable.ic_menu_white_36dp);
+		getActionBar().setTitle(Nexxoo.getStyledText(context, "Manual"));
 
 		// ActionBarDrawerToggle ties together the the proper interactions
 		// between the sliding drawer and the action bar app icon
@@ -119,7 +118,8 @@ public class MainActivity extends FragmentActivity {
 		tabs.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
 			@Override
 			public void onPageSelected(int position) {
-				actionbar.setTitle(getStyledText(mFragmentTitles[pager.getCurrentItem()]));
+				actionbar.setTitle(Nexxoo.getStyledText(context,mFragmentTitles[pager
+						.getCurrentItem()]));
 			}
 		});
 
@@ -136,7 +136,7 @@ public class MainActivity extends FragmentActivity {
 	}
 
 	private void selectItem(int position) {
-		// update the main content by replacing fragments
+		/*// update the main content by replacing fragments
 		android.app.Fragment fragment = null;
 		switch (position) {
 			case 0:
@@ -146,10 +146,10 @@ public class MainActivity extends FragmentActivity {
 				fragment = new ImprintFragment();
 				break;
 			case 2:
-				fragment = new ProtocolFragment();
+				fragment = new HistoryActivity();
 				break;
 			default:
-				fragment = new ContactFragment();
+//				fragment = new ContactFragment();
 
 		}
 
@@ -159,7 +159,26 @@ public class MainActivity extends FragmentActivity {
 		// update selected item and title, then close the drawer
 		mDrawerList.setItemChecked(position, true);
 		setTitle(getStyledText(mTitles[position]));
+		mDrawerLayout.closeDrawer(mDrawerList);*/
+
+		mDrawerList.setItemChecked(position, false);
 		mDrawerLayout.closeDrawer(mDrawerList);
+		switch (position) {
+			case 0:
+				Intent contact = new Intent(context,HistoryActivity.class);
+				startActivity(contact);
+				break;
+			case 1:
+				Intent imprint = new Intent(context,HistoryActivity.class);
+				startActivity(imprint);
+				break;
+			case 2:
+				Intent history = new Intent(context,HistoryActivity.class);
+				startActivity(history);
+				break;
+		}
+
+
 	}
 
 	@Override
@@ -214,13 +233,6 @@ public class MainActivity extends FragmentActivity {
 		}
 		// Handle action buttons
 		return super.onOptionsItemSelected(item);
-	}
-
-	private SpannableString getStyledText(String title){
-		SpannableString s = new SpannableString(title);
-		s.setSpan(new TypefaceSpan(this, "OpenSans-Regular.ttf"), 0, s.length(),
-				Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-		return s;
 	}
 
 }

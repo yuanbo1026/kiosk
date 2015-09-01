@@ -12,10 +12,12 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import de.nexxoo.kiosk_app.db.DatabaseHandler;
 import de.nexxoo.kiosk_app.entity.Video;
 import de.nexxoo.kiosk_app.tools.FileStorageHelper;
 import de.nexxoo.kiosk_app.tools.Global;
 import de.nexxoo.kiosk_app.tools.Misc;
+import de.nexxoo.kiosk_app.tools.Nexxoo;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -32,6 +34,7 @@ public class VideoGridViewAdapter extends ArrayAdapter<Video> {
 	private int mLayoutId;
 	private Boolean isVideoDownloaded;
 	private FileStorageHelper fileHelper;
+	private DatabaseHandler dbHandler;
 
 
 	public VideoGridViewAdapter(Context context, int layoutId, List<Video> objects) {
@@ -41,6 +44,7 @@ public class VideoGridViewAdapter extends ArrayAdapter<Video> {
 		mVideoList = new ArrayList<Video>(objects);
 		mLayoutId = layoutId;
 		fileHelper = new FileStorageHelper(context);
+		dbHandler = new DatabaseHandler(context);
 	}
 
 	@Override
@@ -85,6 +89,8 @@ public class VideoGridViewAdapter extends ArrayAdapter<Video> {
 				setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View v) {
+						Nexxoo.saveContentId(mContext, mVideoList.get(position)
+								.getContentId());
 						boolean isDownloaded = fileHelper.isContentDownloaded(mVideoList.get
 								(position).getFileName());
 						String url = mVideoList.get(position).getUrl();
@@ -96,12 +102,14 @@ public class VideoGridViewAdapter extends ArrayAdapter<Video> {
 						i.putExtra("filename", name);
 						i.putExtra("isVideoDownloaded", isDownloaded);
 						mContext.startActivity(i);
+						dbHandler.addContent(mVideoList.get(position).getContentId());
 					}
 				});
 
 		item.download_button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				Nexxoo.saveContentId(mContext,mVideoList.get(position).getContentId());
 				if (isVideoDownloaded) {
 					File video = new File(fileHelper.getFileAbsolutePath(mVideoList
 							.get(position).getFileName()));
@@ -114,6 +122,7 @@ public class VideoGridViewAdapter extends ArrayAdapter<Video> {
 							(position).getFileName(),(ImageView)v, Global
 							.DOWNLOAD_TASK_TYPE_VIDEO);
 					task.execute();
+					dbHandler.addContent(mVideoList.get(position).getContentId());
 				}
 			}
 		});

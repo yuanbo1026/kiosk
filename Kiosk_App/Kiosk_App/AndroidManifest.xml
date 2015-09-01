@@ -63,6 +63,7 @@
         <activity android:name=".ContactActivity"/>
         <activity android:name=".ImprintActivity"/>
         <activity android:name=".ProtocolActivity"/>
+        <activity android:name=".TestDBActivity"/>
 
 
     </application>

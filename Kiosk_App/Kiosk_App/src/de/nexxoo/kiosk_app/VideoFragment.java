@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ViewSwitcher;
+import de.nexxoo.kiosk_app.db.DatabaseHandler;
 import de.nexxoo.kiosk_app.entity.Video;
 import de.nexxoo.kiosk_app.layout.SwipeMenu;
 import de.nexxoo.kiosk_app.layout.SwipeMenuCreator;
@@ -47,11 +48,13 @@ public class VideoFragment extends Fragment {
 
 	private boolean isVideoDownloaded;
 	private FileStorageHelper fileHelper;
+	private DatabaseHandler dbHandler;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		context = this.getActivity();
 		fileHelper = new FileStorageHelper(context);
+		dbHandler = new DatabaseHandler(context);
 
 		View rootView = inflater.inflate(R.layout.video_fragment, container, false);
 
@@ -67,19 +70,6 @@ public class VideoFragment extends Fragment {
 
 		Header = (View) rootView.findViewById(R.id.video_header);
 		Header.setVisibility(View.INVISIBLE);
-
-		gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-			}
-		});
-
-		listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-			}
-		});
-
 
 		b_list.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -183,6 +173,7 @@ public class VideoFragment extends Fragment {
 		listview.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
 			@Override
 			public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+				Nexxoo.saveContentId(context,videoList.get(position).getContentId());
 				switch (index) {
 					case 0:
 						DownloadAsyncTask task = new DownloadAsyncTask(context,
@@ -190,6 +181,7 @@ public class VideoFragment extends Fragment {
 										.get(position).getUrl(), videoList.get
 								(position).getFileName());
 						task.execute();
+						dbHandler.addContent(videoList.get(position).getContentId());
 						break;
 					case 1:
 						isVideoDownloaded = fileHelper.isContentDownloaded(videoList
@@ -203,6 +195,7 @@ public class VideoFragment extends Fragment {
 						i.putExtra("filename", name);
 						i.putExtra("isVideoDownloaded", isVideoDownloaded);
 						context.startActivity(i);
+						dbHandler.addContent(videoList.get(position).getContentId());
 						break;
 				}
 				return false;

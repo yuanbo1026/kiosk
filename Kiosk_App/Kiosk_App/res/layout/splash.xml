@@ -3,7 +3,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:context=".SplashActivity"
-                android:background="@drawable/splashscreen"
+                android:background="@drawable/splash_bg"
+              android:adjustViewBounds="true"
+              android:scaleType="centerInside"
                 android:gravity="center" android:layout_gravity="center">
 
     <ImageView
@@ -12,10 +14,11 @@
             android:layout_height="match_parent"
             android:contentDescription="@null"
             android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
+            android:scaleType="fitCenter"
+            android:layout_margin="50dp"
             android:gravity="center"
             android:layout_gravity="center"
-            android:src="@drawable/splashscreen"
+            android:src="@drawable/splash_logo"
             android:visibility="visible"/>
 
 </LinearLayout>

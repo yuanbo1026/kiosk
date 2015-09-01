@@ -16,6 +16,7 @@ import de.nexxoo.kiosk_app.layout.SquareLayout;
 import de.nexxoo.kiosk_app.tools.FileStorageHelper;
 import de.nexxoo.kiosk_app.tools.Global;
 import de.nexxoo.kiosk_app.tools.Misc;
+import de.nexxoo.kiosk_app.tools.Nexxoo;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -81,6 +82,7 @@ public class CatalogGridViewAdapter extends ArrayAdapter<Catalog> {
 		item.catalogCover.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				Nexxoo.saveContentId(mContext,mCatalogList.get(position).getContentId());
 				SquareLayout parent = (SquareLayout) v.getParent();
 				LinearLayout fatherView = (LinearLayout)parent.getParent();
 				ImageView mImageView = (ImageView) fatherView.findViewById(R.id
@@ -108,6 +110,7 @@ public class CatalogGridViewAdapter extends ArrayAdapter<Catalog> {
 		item.watch_button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				Nexxoo.saveContentId(mContext, mCatalogList.get(position).getContentId());
 				RelativeLayout parent = (RelativeLayout) v.getParent();
 				ImageView mImageView = (ImageView) parent.findViewById(R.id
 						.catalog_grid_item_trash_button);

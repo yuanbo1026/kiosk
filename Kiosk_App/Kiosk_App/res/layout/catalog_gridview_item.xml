@@ -55,7 +55,7 @@
             <ImageButton android:id="@+id/catalog_grid_item_trash_button"
                          android:layout_width="wrap_content"
                          android:layout_height="wrap_content"
-                         android:src="@drawable/ic_grid_download"
+                         android:src="@drawable/ic_grid_trash"
                          android:layout_centerVertical="true"
                          android:layout_weight="4"
                          android:gravity="center_vertical"

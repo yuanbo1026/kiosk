@@ -235,8 +235,8 @@ containing a value of this type.
         public static final int manual_gridview_item=0x7f03000a;
         public static final int manual_listview_item=0x7f03000b;
         public static final int search_list_group_row=0x7f03000c;
-        public static final int search_result_fragment=0x7f03000d;
-        public static final int search_result_grid_item=0x7f03000e;
+        public static final int search_result_pdf_fragment =0x7f03000d;
+        public static final int search_result_pdf_grid_item =0x7f03000e;
         public static final int serach_list_child_row=0x7f03000f;
         public static final int video_fragment=0x7f030010;
         public static final int video_gridview_item=0x7f030011;

@@ -43,17 +43,19 @@ public class SearchResultFragment extends android.support.v4.app.Fragment {
 	private FileStorageHelper mFileStorgeHelper;
 	private int mFragmentType = -1;
 
+	private int type;
+
 	public static SearchResultFragment newInstance(Context context, int type) {
 		SearchResultFragment f = new SearchResultFragment();
 		Bundle args = new Bundle();
 		args.putInt(context.getString(R.string.search_result_fragment_type), type);
 		f.setArguments(args);
-
 		return f;
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		type = getArguments().getInt("type");
 		mContext = this.getActivity();
 		mFileStorgeHelper = new FileStorageHelper(mContext);
 		mFragmentType = getArguments().getInt(mContext.getString(R.string
@@ -227,7 +229,6 @@ public class SearchResultFragment extends android.support.v4.app.Fragment {
 			}
 		});
 	}*/
-
 	private int dp2px(int dp) {
 		return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
 				getResources().getDisplayMetrics());

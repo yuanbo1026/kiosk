@@ -240,6 +240,12 @@ public class CatalogFragment extends Fragment {
 				listview.smoothOpenMenu(position);
 			}
 		});
+		listview.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+			@Override
+			public void onFocusChange(View v, boolean hasFocus) {
+				listview.closeAllMenu();
+			}
+		});
 	}
 
 	private int dp2px(int dp) {
@@ -256,7 +262,6 @@ public class CatalogFragment extends Fragment {
 					JSONObject jsonContentObj = json.getJSONObject("content" + i);
 					catalog = new Catalog(jsonContentObj);
 					catalogList.add(catalog);
-
 				} catch (Exception e) {
 					Log.d(Nexxoo.TAG, e.getMessage());
 				}

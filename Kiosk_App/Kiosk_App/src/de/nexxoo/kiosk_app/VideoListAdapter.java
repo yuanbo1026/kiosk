@@ -14,6 +14,7 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import de.nexxoo.kiosk_app.entity.Video;
 import de.nexxoo.kiosk_app.tools.FileStorageHelper;
 import de.nexxoo.kiosk_app.tools.Misc;
+import de.nexxoo.kiosk_app.tools.Nexxoo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,6 +72,12 @@ public class VideoListAdapter extends ArrayAdapter<Video> {
 			item = (Item) convertView.getTag();
 		}
 		item.videoName.setText(mVideoList.get(position).getName());
+		item.videoName.setText(mVideoList.get(position).getName());
+		String deteilInformation = Nexxoo.splitToComponentTimes(mVideoList.get(position).getDuration())
+				+Nexxoo.DURATION_DiVIDER+	Nexxoo
+				.readableFileSize(mVideoList.get(position)
+						.getSize());
+		item.videoSize.setText(deteilInformation);
 		if (!mVideoList.get(position).getmPictureList().isEmpty()) {
 			mImageLoader.displayImage(mVideoList.get(position).getmPictureList().get
 							(0).getmUrl(),

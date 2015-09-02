@@ -6,12 +6,13 @@
     <string name="action_protocol">Protocol</string>
     <string name="action_contact">Contact</string>
     <string name="action_imprint">Imprint</string>
-    <string name="search_title">Search</string>
+
+    <string name="search_title">Suche</string>
 
     <!-- search empty result -->
     <string name="listview.empty.text">No Results</string>
     <!-- search hint -->
-    <string name="search_hint">Search..</string>
+    <string name="search_hint">Suche..</string>
     <!-- search bundle -->
     <string name="kiosk_search_bundle_group">kiosk.search.result.bundle.group</string>
     <string name="kiosk_search_bundle_child">kiosk.search.result.bundle.child</string>
@@ -32,15 +33,15 @@
 
     <!-- drawer title list -->
     <string-array name="drawer_titles">
-        <item>Contact</item>
-        <item>Imprint</item>
-        <item>History</item>
+        <item>Kontakt</item>
+        <item>Impressum</item>
+        <item>Verlauf</item>
     </string-array>
 
     <string-array name="fragment_titles">
-        <item>Manual</item>
+        <item>Anleitung</item>
         <item>Video</item>
-        <item>Catalog</item>
+        <item>Katalog</item>
     </string-array>
 
     <!-- drawer empty string title -->

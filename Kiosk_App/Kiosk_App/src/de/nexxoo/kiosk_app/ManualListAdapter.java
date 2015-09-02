@@ -50,7 +50,7 @@ public class ManualListAdapter extends ArrayAdapter<Manual> {
 			v = mInflater.inflate(mLayoutId, parent, false);
 			v.setBackgroundColor(mContext.getResources().getColor(
 					R.color.RealWhite));
-				Log.d(Nexxoo.TAG,"ListView Adapter Position: "+position);
+				Log.d(Nexxoo.TAG, "ListView Adapter Position: " + position);
 				item = new Item();
 				item.manualName = (TextView) v
 						.findViewById(R.id.manual_listview_item_name);
@@ -62,6 +62,11 @@ public class ManualListAdapter extends ArrayAdapter<Manual> {
 				item.manualCover = (ImageView) v.findViewById(R.id.manual_listview_item_cover);
 
 			item.manualName.setText(mManualList.get(position).getName());
+			String deteilInformation = mManualList.get(position).getPages()
+					+Nexxoo.PAGES+	Nexxoo
+					.readableFileSize(mManualList.get(position)
+							.getSize());
+			item.manualSize.setText(deteilInformation);
 			if (!mManualList.get(position).getmPictureList().isEmpty()) {
 				ImageLoader imageLoader = ImageLoader.getInstance(); // Get singleton instance
 				imageLoader.displayImage(mManualList.get(position).getmPictureList().get
@@ -92,13 +97,10 @@ public class ManualListAdapter extends ArrayAdapter<Manual> {
 			}else{
 				item.manualCover.setImageResource(R.drawable.default_no_image);
 			}
-
-
 			v.setTag(item);
 		} else {
 			item = (Item) v.getTag();
 		}
-
 		return v;
 	}
 

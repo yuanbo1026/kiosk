@@ -10,7 +10,7 @@ import java.util.List;
 
 public class FragmentAdapter extends FragmentPagerAdapter implements ViewPager.OnPageChangeListener{
 
-    private String[] titles = new String[]{"Manual", "Video", "Catalog"};
+    private String[] titles = new String[]{"Anleitung", "Video", "Katalog"};
     private List<Fragment> fragmentList;
 	private ActionBar mActionBar;
 

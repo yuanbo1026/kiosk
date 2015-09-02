@@ -75,6 +75,11 @@ public class VideoGridViewAdapter extends ArrayAdapter<Video> {
 		}
 
 		item.videoName.setText(mVideoList.get(position).getName());
+		String deteilInformation = Nexxoo.splitToComponentTimes(mVideoList.get(position).getDuration())
+				+Nexxoo.DURATION_DiVIDER+	Nexxoo
+				.readableFileSize(mVideoList.get(position)
+						.getSize());
+		item.videoSize.setText(deteilInformation);
 		/**
 		 * get device actual size
 		 */

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+    <LinearLayout
+            android:gravity="right"
+            android:id="@+id/video_tapbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="visible" android:layout_margin="10dp">
+        <ImageButton
+                android:id="@+id/video_b_grid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@null"
+                android:background="@android:color/white"
+                android:src="@drawable/ic_grid_active"
+                />
+
+        <ImageButton
+                android:id="@+id/video_b_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@null"
+                android:background="@android:color/white"
+                android:src="@drawable/ic_list"
+                />
+    </LinearLayout>
+    <View android:id="@+id/video_header"
+          android:layout_width="match_parent"
+          android:layout_height="1dip"
+          android:background="@color/swipe_listview_divider_color"
+          android:layout_below="@+id/video_tapbar"/>
+    <ViewSwitcher
+            android:id="@+id/video_viewswitcher"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/video_header"
+            android:clipToPadding="false"
+            android:cacheColorHint="#00000000"
+            android:paddingBottom="5dp">
+        <GridView
+                android:id="@+id/video_grid"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                >
+        </GridView>
+        <de.nexxoo.kiosk_app.layout.SwipeMenuListView
+                android:id="@+id/video_list"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@color/RealWhite"
+                android:divider="@color/swipe_listview_divider_color"
+                android:dividerHeight="1dp"
+                android:headerDividersEnabled="true"
+                android:cacheColorHint="@android:color/transparent"
+                android:smoothScrollbar="true"
+                >
+        </de.nexxoo.kiosk_app.layout.SwipeMenuListView>
+    </ViewSwitcher>
+</RelativeLayout>

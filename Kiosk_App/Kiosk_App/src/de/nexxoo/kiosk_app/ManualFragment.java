@@ -11,7 +11,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
+import android.widget.AdapterView;
+import android.widget.GridView;
+import android.widget.ImageButton;
+import android.widget.ViewSwitcher;
 import de.nexxoo.kiosk_app.db.DatabaseHandler;
 import de.nexxoo.kiosk_app.entity.Manual;
 import de.nexxoo.kiosk_app.layout.*;
@@ -94,32 +97,6 @@ public class ManualFragment extends Fragment {
 		Header = (View) rootView.findViewById(R.id.manual_header);
 		Header.setVisibility(View.INVISIBLE);
 
-		gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-/*				String filename = manualList.get(position).getFileName();
-				if (fileHelper.isContentDownloaded(filename)) {
-					File file = new File(fileHelper.getFileAbsolutePath(filename));
-					Intent target = new Intent(Intent.ACTION_VIEW);
-					target.setDataAndType(Uri.fromFile(file), "application/pdf");
-					target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-
-					Intent i = Intent.createChooser(target, "Open File");
-					context.startActivity(i);
-					dbHandler.addContent(manualList.get(position).getContentId());
-				} else {
-					ImageView mImageView = (ImageView) view.findViewById(R.id
-							.manual_grid_item_trash_button);
-					DownloadAsyncTask task = new DownloadAsyncTask(context,
-							manualList
-									.get(position).getUrl(), manualList.get
-							(position).getFileName(), mImageView, Global.DOWNLOAD_TASK_TYPE_PDF);
-					task.execute();
-					dbHandler.addContent(manualList.get(position).getContentId());
-				}*/
-
-			}
-		});
 		/**
 		 * init swipe listview
 		 */
@@ -162,34 +139,29 @@ public class ManualFragment extends Fragment {
 	 */
 	private void initSwipeListView(final Boolean isNormal) {
 		SwipeMenuCreator creator = new SwipeMenuCreator() {
+
 			@Override
 			public void create(SwipeMenu menu) {
 				/**
-				 * 0 : menu items for PDF
-				 * 1 : menu items for Video
+				 * menu.getViewType
+				 * 0 : not downloaded
+				 * 1 : downloaded
 				 */
-				/*switch (menu.getViewType()){
-					case 0:
-						break;
-					case 1:
-						break;
-					default:
 
+				if (menu.getViewType() == 1) {
+					SwipeMenuItem download = new SwipeMenuItem(context);
+					download.setBackground(new ColorDrawable(Color.rgb(0xF3, 0xF3, 0xF3)));
+					download.setWidth(Nexxoo.dp2px(context, isNormal ? 90 : 120));
+					download.setIcon(R.drawable.ic_list_trash);
+					menu.addMenuItem(download);
+				}
 
-				}*/
-				SwipeMenuItem download = new SwipeMenuItem(context);
-				download.setBackground(new ColorDrawable(Color.rgb(0xF3, 0xF3, 0xF3)));
-				download.setWidth(Nexxoo.dp2px(context,isNormal ? 90 : 120));
-				download.setIcon(R.drawable.ic_list_download);
-				menu.addMenuItem(download);
 
 				SwipeMenuItem view = new SwipeMenuItem(context);
 				view.setBackground(new ColorDrawable(Color.rgb(0xE5, 0xF5, 0xFF)));
 				view.setWidth(Nexxoo.dp2px(context, isNormal ? 90 : 120));
 				view.setIcon(R.drawable.ic_list_view);
 				menu.addMenuItem(view);
-
-
 			}
 		};
 		// set creator
@@ -199,74 +171,89 @@ public class ManualFragment extends Fragment {
 		listview.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
 			@Override
 			public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
-				Nexxoo.saveContentId(context,manualList.get(position).getContentId());
-				switch (index) {
-					case 0:
-						String filename = manualList.get(position).getFileName();
-						if (fileHelper.isContentDownloaded(filename)) {
-							File file = new File(fileHelper.getFileAbsolutePath(filename));
-							Intent target = new Intent(Intent.ACTION_VIEW);
-							target.setDataAndType(Uri.fromFile(file), "application/pdf");
-							target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+				Nexxoo.saveContentId(context, manualList.get(position).getContentId());
+				if (menu.getViewType() == 1) {//two button on item
+					switch (index) {
+						case 0://download button
+							String filename = manualList.get(position).getFileName();
+							if (fileHelper.isContentDownloaded(filename)) {
+								File file = new File(fileHelper.getFileAbsolutePath(filename));
+								Intent target = new Intent(Intent.ACTION_VIEW);
+								target.setDataAndType(Uri.fromFile(file), "application/pdf");
+								target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 
-							View view = listview.getChildAt(position);
-
-							Intent i = Intent.createChooser(target, "Open File");
-							startActivity(i);
-							dbHandler.addContent(manualList.get(position).getContentId());
-						} else {
-							if(listview.getChildAt(position) instanceof SwipeMenuLayout){
-								SwipeMenuLayout menuLayout = (SwipeMenuLayout)
-										listview.getChildAt(position);
-								menuLayout.smoothCloseMenu();
+								Intent i = Intent.createChooser(target, "Open File");
+								startActivity(i);
+							} else {
+								DownloadAsyncTask task = new DownloadAsyncTask(context,
+										manualList
+												.get(position).getUrl(), manualList.get
+										(position).getFileName(), Global
+										.DOWNLOAD_TASK_TYPE_PDF);
+								task.execute();
 							}
-							DownloadAsyncTask task = new DownloadAsyncTask(context,
-									manualList
-											.get(position).getUrl(), manualList.get
-									(position).getFileName(), Global
-									.DOWNLOAD_TASK_TYPE_PDF);
-							task.execute();
-							dbHandler.addContent(manualList.get(position).getContentId());
-							/*SwipeMenuItem menuItem = menu.getMenuItem(0);
-							menuItem.setIcon(R.drawable.ic_list_trash);
-							listAdapter.notifyDataSetChanged();
-							gridAdapter.notifyDataSetChanged();*/
-						}
-						break;
-					case 1:
-						String filename1 = manualList.get(position).getFileName();
-						if (fileHelper.isContentDownloaded(filename1)) {
-							File file = new File(fileHelper.getFileAbsolutePath
-									(filename1));
-							Intent target = new Intent(Intent.ACTION_VIEW);
-							target.setDataAndType(Uri.fromFile(file), "application/pdf");
-							target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+							break;
+						case 1://watch button
+							String filename1 = manualList.get(position).getFileName();
+							if (fileHelper.isContentDownloaded(filename1)) {
+								File file = new File(fileHelper.getFileAbsolutePath
+										(filename1));
+								Intent target = new Intent(Intent.ACTION_VIEW);
+								target.setDataAndType(Uri.fromFile(file), "application/pdf");
+								target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 
-							View view = listview.getChildAt(position);
+								View view = listview.getChildAt(position);
 
-							Intent i = Intent.createChooser(target, "Open File");
-							startActivity(i);
-							dbHandler.addContent(manualList.get(position).getContentId());
-						} else {
-							if(listview.getChildAt(position) instanceof SwipeMenuLayout){
-								SwipeMenuLayout menuLayout = (SwipeMenuLayout)
-										listview.getChildAt(position);
-								menuLayout.smoothCloseMenu();
+								Intent i = Intent.createChooser(target, "Open File");
+								startActivity(i);
+							} else {
+								if (listview.getChildAt(position) instanceof SwipeMenuLayout) {
+									SwipeMenuLayout menuLayout = (SwipeMenuLayout)
+											listview.getChildAt(position);
+									menuLayout.smoothCloseMenu();
+								}
+								DownloadAsyncTask task1 = new DownloadAsyncTask(context,
+										manualList
+												.get(position).getUrl(), manualList.get
+										(position).getFileName(), Global
+										.DOWNLOAD_TASK_TYPE_PDF);
+								task1.execute();
 							}
-							DownloadAsyncTask task1 = new DownloadAsyncTask(context,
-									manualList
-											.get(position).getUrl(), manualList.get
-									(position).getFileName(), Global
-									.DOWNLOAD_TASK_TYPE_PDF);
-							task1.execute();
-							dbHandler.addContent(manualList.get(position).getContentId());
-							/*SwipeMenuItem menuItem = menu.getMenuItem(0);
-							menuItem.setIcon(R.drawable.ic_list_trash);
-							listAdapter.notifyDataSetChanged();
-							gridAdapter.notifyDataSetChanged();*/
+							break;
+					}
+				}else{// one button on item
+					String filename1 = manualList.get(position).getFileName();
+					if (fileHelper.isContentDownloaded(filename1)) {
+						File file = new File(fileHelper.getFileAbsolutePath
+								(filename1));
+						Intent target = new Intent(Intent.ACTION_VIEW);
+						target.setDataAndType(Uri.fromFile(file), "application/pdf");
+						target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+
+						View view = listview.getChildAt(position);
+
+						Intent i = Intent.createChooser(target, "Open File");
+						startActivity(i);
+					} else {
+						if (listview.getChildAt(position) instanceof SwipeMenuLayout) {
+							SwipeMenuLayout menuLayout = (SwipeMenuLayout)
+									listview.getChildAt(position);
+							menuLayout.smoothCloseMenu();
 						}
-						break;
+						DownloadAsyncTask task1 = new DownloadAsyncTask(context,
+								manualList
+										.get(position).getUrl(), manualList.get
+								(position).getFileName(), Global
+								.DOWNLOAD_TASK_TYPE_PDF);
+						task1.execute();
+					}
+					manualList.retainAll(manualList);
+					listAdapter = new ManualListAdapter(getActivity
+							(), Global.isNormalScreenSize ? R.layout
+							.manual_listview_item : R.layout.manual_listview_item_big, manualList);
+					listview.setAdapter(listAdapter);
 				}
+
 				return false;
 			}
 		});
@@ -289,10 +276,16 @@ public class ManualFragment extends Fragment {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				listview.smoothOpenMenu(position);
+				view.requestFocus();
+			}
+		});
+		listview.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+			@Override
+			public void onFocusChange(View v, boolean hasFocus) {
+				listview.closeAllMenu();
 			}
 		});
 	}
-
 
 
 	private void prepareListData(JSONObject json) {

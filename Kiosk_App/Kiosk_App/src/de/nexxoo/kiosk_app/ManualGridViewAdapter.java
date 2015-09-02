@@ -71,6 +71,11 @@ public class ManualGridViewAdapter extends ArrayAdapter<Manual> {
 		}
 
 		item.manualName.setText(mManualList.get(position).getName());
+		String deteilInformation = mManualList.get(position).getPages()
+				+Nexxoo.PAGES+	Nexxoo
+				.readableFileSize(mManualList.get(position)
+						.getSize());
+		item.manualSize.setText(deteilInformation);
 		item.trash_button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {

@@ -33,9 +33,93 @@ public class BaseEntity implements Parcelable {
 	public static String SIZE = "size";
 
 	public static String PICTURES = "pictures";
-	private static final String COUNT = "count";
+	public static final String COUNT = "count";
 	public static String CONTENTTYPE = "contentTypeId";
 
+	public BaseEntity(int id, String name, String fileName) {
+		setContentId(id);
+		setName(name);
+		setFileName(fileName);
+	}
+
+	public BaseEntity() {}
+
+	public BaseEntity(JSONObject jsonObj) throws KioskContentError {
+		if (jsonObj != null) {
+			try {
+				contentId = jsonObj.getInt(CONTENTID);
+				name = jsonObj.getString(NAME);
+				description = jsonObj.getString(DESCRIPTION);
+				url = jsonObj.getString(URL);
+				fileName = jsonObj.getString(FILENAME);
+				size = jsonObj.getLong(SIZE);
+
+				contentTypeId = jsonObj.getInt(CONTENTTYPE);
+
+				JSONObject jsonObjPics = jsonObj.getJSONObject(PICTURES);
+				if (jsonObjPics != null) {
+					JSONObject jsonObjPic = null;
+					int count = jsonObjPics.getInt(COUNT);
+					for (int i = 0; i < count; i++) {
+						if (jsonObjPics.has(("picture" + Integer.toString(i)))) {
+							jsonObjPic = jsonObjPics.getJSONObject("picture" + Integer.toString(i));
+							Cover pic = new Cover(jsonObjPic);
+							mPictureList.add(pic);
+						}
+					}
+				}
+
+
+			} catch (JSONException e) {
+				throw new KioskContentError("JSON must not be null!");
+			}
+		} else {
+			throw new KioskContentError("JSON must not be null!");
+		}
+	}
+
+	public BaseEntity(int id) {
+		setContentId(contentId);
+	}
+
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeInt(contentId);
+		dest.writeString(name);
+		dest.writeString(description);
+		dest.writeString(url);
+		dest.writeString(fileName);
+		dest.writeLong(size);
+		dest.writeList(mPictureList);
+		dest.writeInt(contentTypeId);
+	}
+
+	public BaseEntity(Parcel in) {
+
+		long[] longData = new long[1];
+		String[] stringData = new String[4];
+		int[] intData = new int[3];
+
+		in.readIntArray(intData);
+		contentId = intData[0];
+
+		in.readStringArray(stringData);
+		name = stringData[0];
+		description = stringData[1];
+		url = stringData[2];
+		fileName = stringData[3];
+
+		in.readLongArray(longData);
+		size = longData[0];
+
+		in.readList(mPictureList, Cover.class.getClassLoader());
+		contentTypeId = intData[1];
+	}
 
 	public int getContentTypeId() {
 		return contentTypeId;
@@ -101,88 +185,4 @@ public class BaseEntity implements Parcelable {
 		this.mPictureList = mPictureList;
 	}
 
-	public BaseEntity(int id, String name, String fileName) {
-		setContentId(id);
-		setName(name);
-		setFileName(fileName);
-	}
-
-	public BaseEntity() {}
-
-	public BaseEntity(JSONObject jsonObj) throws KioskContentError {
-		if (jsonObj != null) {
-			try {
-				contentId = jsonObj.getInt(CONTENTID);
-				name = jsonObj.getString(NAME);
-				description = jsonObj.getString(DESCRIPTION);
-				url = jsonObj.getString(URL);
-				fileName = jsonObj.getString(FILENAME);
-				contentTypeId = jsonObj.getInt(CONTENTTYPE);
-
-				JSONObject jsonObjPics = jsonObj.getJSONObject(PICTURES);
-				if (jsonObjPics != null) {
-					JSONObject jsonObjPic = null;
-					int count = jsonObjPics.getInt(COUNT);
-					for (int i = 0; i < count; i++) {
-						if (jsonObjPics.has(("picture" + Integer.toString(i)))) {
-							jsonObjPic = jsonObjPics.getJSONObject("picture" + Integer.toString(i));
-							Cover pic = new Cover(jsonObjPic);
-							mPictureList.add(pic);
-//							new GrabBitmap().execute(url);
-						}
-					}
-				}
-				size = jsonObj.getLong(SIZE);
-				fileName = jsonObj.getString(FILENAME);
-
-			} catch (JSONException e) {
-				throw new KioskContentError("JSON must not be null!");
-			}
-		} else {
-			throw new KioskContentError("JSON must not be null!");
-		}
-	}
-
-	public BaseEntity(int id) {
-		setContentId(contentId);
-	}
-
-	@Override
-	public int describeContents() {
-		return 0;
-	}
-
-	@Override
-	public void writeToParcel(Parcel dest, int flags) {
-		dest.writeInt(contentId);
-		dest.writeString(name);
-		dest.writeString(description);
-		dest.writeString(url);
-		dest.writeString(fileName);
-		dest.writeLong(size);
-		dest.writeList(mPictureList);
-		dest.writeInt(contentTypeId);
-	}
-
-	public BaseEntity(Parcel in) {
-
-		long[] longData = new long[1];
-		String[] stringData = new String[4];
-		int[] intData = new int[2];
-
-		in.readIntArray(intData);
-		contentId = intData[0];
-
-		in.readStringArray(stringData);
-		name = stringData[0];
-		description = stringData[1];
-		url = stringData[2];
-		fileName = stringData[3];
-
-		in.readLongArray(longData);
-		size = longData[0];
-
-		in.readList(mPictureList, Cover.class.getClassLoader());
-		contentTypeId = intData[1];
-	}
 }

@@ -69,6 +69,11 @@ public class CatalogGridViewAdapter extends ArrayAdapter<Catalog> {
 		}
 
 		item.catalogName.setText(mCatalogList.get(position).getName());
+		String deteilInformation = mCatalogList.get(position).getPages()
+				+Nexxoo.PAGES+	Nexxoo
+				.readableFileSize(mCatalogList.get(position)
+						.getSize());
+		item.catalogSize.setText(deteilInformation);
 		item.trash_button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {

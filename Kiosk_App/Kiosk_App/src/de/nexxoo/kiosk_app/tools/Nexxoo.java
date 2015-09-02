@@ -14,6 +14,7 @@ import de.nexxoo.kiosk_app.db.DatabaseHandler;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
+import java.text.DecimalFormat;
 import java.util.*;
 
 public class Nexxoo {
@@ -22,6 +23,9 @@ public class Nexxoo {
 
 	public static final String REPLACE_1 = "###x###";
 	public static final String REPLACE_2 = "###y###";
+	public static String PAGES = " Pages / ";
+	public static String DURATION_DIVIDER = " / ";
+	public static String TIME_DIVIDER = ":";
 
 	public static String getDeviceId() {
 		String id = Build.SERIAL;
@@ -126,7 +130,7 @@ public class Nexxoo {
 		int i = 0;
 		for (Map.Entry<String, Long> map : contentIds) {
 			ids[i] = Integer.parseInt(map.getKey());
-			Log.d(Nexxoo.TAG,"getContentIds :" +ids[i]);
+			Log.d(Nexxoo.TAG, "getContentIds :" + ids[i]);
 			i++;
 		}
 		return ids;
@@ -157,4 +161,17 @@ public class Nexxoo {
 		return ids;
 	}
 
+	public static String readableFileSize(long size) {
+		if (size <= 0) return "0";
+		final String[] units = new String[]{"B", "kB", "MB", "GB", "TB"};
+		int digitGroups = (int) (Math.log10(size) / Math.log10(1024));
+		return new DecimalFormat("#,##0.#").format(size / Math.pow(1024, digitGroups)) + " " + units[digitGroups];
+	}
+
+	public static String splitToComponentTimes(long longVal) {
+		if ((longVal / 3600) > 0)
+			return String.format("%02d:%02d:%02d", longVal / 3600, longVal / 60, longVal % 60);
+		else
+			return String.format("%02d:%02d", longVal / 60, longVal % 60);
+	}
 }

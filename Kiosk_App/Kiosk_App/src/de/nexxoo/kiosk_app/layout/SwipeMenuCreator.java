@@ -10,4 +10,5 @@ package de.nexxoo.kiosk_app.layout;
 public interface SwipeMenuCreator {
 
 	void create(SwipeMenu menu);
+//	void create(SwipeMenu menu,boolean isDownloaded);
 }

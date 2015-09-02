@@ -224,6 +224,12 @@ public class VideoFragment extends Fragment {
 				Log.e(Nexxoo.TAG, "Get SwipeListview Item's view type: " + listAdapter.getItemViewType(position));
 			}
 		});
+		listview.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+			@Override
+			public void onFocusChange(View v, boolean hasFocus) {
+				listview.closeAllMenu();
+			}
+		});
 	}
 
 	private int dp2px(int dp) {

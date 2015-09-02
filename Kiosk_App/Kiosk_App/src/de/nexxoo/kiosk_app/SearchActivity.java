@@ -1,83 +1,52 @@
 package de.nexxoo.kiosk_app;
 
-import android.app.Activity;
 import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
+import android.graphics.Typeface;
 import android.os.Bundle;
-import android.widget.ExpandableListView;
-import de.nexxoo.kiosk_app.db.DatabaseHandler;
-import de.nexxoo.kiosk_app.entity.*;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.ViewPager;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.widget.FrameLayout;
+import com.astuetz.PagerSlidingTabStrip;
+import de.nexxoo.kiosk_app.entity.Catalog;
+import de.nexxoo.kiosk_app.entity.Manual;
+import de.nexxoo.kiosk_app.entity.Video;
+import de.nexxoo.kiosk_app.tools.Global;
+import de.nexxoo.kiosk_app.tools.Nexxoo;
+import de.nexxoo.kiosk_app.webservice.NexxooWebservice;
+import de.nexxoo.kiosk_app.webservice.OnJSONResponse;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.RejectedExecutionException;
 
 /**
  * Created by b.yuan on 03.08.2015.
  */
-public class SearchActivity extends Activity implements SearchCallback {
-	private ExpandableListView listview;
+public class SearchActivity extends FragmentActivity {
+	private Context mContext;
+
+	private List<Fragment> fragmentList;
+	private FragmentAdapter fragmentAdapter;
+	private ViewPager pager;
+
+	private List<Manual> mManualList;
+	private List<Video> mVideoList;
+	private List<Catalog> mCatalogList;
+
+	public static String CONTENTTYPE = "contentTypeId";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.search_result_fragment);
-		/**
-		 * using background task to solve the efficient problem
-		 */
-/*		Intent intent = getIntent();
-		listview = (ExpandableListView) findViewById(R.id.search_result_listview);
-		handleIntent(intent);*/
-
-		/**
-		 * basic expandable listview without background task
-		 */
-/*		listview = (ExpandableListView) findViewById(R.id.search_result_listview);
-		List<String> groupList = new ArrayList<String>();
-		groupList.add("Manual");
-		groupList.add("Video");
-		groupList.add("Catalog");
-		SearchListAdapter adapter = new SearchListAdapter(this, groupList, setData());
-		listview.setAdapter(adapter);*/
-		/**
-		 * below is the easy working expandable listview and DB test
-		 */
-		Intent intent = getIntent();
-		List<String> groupList = new ArrayList<String>();
-		groupList.add("Manual");
-		groupList.add("Video");
-		groupList.add("Catalog");
-		if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-			ExpandableListView myExpandableListView = (ExpandableListView) findViewById(R.id.search_result_listview);
-			myExpandableListView.setAdapter(new SearchListAdapter(this, groupList, setData()));
-
-			DatabaseHandler db = new DatabaseHandler(this);
-
-			/*if(db.getContent("g")!= null){
-				Log.d("search context","we get the context");
-			}else{
-				Log.d("search context","we don't get the context");
-			}*/
-			/*db.addContent(new Content("d", "d", "d", "d", 1));
-			db.addContent(new Content("e", "e", "e", "e", 1));
-			db.addContent(new Content("f", "f", "f", "f", 1));
-
-			Log.d("Reading: ", "Reading all contacts..");
-			List<Content> contents = db.getAllContents();
-
-			for (Content cn : contents) {
-				String log = "Name: " + cn.getName() + " ,Description: " + cn.getDescription();
-				// Writing Contacts to log
-				Log.d("Name: ", log);
-			}*/
-		}
-		/**
-		 * above is the easy working expandable listview and DB test
-		 */
-
+		setContentView(R.layout.drawer_container);
+		mContext = this;
 	}
-
 
 	@Override
 	protected void onNewIntent(Intent intent) {
@@ -90,73 +59,95 @@ public class SearchActivity extends Activity implements SearchCallback {
 		super.onNewIntent(intent);
 		if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
 			String query = intent.getStringExtra(SearchManager.QUERY);
-			//use the query to search your data somehow
-			SearchAsyncTask task = new SearchAsyncTask(this, query, this);
-			try {
-				task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-			} catch (RejectedExecutionException e) {
+			//use the query to search your data somehow, async task
+			NexxooWebservice.getContent(true, 0, 10, Global.MANUAL_DATABASE_ENTITY_TYPE, new OnJSONResponse() {
+				@Override
+				public void onReceivedJSONResponse(JSONObject json) {
+					try {
+						int count = json.getInt("count");
+						Log.d(Nexxoo.TAG, "get search result list size is : " + count);
+						prepareListData(json);
 
+					} catch (JSONException e) {
+						Log.d("KioskError", "Error!" + e.getMessage());
+					}
+				}
+
+				@Override
+				public void onReceivedError(String msg, int code) {
+					Log.d("KioskError", "Error!" + msg);
+				}
+			});
+		/**
+		 * begin: inflate content frame in container
+		 */
+		fragmentList = new ArrayList<Fragment>();
+		fragmentList.add(new ManualFragment());
+		fragmentList.add(new VideoFragment());
+		fragmentList.add(new CatalogFragment());
+
+		LayoutInflater inflater = getLayoutInflater();
+		FrameLayout container = (FrameLayout) findViewById(R.id.content_frame);
+		inflater.inflate(R.layout.activity_main, container);
+
+		pager = (ViewPager) findViewById(R.id.pager);
+		fragmentAdapter = new FragmentAdapter(getSupportFragmentManager(),
+				fragmentList,getActionBar());
+		pager.setAdapter(fragmentAdapter);
+		pager.setOffscreenPageLimit(3);
+
+		// Bind the tabs to the ViewPager
+		PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
+		tabs.setBackgroundColor(getResources().getColor(R.color.RealWhite));
+		tabs.setIndicatorColor(getResources().getColor(R.color.Tabs_Indicator_Color));
+		Typeface font = Typeface.createFromAsset(getAssets(),"OpenSans-Regular.ttf");
+		tabs.setTypeface(font, Typeface.NORMAL);
+		tabs.setViewPager(pager);
+
+		tabs.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+			@Override
+			public void onPageSelected(int position) {
 			}
-		}
+		});
 
 		/**
-		 * get group list from callback(onSearchDone) method
+		 * end: inflate content frame in container
 		 */
-		SearchResultGroupList srg = intent.getParcelableExtra(getString(R.string.kiosk_search_bundle_group));
-		SearchResultChildList src = intent.getParcelableExtra(getString(R.string.kiosk_search_bundle_child));
-
-		if (srg != null && srg.getGroupList() != null && src != null && src.getChildList() != null) {
-			listview.setAdapter(new SearchListAdapter(this, srg.getGroupList(), src.getChildList()));
 		}
-
-
 	}
 
-	@Override
-	public void onSearchDone(List<List<BaseEntity>> entityList) {
-		List<String> groupList = new ArrayList<String>();
-		groupList.add("Manual");
-		groupList.add("Video");
-		groupList.add("Catalog");
+	private void prepareListData(JSONObject json) {
+		try {
+			int count = json.getInt("count");
+			Manual manual = null;
+			Catalog catalog = null;
+			Video video = null;
+			for (int i = 0; i < count; i++) {
+				try {
+					JSONObject jsonContentObj = json.getJSONObject("content" + i);
+					int contentTypeId = jsonContentObj.getInt(CONTENTTYPE);
+					switch (contentTypeId){
+						case 1://catalog
+							catalog = new Catalog(jsonContentObj);
+							mCatalogList.add(catalog);
+							break;
+						case 2://manual
+							manual = new Manual(jsonContentObj);
+							mManualList.add(manual);
+							break;
+						case 3://video
+							video = new Video(jsonContentObj);
+							mVideoList.add(video);
+							break;
+					}
+				} catch (Exception e) {
+					Log.d(Nexxoo.TAG, e.getMessage());
+				}
+			}
 
-//		listview.setAdapter(new SearchListAdapter(this,groupList, entityList));
-		Intent i = new Intent(this, SearchActivity.class);
-		i.putExtra(getString(R.string.kiosk_search_bundle_child), new SearchResultChildList(entityList));
-		i.putExtra(getString(R.string.kiosk_search_bundle_group), new SearchResultGroupList(groupList));
-
-		handleIntent(i);
-	}
-
-	private List<List<BaseEntity>> setData() {
-		List<BaseEntity> manuals = new ArrayList<BaseEntity>();
-		List<BaseEntity> videos = new ArrayList<BaseEntity>();
-		List<BaseEntity> catalogs = new ArrayList<BaseEntity>();
-
-		List<List<BaseEntity>> chlidList = new ArrayList<List<BaseEntity>>();
-
-		for (int i = 0; i < 4; i++) {
-			Manual manual = new Manual();
-			manual.setName("Manual " + i);
-			manuals.add(manual);
+		} catch (JSONException e) {
+			Log.d(Nexxoo.TAG, e.getMessage());
 		}
-
-		for (int i = 0; i < 4; i++) {
-			Video video = new Video();
-			video.setName("Video " + i);
-			videos.add(video);
-		}
-
-		for (int i = 0; i < 4; i++) {
-			Catalog video = new Catalog();
-			video.setName("Catalog " + i);
-			catalogs.add(video);
-		}
-
-		chlidList.add(manuals);
-		chlidList.add(videos);
-		chlidList.add(catalogs);
-
-		return chlidList;
 	}
 
 }

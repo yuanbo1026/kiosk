@@ -59,6 +59,11 @@ public class CatalogListAdapter extends ArrayAdapter<Catalog> {
 			item.catalogCover = (ImageView) v.findViewById(R.id.catalog_listview_item_cover);
 
 			item.catalogName.setText(mCatalogList.get(position).getName());
+			String deteilInformation = mCatalogList.get(position).getPages()
+					+Nexxoo.PAGES+	Nexxoo
+					.readableFileSize(mCatalogList.get(position)
+							.getSize());
+			item.catalogSize.setText(deteilInformation);
 			if (!mCatalogList.get(position).getmPictureList().isEmpty()) {
 				ImageLoader imageLoader = ImageLoader.getInstance(); // Get singleton instance
 				imageLoader.displayImage(mCatalogList.get(position).getmPictureList().get

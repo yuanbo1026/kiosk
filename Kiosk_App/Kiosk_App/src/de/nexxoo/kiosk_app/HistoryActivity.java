@@ -50,7 +50,7 @@ public class HistoryActivity extends Activity {
 		getActionBar().setHomeButtonEnabled(true);
 		getActionBar().setDisplayUseLogoEnabled(false);
 		getActionBar().setIcon(R.drawable.ic_chevron_left_white_36dp);
-		getActionBar().setTitle(Nexxoo.getStyledText(this, "Last Opened"));
+		getActionBar().setTitle(Nexxoo.getStyledText(this, "Verlauf"));
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.history);
 		mContext = this;

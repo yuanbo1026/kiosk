@@ -65,7 +65,7 @@ public class MainActivity extends FragmentActivity {
 		getActionBar().setHomeButtonEnabled(true);
 		getActionBar().setDisplayUseLogoEnabled(false);
 		getActionBar().setIcon(R.drawable.ic_menu_white_36dp);
-		getActionBar().setTitle(Nexxoo.getStyledText(context, "Manual"));
+		getActionBar().setTitle(Nexxoo.getStyledText(context, "Anleitung"));
 
 		// ActionBarDrawerToggle ties together the the proper interactions
 		// between the sliding drawer and the action bar app icon
@@ -105,7 +105,7 @@ public class MainActivity extends FragmentActivity {
 		fragmentAdapter = new FragmentAdapter(getSupportFragmentManager(),
 				fragmentList,getActionBar());
 		pager.setAdapter(fragmentAdapter);
-		pager.setOffscreenPageLimit(5);
+		pager.setOffscreenPageLimit(3);
 
 		// Bind the tabs to the ViewPager
 		PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
@@ -120,6 +120,7 @@ public class MainActivity extends FragmentActivity {
 			public void onPageSelected(int position) {
 				actionbar.setTitle(Nexxoo.getStyledText(context,mFragmentTitles[pager
 						.getCurrentItem()]));
+				pager.getChildAt(position).requestFocus();
 			}
 		});
 
@@ -136,31 +137,6 @@ public class MainActivity extends FragmentActivity {
 	}
 
 	private void selectItem(int position) {
-		/*// update the main content by replacing fragments
-		android.app.Fragment fragment = null;
-		switch (position) {
-			case 0:
-				fragment = new ContactFragment();
-				break;
-			case 1:
-				fragment = new ImprintFragment();
-				break;
-			case 2:
-				fragment = new HistoryActivity();
-				break;
-			default:
-//				fragment = new ContactFragment();
-
-		}
-
-		FragmentManager fragmentManager = getFragmentManager();
-		fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
-
-		// update selected item and title, then close the drawer
-		mDrawerList.setItemChecked(position, true);
-		setTitle(getStyledText(mTitles[position]));
-		mDrawerLayout.closeDrawer(mDrawerList);*/
-
 		mDrawerList.setItemChecked(position, false);
 		mDrawerLayout.closeDrawer(mDrawerList);
 		switch (position) {
@@ -177,8 +153,6 @@ public class MainActivity extends FragmentActivity {
 				startActivity(history);
 				break;
 		}
-
-
 	}
 
 	@Override

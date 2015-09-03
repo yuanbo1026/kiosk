@@ -1,8 +1,49 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
-<TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-          android:text="@string/imprint_title" android:textSize="30sp"/>
-</LinearLayout>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/RadiothekBlueDark"
+                tools:context=".GenreActivity" >
+
+    <TextView
+            android:id="@+id/text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="@string/impressumactivity.caption.imprint"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/RadiothekBlueLight" />
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/text"
+            android:layout_alignParentLeft="true"
+            android:background="@color/RadiothekBlueLight"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp" />
+
+    <ScrollView
+            android:id="@+id/scrollView1"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@id/text" >
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="546dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="@string/impressumactivity.text.imprint"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/RadiothekGrey"
+                android:paddingBottom="10dp" />
+
+    </ScrollView>
+</RelativeLayout>

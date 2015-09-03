@@ -44,8 +44,15 @@ public class MainActivity extends FragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.drawer_container);
 		context = this;
+		getActionBar().setDisplayHomeAsUpEnabled(false);
+		getActionBar().setHomeButtonEnabled(true);
+		getActionBar().setDisplayUseLogoEnabled(false);
+		getActionBar().setIcon(R.drawable.ic_menu_white_36dp);
+		getActionBar().setTitle(Nexxoo.getStyledText(context, "Anleitung"));
+
+		setContentView(R.layout.drawer_container);
+
 		mTitle = mDrawerTitle = getTitle();
 		mTitles = getResources().getStringArray(R.array.drawer_titles);
 		mFragmentTitles = getResources().getStringArray(R.array.fragment_titles);
@@ -61,11 +68,7 @@ public class MainActivity extends FragmentActivity {
 
 		// enable ActionBar app icon to behave as action to toggle nav drawer
 		actionbar = getActionBar();
-		getActionBar().setDisplayHomeAsUpEnabled(false);
-		getActionBar().setHomeButtonEnabled(true);
-		getActionBar().setDisplayUseLogoEnabled(false);
-		getActionBar().setIcon(R.drawable.ic_menu_white_36dp);
-		getActionBar().setTitle(Nexxoo.getStyledText(context, "Anleitung"));
+
 
 		// ActionBarDrawerToggle ties together the the proper interactions
 		// between the sliding drawer and the action bar app icon
@@ -141,11 +144,11 @@ public class MainActivity extends FragmentActivity {
 		mDrawerLayout.closeDrawer(mDrawerList);
 		switch (position) {
 			case 0:
-				Intent contact = new Intent(context,HistoryActivity.class);
+				Intent contact = new Intent(context,ContactActivity.class);
 				startActivity(contact);
 				break;
 			case 1:
-				Intent imprint = new Intent(context,HistoryActivity.class);
+				Intent imprint = new Intent(context,ImprintActivity.class);
 				startActivity(imprint);
 				break;
 			case 2:
@@ -166,6 +169,20 @@ public class MainActivity extends FragmentActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.menu, menu);
+		MenuItem searchMI = (MenuItem) menu.findItem(R.id.search);
+		searchMI.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
+			@Override
+			public boolean onMenuItemActionCollapse(MenuItem menuItem) {
+				//nothing
+				return true;
+			}
+
+			@Override
+			public boolean onMenuItemActionExpand(MenuItem menuItem) {
+				getActionBar().setDisplayShowHomeEnabled(false);
+				return true;
+			}
+		});
 		// Associate searchable configuration with the SearchView
 		SearchManager searchManager =
 				(SearchManager) getSystemService(Context.SEARCH_SERVICE);
@@ -195,7 +212,6 @@ public class MainActivity extends FragmentActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-
 	}
 
 	@Override
@@ -205,6 +221,9 @@ public class MainActivity extends FragmentActivity {
 		if (mDrawerToggle.onOptionsItemSelected(item)) {
 			return true;
 		}
+//		getActionBar().setIcon(R.drawable.ic_chevron_left_white_36dp);
+		getActionBar().setDisplayShowHomeEnabled(false);
+
 		// Handle action buttons
 		return super.onOptionsItemSelected(item);
 	}

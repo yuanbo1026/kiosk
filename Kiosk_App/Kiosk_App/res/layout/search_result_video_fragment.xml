@@ -5,13 +5,13 @@
                 android:layout_height="match_parent">
     <LinearLayout
             android:gravity="right"
-            android:id="@+id/video_tapbar"
+            android:id="@+id/search_result_video_tapbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:visibility="visible" android:layout_margin="10dp">
         <ImageButton
-                android:id="@+id/video_b_grid"
+                android:id="@+id/search_result_video_b_grid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@null"
@@ -20,7 +20,7 @@
                 />
 
         <ImageButton
-                android:id="@+id/video_b_list"
+                android:id="@+id/search_result_video_b_list"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@null"
@@ -28,27 +28,27 @@
                 android:src="@drawable/ic_list"
                 />
     </LinearLayout>
-    <View android:id="@+id/video_header"
+    <View android:id="@+id/search_result_video_header"
           android:layout_width="match_parent"
           android:layout_height="1dip"
           android:background="@color/swipe_listview_divider_color"
           android:layout_below="@+id/video_tapbar"/>
     <ViewSwitcher
-            android:id="@+id/video_viewswitcher"
+            android:id="@+id/search_result_video_viewswitcher"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/video_header"
+            android:layout_below="@id/search_result_video_header"
             android:clipToPadding="false"
             android:cacheColorHint="#00000000"
             android:paddingBottom="5dp">
         <GridView
-                android:id="@+id/video_grid"
+                android:id="@+id/search_result_video_grid"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 >
         </GridView>
         <de.nexxoo.kiosk_app.layout.SwipeMenuListView
-                android:id="@+id/video_list"
+                android:id="@+id/search_result_video_list"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:background="@color/RealWhite"

@@ -74,7 +74,7 @@ public class VideoListAdapter extends ArrayAdapter<Video> {
 		item.videoName.setText(mVideoList.get(position).getName());
 		item.videoName.setText(mVideoList.get(position).getName());
 		String deteilInformation = Nexxoo.splitToComponentTimes(mVideoList.get(position).getDuration())
-				+Nexxoo.DURATION_DiVIDER+	Nexxoo
+				+Nexxoo.DURATION_DIVIDER+	Nexxoo
 				.readableFileSize(mVideoList.get(position)
 						.getSize());
 		item.videoSize.setText(deteilInformation);

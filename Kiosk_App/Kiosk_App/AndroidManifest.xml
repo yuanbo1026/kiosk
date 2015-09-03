@@ -64,6 +64,7 @@
         <activity android:name=".ImprintActivity"/>
         <activity android:name=".ProtocolActivity"/>
         <activity android:name=".TestDBActivity"/>
+        <activity android:name=".SearchResultAllFragment"/>
 
 
     </application>

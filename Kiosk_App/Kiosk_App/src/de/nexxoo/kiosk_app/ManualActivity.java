@@ -61,9 +61,6 @@ public class ManualActivity extends Activity implements View.OnClickListener {
 		File folder = new File(fileStorageHelper.getDownloadFolder());
 		if (!folder.exists())
 			folder.mkdirs();
-//		fileAbsolutePath = fileStorageHelper.getFileAbsolutePath(filename);
-//		Log.d("fileAbsolutePath", fileAbsolutePath);
-
 
 		progressBar = (ProgressBar) findViewById(R.id.manual_view_progressBar);
 		progressBar.setVisibility(View.GONE);

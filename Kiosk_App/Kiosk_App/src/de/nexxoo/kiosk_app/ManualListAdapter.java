@@ -114,6 +114,7 @@ public class ManualListAdapter extends ArrayAdapter<Manual> {
 	@Override
 	public int getCount() {
 		return mManualList.size();
+
 	}
 
 	@Override

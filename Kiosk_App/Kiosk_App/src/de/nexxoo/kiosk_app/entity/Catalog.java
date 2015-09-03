@@ -7,9 +7,10 @@ import org.json.JSONObject;
 /**
  * Created by b.yuan on 29.07.2015.
  */
-public class Catalog  extends BaseEntity {
+public class Catalog extends BaseEntity {
 	public static String PAGES = "pages";
 	private int pages;
+
 	public Catalog(JSONObject jsonObj) throws KioskContentError {
 		super(jsonObj);
 		try {
@@ -18,8 +19,10 @@ public class Catalog  extends BaseEntity {
 			e.printStackTrace();
 		}
 	}
-	public Catalog(){
+
+	public Catalog() {
 	}
+
 	public int getPages() {
 		return pages;
 	}

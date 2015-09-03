@@ -56,4 +56,53 @@
 
     <!-- search result fragment-->
     <string name="search_result_fragment_type">type</string>
+    <!-- search result bundle key-->
+    <string name="search_result_all_list">all_list</string>
+    <string name="search_result_manual_list">manual_list</string>
+    <string name="search_result_video_list">video_list</string>
+    <string name="search_result_catalog_list">catalog_list</string>
+    <!-- serch no result -->
+    <string name="search_no_result">Es gibt kein Ergebnis</string>
+    <!-- imprint -->
+    <string name="impressumactivity.caption.imprint">Impressum</string>
+    <string name="impressumactivity.text.imprint"><![CDATA[Anbieter, Kontakt u. Hinweise \n
+        Anbieter \n
+        TechniSat Digital GmbH \n
+        Julius-Saxler-Straße 3 \n
+        TechniPark \n
+        D-54550 Daun / Germany \n
+        Geschäftsführung: Peter Lepper, Stefan Kön, Peter Kohlschmidt, Beatrix Simon-Ludwig \n
+        Register und Registernummer: Amtsgericht Wittlich HRB 11561 \n
+        Umsatzsteuer-Identifikationsnummer: DE 149 932 421 \n
+        Kontakt \n
+        Telefon +49 - (0)6592 / 712-600 \n
+        Telefax +49 - (0)6592 / 4910 \n
+        Service & Support +49 - (0)3925 / 9220-1800 \n
+        info@technisat.de \n
+        www.technisat.de \n \n
+        Rechtliche Hinweise\n
+        TechniSat Digital GmbH - Alle Rechte vorbehalten. Alle Angaben ohne Gewähr. \n
+        Text, Bilder, Grafiken, Sound, Animationen und Videos sowie deren Anordnung auf www.technisat.de
+        unterliegen dem Schutz des Urheberrechts und anderer Schutzgesetze.
+        Jede unauthorisierte Nutzung der Marke TechniSat oder von TechniSat geschützter Warenzeichen, insbesondere die
+        Vermarktung von Piraterieprodukten oder die Bewerbung solcher Produkte in Verbindung mit der Marke TechniSat, wird gerichtlich verfolgt.
+        Verlinkungen auf den Inhalt dieser Seiten sind nur gestattet, wenn diese vollständig, ohne Werbeframes der linkenden
+        Seite dargestellt werden. Cross-Linking (Verlinkung auf einzelne Grafiken) zur Ausnutzung des Transfervolumens
+        von www.technisat.de ist nicht gestattet. Verstöße gegen das Copyright werden durch TechniSat gerichtlich verfolgt. \n \n
+        Besonderer Hinweis \n
+        Mit Urteil vom 12. Mai 1998 hat das Landgericht Hamburg entschieden, dass man durch die Anbringung eines Links
+        die Inhalte der verlinkten Seite ggf. mit zu verantworten hat. Dies kann, so das LG, nur dadurch verhindert werden,
+        indem man sich ausdrücklich von diesen Inhalten distanziert. Wir haben auf
+        unseren Seiten Verweise (Links) zu anderen Seiten im Internet gelegt. Für alle diese Links gilt: TechniSat Digital
+        GmbH erklärt ausdrücklich, dass wir keinerlei Einfluss auf die Gestaltung und die Inhalte der verlinkten Seiten haben.
+        Deshalb distanzieren wir uns hiermit ausdrücklich von allen
+        Inhalten aller verlinkten Seiten auf www.technisat.de und machen uns diese Inhalte nicht zu Eigen. Diese Erklärung
+        gilt für alle auf unserer Internetpräsenz angezeigten Links und für alle Inhalte der Seiten, zu denen die bei uns angemeldeten Banner und Links führen. \n \n
+        Haftungsausschluss \n
+        Die bereitgestellten Informationen auf dieser Webseite wurden sorgfältig geprüft und werden regelmäßig aktualisiert. Jedoch kann keine
+        Haftung oder Garantie dafür übernommen werden, dass alle Angaben zu jeder Zeit vollständig,
+        richtig und in letzter Aktualität dargestellt sind. Dies gilt insbesondere für alle Links zu anderen Websites,
+        auf die direkt oder indirekt verwiesen wird. Alle Angaben können ohne vorherige Ankündigung geändert, entfernt oder ergänzt werden. ]]></string>
+
+
 </resources>

@@ -10,3 +10,7 @@ Kiosk_App/.idea/workspace.xml
 Kiosk_App/.idea/workspace.xml
 *.class
 *.class
+
+Kiosk_App/library/library.iml
+
+Kiosk_App/library/project.properties

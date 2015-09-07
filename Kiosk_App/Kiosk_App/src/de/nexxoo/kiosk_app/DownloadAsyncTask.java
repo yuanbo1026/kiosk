@@ -36,6 +36,7 @@ public class DownloadAsyncTask extends AsyncTask<Void, Integer, String> {
 	private String basicAuthBase64;
 	private int entityType = -1;
 	private ImageView mImageView;
+	private DownloadCallback mCallnack;
 
 
 	public DownloadAsyncTask(Context context, String url, String filename) {
@@ -58,6 +59,17 @@ public class DownloadAsyncTask extends AsyncTask<Void, Integer, String> {
 			basicAuthBase64 = Base64.encodeToString(BASICAUTH.getBytes(), Base64.NO_WRAP);
 //			Log.e("BASIC", basicAuthBase64);
 		}
+	}
+	public DownloadAsyncTask(Context context, String url, String filename, int entityType, DownloadCallback callback) {
+		this.mContext = context;
+		this.mUrl = url.replace("www", "nexxoo:wenexxoo4kiosk!@www");
+		this.filename = filename;
+		this.entityType = entityType;
+		if (BASICAUTH != null) {
+			basicAuthBase64 = Base64.encodeToString(BASICAUTH.getBytes(), Base64.NO_WRAP);
+//			Log.e("BASIC", basicAuthBase64);
+		}
+		this.mCallnack = callback;
 	}
 	/**
 	 * This method is not useful anymore, there is not need to change grid view item
@@ -182,7 +194,6 @@ public class DownloadAsyncTask extends AsyncTask<Void, Integer, String> {
 			ImageView image = (ImageView) mImageView;
 			image.setImageResource(R.drawable.ic_grid_trash);
 			image.setVisibility(View.VISIBLE);
-
 		}
 		/**
 		 * There is no effect to change to swipe menu item icon.
@@ -210,6 +221,10 @@ public class DownloadAsyncTask extends AsyncTask<Void, Integer, String> {
 			}
 		}else if(entityType != -1 && entityType == Global.DOWNLOAD_TASK_TYPE_VIDEO){
 
+		}
+
+		if(this.mCallnack!= null){
+			mCallnack.OnUpdateInteface();
 		}
 
 	}

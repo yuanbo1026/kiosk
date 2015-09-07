@@ -34,6 +34,7 @@ public class ManualGridViewAdapter extends ArrayAdapter<Manual> {
 	private int mLayoutId;
 	private FileStorageHelper fileHelper;
 	private DatabaseHandler dbHandler;
+	private UpdateListViewInterface callback;
 
 	public ManualGridViewAdapter(Context context, int layoutId, List<Manual> objects) {
 		super(context, layoutId, objects);
@@ -76,7 +77,7 @@ public class ManualGridViewAdapter extends ArrayAdapter<Manual> {
 				.readableFileSize(mManualList.get(position)
 						.getSize());
 		item.manualSize.setText(deteilInformation);
-		/*item.trash_button.setOnClickListener(new View.OnClickListener() {
+		item.trash_button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				File video = new File(fileHelper.getFileAbsolutePath(mManualList
@@ -84,8 +85,9 @@ public class ManualGridViewAdapter extends ArrayAdapter<Manual> {
 				video.delete();
 				ImageView image = (ImageView) v;
 				image.setVisibility(View.INVISIBLE);
+				callback.update(position);
 			}
-		});*/
+		});
 		item.manualCover.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -207,6 +209,18 @@ public class ManualGridViewAdapter extends ArrayAdapter<Manual> {
 		ImageView manualCover;
 		ImageView trash_button;
 		ImageView watch_button;
+	}
+
+	public UpdateListViewInterface getCallback() {
+		return callback;
+	}
+
+	public void setCallback(UpdateListViewInterface callback) {
+		this.callback = callback;
+	}
+
+	public interface UpdateListViewInterface{
+		public void update(int position);
 	}
 
 }

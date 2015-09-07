@@ -178,6 +178,7 @@ public class CatalogFragment extends Fragment {
 						case 50001:
 							String filename = catalogList.get(position).getFileName();
 							if (fileHelper.isContentDownloaded(filename)) {
+								listview.closeAllMenu();
 								File file = new File(fileHelper.getFileAbsolutePath(filename));
 								Intent target = new Intent(Intent.ACTION_VIEW);
 								target.setDataAndType(Uri.fromFile(file), "application/pdf");
@@ -185,11 +186,7 @@ public class CatalogFragment extends Fragment {
 								Intent i = Intent.createChooser(target, "Open File");
 								startActivity(i);
 							} else {
-								if (listview.getChildAt(position) instanceof SwipeMenuLayout) {
-									SwipeMenuLayout menuLayout = (SwipeMenuLayout)
-											listview.getChildAt(position);
-									menuLayout.smoothCloseMenu();
-								}
+								listview.closeAllMenu();
 								DownloadAsyncTask task1 = new DownloadAsyncTask(context,
 										catalogList
 												.get(position).getUrl(), catalogList.get

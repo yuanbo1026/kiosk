@@ -7,6 +7,7 @@ import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Interpolator;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -213,6 +214,17 @@ public class SwipeMenuListView extends ListView {
 					mTouchView.smoothCloseMenu();
 				}
 			}
+		}
+	}
+
+	public void updateMenuIcon(int position){
+		View view = getChildAt(position);
+		if (view instanceof SwipeMenuLayout) {
+			mTouchView = (SwipeMenuLayout) view;
+			LinearLayout image = (LinearLayout) mTouchView.findViewById(new
+					Integer(50000));
+			image.setVisibility(View.GONE);
+
 		}
 	}
 

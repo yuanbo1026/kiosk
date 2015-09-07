@@ -76,7 +76,7 @@ public class ManualGridViewAdapter extends ArrayAdapter<Manual> {
 				.readableFileSize(mManualList.get(position)
 						.getSize());
 		item.manualSize.setText(deteilInformation);
-		item.trash_button.setOnClickListener(new View.OnClickListener() {
+		/*item.trash_button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				File video = new File(fileHelper.getFileAbsolutePath(mManualList
@@ -85,7 +85,7 @@ public class ManualGridViewAdapter extends ArrayAdapter<Manual> {
 				ImageView image = (ImageView) v;
 				image.setVisibility(View.INVISIBLE);
 			}
-		});
+		});*/
 		item.manualCover.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {

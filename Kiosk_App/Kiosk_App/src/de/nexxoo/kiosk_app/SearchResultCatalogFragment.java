@@ -16,10 +16,7 @@ import android.view.ViewGroup;
 import android.widget.*;
 import de.nexxoo.kiosk_app.db.DatabaseHandler;
 import de.nexxoo.kiosk_app.entity.Catalog;
-import de.nexxoo.kiosk_app.layout.SwipeMenu;
-import de.nexxoo.kiosk_app.layout.SwipeMenuCreator;
-import de.nexxoo.kiosk_app.layout.SwipeMenuItem;
-import de.nexxoo.kiosk_app.layout.SwipeMenuListView;
+import de.nexxoo.kiosk_app.layout.*;
 import de.nexxoo.kiosk_app.tools.FileStorageHelper;
 import de.nexxoo.kiosk_app.tools.Global;
 import de.nexxoo.kiosk_app.tools.Nexxoo;
@@ -144,17 +141,21 @@ public class SearchResultCatalogFragment extends Fragment {
 
 			@Override
 			public void create(SwipeMenu menu) {
-				SwipeMenuItem openItem = new SwipeMenuItem(context);
-				openItem.setBackground(new ColorDrawable(Color.rgb(0xF3, 0xF3, 0xF3)));
-				openItem.setWidth(dp2px(isNormal ? 90 : 120));
-				openItem.setIcon(R.drawable.ic_list_download);
-				menu.addMenuItem(openItem);
+				SwipeMenuItem download = new SwipeMenuItem(context);
+				download.setId(30000);
+				download.setBackground(new ColorDrawable(Color.rgb(0xF3, 0xF3, 0xF3)));
+				download.setWidth(Nexxoo.dp2px(context, isNormal ? 90 : 120));
+				download.setIcon(R.drawable.ic_list_trash);
+				download.setIsVisiable(menu.getViewType() > 0);
+				menu.addMenuItem(download);
 
-				SwipeMenuItem deleteItem = new SwipeMenuItem(context);
-				deleteItem.setBackground(new ColorDrawable(Color.rgb(0xE5, 0xF5, 0xFF)));
-				deleteItem.setWidth(dp2px(isNormal ? 90 : 120));
-				deleteItem.setIcon(R.drawable.ic_list_view);
-				menu.addMenuItem(deleteItem);
+				SwipeMenuItem view = new SwipeMenuItem(context);
+				view.setId(40000);
+				view.setBackground(new ColorDrawable(Color.rgb(0xE5, 0xF5, 0xFF)));
+				view.setWidth(Nexxoo.dp2px(context, isNormal ? 90 : 120));
+				view.setIcon(R.drawable.ic_list_view);
+				view.setIsVisiable(true);
+				menu.addMenuItem(view);
 			}
 		};
 		// set creator
@@ -163,36 +164,70 @@ public class SearchResultCatalogFragment extends Fragment {
 		// step 2. listener item click event
 		listview.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
 			@Override
-			public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+			public boolean onMenuItemClick(int position,SwipeMenuView parent, SwipeMenu menu, int index) {
 				Nexxoo.saveContentId(context,catalogList.get(position).getContentId());
-				switch (index) {
+				if (fileHelper.isContentDownloaded(catalogList.get(position)
+						.getFileName())) {//two buttons
+					switch (index) {
+						case 50000:
+							File manual = new File(fileHelper.getFileAbsolutePath
+									(catalogList
+											.get(position).getFileName()));
+							manual.delete();
+							LinearLayout image = (LinearLayout) parent.findViewById(new
+									Integer(50000));
+							image.setVisibility(View.GONE);
+							break;
+						case 50001:
+							String filename = catalogList.get(position).getFileName();
+							if (fileHelper.isContentDownloaded(filename)) {
+								File file = new File(fileHelper.getFileAbsolutePath(filename));
+								Intent target = new Intent(Intent.ACTION_VIEW);
+								target.setDataAndType(Uri.fromFile(file), "application/pdf");
+								target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+								Intent i = Intent.createChooser(target, "Open File");
+								startActivity(i);
+							} else {
+								if (listview.getChildAt(position) instanceof SwipeMenuLayout) {
+									SwipeMenuLayout menuLayout = (SwipeMenuLayout)
+											listview.getChildAt(position);
+									menuLayout.smoothCloseMenu();
+								}
+								DownloadAsyncTask task1 = new DownloadAsyncTask(context,
+										catalogList
+												.get(position).getUrl(), catalogList.get
+										(position).getFileName());
+								task1.execute();
+							}
+							break;
+					}
+				}else{// one button
+					LinearLayout image = (LinearLayout) parent.findViewById(new
+							Integer(50000));
+					image.setVisibility(View.VISIBLE);
 
-					case 0:
-						DownloadAsyncTask task = new DownloadAsyncTask(context,
+					String filename1 = catalogList.get(position).getFileName();
+					if (fileHelper.isContentDownloaded(filename1)) {
+						File file = new File(fileHelper.getFileAbsolutePath
+								(filename1));
+						Intent target = new Intent(Intent.ACTION_VIEW);
+						target.setDataAndType(Uri.fromFile(file), "application/pdf");
+						target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+						Intent i = Intent.createChooser(target, "Open File");
+						startActivity(i);
+					} else {
+						if (listview.getChildAt(position) instanceof SwipeMenuLayout) {
+							SwipeMenuLayout menuLayout = (SwipeMenuLayout)
+									listview.getChildAt(position);
+							menuLayout.smoothCloseMenu();
+						}
+						DownloadAsyncTask task1 = new DownloadAsyncTask(context,
 								catalogList
 										.get(position).getUrl(), catalogList.get
-								(position).getFileName());
-						task.execute();
-						break;
-					case 1:
-						String filename = catalogList.get(position).getFileName();
-						if (fileHelper.isContentDownloaded(filename)) {
-							File file = new File(fileHelper.getFileAbsolutePath(filename));
-							Intent target = new Intent(Intent.ACTION_VIEW);
-							target.setDataAndType(Uri.fromFile(file), "application/pdf");
-							target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-
-							Intent i = Intent.createChooser(target, "Open File");
-							startActivity(i);
-						} else {
-							DownloadAsyncTask task1 = new DownloadAsyncTask(context,
-									catalogList
-											.get(position).getUrl(), catalogList.get
-									(position).getFileName());
-							task1.execute();
-							dbHandler.addContent(catalogList.get(position).getContentId());
-						}
-						break;
+								(position).getFileName(), Global
+								.DOWNLOAD_TASK_TYPE_PDF);
+						task1.execute();
+					}
 				}
 				return false;
 			}

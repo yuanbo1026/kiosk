@@ -71,7 +71,7 @@ public class SwipeMenuListView extends ListView {
 				boolean flag = false;
 				if (mOnMenuItemClickListener != null) {
 					flag = mOnMenuItemClickListener.onMenuItemClick(
-							view.getPosition(), menu, index);
+							view.getPosition(),view, menu, index);
 				}
 				if (mTouchView != null && !flag) {
 					mTouchView.smoothCloseMenu();
@@ -239,7 +239,7 @@ public class SwipeMenuListView extends ListView {
 	}
 
 	public static interface OnMenuItemClickListener {
-		boolean onMenuItemClick(int position, SwipeMenu menu, int index);
+		boolean onMenuItemClick(int position, SwipeMenuView menuView, SwipeMenu menu, int index);
 	}
 
 	public static interface OnSwipeListener {

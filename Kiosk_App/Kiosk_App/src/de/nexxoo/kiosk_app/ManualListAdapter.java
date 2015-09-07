@@ -104,6 +104,11 @@ public class ManualListAdapter extends ArrayAdapter<Manual> {
 		return v;
 	}
 
+	/**
+	 *
+	 * @param position
+	 * @return downloaded : 1; not download : 0
+	 */
 	@Override
 	public int getItemViewType(int position) {
 		String fileName = mManualList.get(position).getFileName();

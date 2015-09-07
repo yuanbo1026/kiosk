@@ -15,6 +15,7 @@ public class SwipeMenuItem {
 	private int titleColor;
 	private int titleSize;
 	private int width;
+	private boolean isVisiable;
 
 	public SwipeMenuItem(Context context) {
 		mContext = context;
@@ -88,4 +89,11 @@ public class SwipeMenuItem {
 		this.width = width;
 	}
 
+	public boolean isVisiable() {
+		return isVisiable;
+	}
+
+	public void setIsVisiable(boolean isVisiable) {
+		this.isVisiable = isVisiable;
+	}
 }

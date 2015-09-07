@@ -11,10 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.GridView;
-import android.widget.ImageButton;
-import android.widget.ViewSwitcher;
+import android.widget.*;
 import de.nexxoo.kiosk_app.db.DatabaseHandler;
 import de.nexxoo.kiosk_app.entity.Manual;
 import de.nexxoo.kiosk_app.layout.*;
@@ -100,6 +97,7 @@ public class ManualFragment extends Fragment {
 		/**
 		 * init swipe listview
 		 */
+		addGridViewItemClickListener();
 		initSwipeListView(Global.isNormalScreenSize);
 
 		NexxooWebservice.getContent(true, 0, 10, Global.MANUAL_DATABASE_ENTITY_TYPE, new OnJSONResponse() {
@@ -134,6 +132,23 @@ public class ManualFragment extends Fragment {
 		return rootView;
 	}
 
+	private void addGridViewItemClickListener() {
+		gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, final int
+					position, long id) {
+				File video = new File(fileHelper.getFileAbsolutePath(manualList
+						.get(position).getFileName()));
+				video.delete();
+				ImageView image = (ImageView) view.findViewById(R.id.manual_grid_item_trash_button);
+				image.setVisibility(View.INVISIBLE);
+				listAdapter.clear();
+				listAdapter.addAll(manualList);
+				listAdapter.notifyDataSetChanged();
+			}
+		});
+	}
+
 	/**
 	 * initialize swipe listview component
 	 */
@@ -142,25 +157,20 @@ public class ManualFragment extends Fragment {
 
 			@Override
 			public void create(SwipeMenu menu) {
-				/**
-				 * menu.getViewType
-				 * 0 : not downloaded
-				 * 1 : downloaded
-				 */
-
-				if (menu.getViewType() == 1) {
-					SwipeMenuItem download = new SwipeMenuItem(context);
-					download.setBackground(new ColorDrawable(Color.rgb(0xF3, 0xF3, 0xF3)));
-					download.setWidth(Nexxoo.dp2px(context, isNormal ? 90 : 120));
-					download.setIcon(R.drawable.ic_list_trash);
-					menu.addMenuItem(download);
-				}
-
+				SwipeMenuItem download = new SwipeMenuItem(context);
+				download.setId(30000);
+				download.setBackground(new ColorDrawable(Color.rgb(0xF3, 0xF3, 0xF3)));
+				download.setWidth(Nexxoo.dp2px(context, isNormal ? 90 : 120));
+				download.setIcon(R.drawable.ic_list_trash);
+				download.setIsVisiable(menu.getViewType() > 0);
+				menu.addMenuItem(download);
 
 				SwipeMenuItem view = new SwipeMenuItem(context);
+				view.setId(40000);
 				view.setBackground(new ColorDrawable(Color.rgb(0xE5, 0xF5, 0xFF)));
 				view.setWidth(Nexxoo.dp2px(context, isNormal ? 90 : 120));
 				view.setIcon(R.drawable.ic_list_view);
+				view.setIsVisiable(true);
 				menu.addMenuItem(view);
 			}
 		};
@@ -170,30 +180,22 @@ public class ManualFragment extends Fragment {
 		// step 2. listener item click event
 		listview.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
 			@Override
-			public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+			public boolean onMenuItemClick(int position, final SwipeMenuView parent,
+										   SwipeMenu menu, int id) {
 				Nexxoo.saveContentId(context, manualList.get(position).getContentId());
-				if (menu.getViewType() == 1) {//two button on item
-					switch (index) {
-						case 0://download button
-							String filename = manualList.get(position).getFileName();
-							if (fileHelper.isContentDownloaded(filename)) {
-								File file = new File(fileHelper.getFileAbsolutePath(filename));
-								Intent target = new Intent(Intent.ACTION_VIEW);
-								target.setDataAndType(Uri.fromFile(file), "application/pdf");
-								target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-
-								Intent i = Intent.createChooser(target, "Open File");
-								startActivity(i);
-							} else {
-								DownloadAsyncTask task = new DownloadAsyncTask(context,
-										manualList
-												.get(position).getUrl(), manualList.get
-										(position).getFileName(), Global
-										.DOWNLOAD_TASK_TYPE_PDF);
-								task.execute();
-							}
+				if (fileHelper.isContentDownloaded(manualList.get(position).getFileName())) {
+					//two button on item
+					switch (id) {
+						case 50000://trash button
+							File manual = new File(fileHelper.getFileAbsolutePath
+									(manualList
+											.get(position).getFileName()));
+							manual.delete();
+							LinearLayout image = (LinearLayout) parent.findViewById(new
+									Integer(50000));
+							image.setVisibility(View.GONE);
 							break;
-						case 1://watch button
+						case 50001://watch button
 							String filename1 = manualList.get(position).getFileName();
 							if (fileHelper.isContentDownloaded(filename1)) {
 								File file = new File(fileHelper.getFileAbsolutePath
@@ -221,7 +223,11 @@ public class ManualFragment extends Fragment {
 							}
 							break;
 					}
-				}else{// one button on item
+				} else {// one button on item
+					LinearLayout image = (LinearLayout) parent.findViewById(new
+							Integer(50000));
+					image.setVisibility(View.VISIBLE);
+
 					String filename1 = manualList.get(position).getFileName();
 					if (fileHelper.isContentDownloaded(filename1)) {
 						File file = new File(fileHelper.getFileAbsolutePath
@@ -247,13 +253,43 @@ public class ManualFragment extends Fragment {
 								.DOWNLOAD_TASK_TYPE_PDF);
 						task1.execute();
 					}
-					manualList.retainAll(manualList);
-					listAdapter = new ManualListAdapter(getActivity
-							(), Global.isNormalScreenSize ? R.layout
-							.manual_listview_item : R.layout.manual_listview_item_big, manualList);
-					listview.setAdapter(listAdapter);
 				}
 
+				NexxooWebservice.getContent(true, 0, 10, Global.MANUAL_DATABASE_ENTITY_TYPE, new OnJSONResponse() {
+					@Override
+					public void onReceivedJSONResponse(JSONObject json) {
+						try {
+							int count = json.getInt("count");
+							Log.d(Nexxoo.TAG, "get manual list size is : " + count);
+							prepareListData(json);
+
+							/*gridAdapter = new ManualGridViewAdapter
+									(getActivity(), R.layout.manual_gridview_item, manualList);
+							gridview.setAdapter(gridAdapter);
+
+							listAdapter = new ManualListAdapter(getActivity
+									(), Global.isNormalScreenSize ? R.layout
+									.manual_listview_item : R.layout.manual_listview_item_big, manualList);
+							listview.setAdapter(listAdapter);*/
+
+							gridAdapter.clear();
+							gridAdapter.addAll(manualList);
+							gridAdapter.notifyDataSetChanged();
+
+							listAdapter.clear();
+							listAdapter.addAll(manualList);
+							listAdapter.notifyDataSetChanged();
+
+						} catch (JSONException e) {
+							Log.d("KioskError", "Error!" + e.getMessage());
+						}
+					}
+
+					@Override
+					public void onReceivedError(String msg, int code) {
+						Log.d("KioskError", "Error!" + msg);
+					}
+				});
 				return false;
 			}
 		});
@@ -283,6 +319,7 @@ public class ManualFragment extends Fragment {
 			@Override
 			public void onFocusChange(View v, boolean hasFocus) {
 				listview.closeAllMenu();
+				listAdapter.notifyDataSetChanged();
 			}
 		});
 	}

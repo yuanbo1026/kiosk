@@ -11,16 +11,10 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.GridView;
-import android.widget.ImageButton;
-import android.widget.ViewSwitcher;
+import android.widget.*;
 import de.nexxoo.kiosk_app.db.DatabaseHandler;
 import de.nexxoo.kiosk_app.entity.Video;
-import de.nexxoo.kiosk_app.layout.SwipeMenu;
-import de.nexxoo.kiosk_app.layout.SwipeMenuCreator;
-import de.nexxoo.kiosk_app.layout.SwipeMenuItem;
-import de.nexxoo.kiosk_app.layout.SwipeMenuListView;
+import de.nexxoo.kiosk_app.layout.*;
 import de.nexxoo.kiosk_app.tools.FileStorageHelper;
 import de.nexxoo.kiosk_app.tools.Global;
 import de.nexxoo.kiosk_app.tools.Nexxoo;
@@ -29,6 +23,7 @@ import de.nexxoo.kiosk_app.webservice.OnJSONResponse;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +40,7 @@ public class VideoFragment extends Fragment {
 
 	private Context context;
 	private VideoListAdapter listAdapter;
+	private VideoGridViewAdapter gridAdapter;
 
 	private boolean isVideoDownloaded;
 	private FileStorageHelper fileHelper;
@@ -107,9 +103,9 @@ public class VideoFragment extends Fragment {
 			public void onReceivedJSONResponse(JSONObject json) {
 				try {
 					int count = json.getInt("count");
-					Log.d(Nexxoo.TAG,"get Video list size is : "+count);
+					Log.d(Nexxoo.TAG, "get Video list size is : " + count);
 					prepareListData(json);
-					VideoGridViewAdapter gridAdapter = new VideoGridViewAdapter
+					gridAdapter = new VideoGridViewAdapter
 							(getActivity(), R.layout.video_gridview_item,
 									videoList);
 					gridview.setAdapter(gridAdapter);
@@ -152,18 +148,22 @@ public class VideoFragment extends Fragment {
 
 			@Override
 			public void create(SwipeMenu menu) {
-				int viewType = menu.getViewType();
-				SwipeMenuItem openItem = new SwipeMenuItem(context);
-				openItem.setBackground(new ColorDrawable(Color.rgb(0xF3, 0xF3, 0xF3)));
-				openItem.setWidth(dp2px(isNormal ? 90 : 120));
-				openItem.setIcon(R.drawable.ic_list_download);
-				menu.addMenuItem(openItem);
+				SwipeMenuItem download = new SwipeMenuItem(context);
+				download.setId(30000);
+				download.setBackground(new ColorDrawable(Color.rgb(0xF3, 0xF3, 0xF3)));
+				download.setWidth(Nexxoo.dp2px(context, isNormal ? 90 : 120));
+				download.setIcon(menu.getViewType() > 0?R.drawable.ic_list_trash:R
+						.drawable.ic_list_download);
+				download.setIsVisiable(true);
+				menu.addMenuItem(download);
 
-				SwipeMenuItem deleteItem = new SwipeMenuItem(context);
-				deleteItem.setBackground(new ColorDrawable(Color.rgb(0xE5, 0xF5, 0xFF)));
-				deleteItem.setWidth(dp2px(isNormal ? 90 : 120));
-				deleteItem.setIcon(R.drawable.ic_list_play);
-				menu.addMenuItem(deleteItem);
+				SwipeMenuItem view = new SwipeMenuItem(context);
+				view.setId(40000);
+				view.setBackground(new ColorDrawable(Color.rgb(0xE5, 0xF5, 0xFF)));
+				view.setWidth(Nexxoo.dp2px(context, isNormal ? 90 : 120));
+				view.setIcon(R.drawable.ic_list_play);
+				view.setIsVisiable(true);
+				menu.addMenuItem(view);
 			}
 		};
 		// set creator
@@ -172,18 +172,35 @@ public class VideoFragment extends Fragment {
 		// step 2. listener item click event
 		listview.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
 			@Override
-			public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
-				Nexxoo.saveContentId(context,videoList.get(position).getContentId());
+			public boolean onMenuItemClick(int position, SwipeMenuView parent, SwipeMenu menu, int index) {
+				Nexxoo.saveContentId(context, videoList.get(position).getContentId());
 				switch (index) {
-					case 0:
-						DownloadAsyncTask task = new DownloadAsyncTask(context,
-								videoList
-										.get(position).getUrl(), videoList.get
-								(position).getFileName());
-						task.execute();
-						dbHandler.addContent(videoList.get(position).getContentId());
+					case 50000:
+						if (fileHelper.isContentDownloaded(videoList.get(position)
+								.getFileName())) {//downloaded
+							File video = new File(fileHelper.getFileAbsolutePath
+									(videoList
+											.get(position).getFileName()));
+							video.delete();
+							LinearLayout imageLayout = (LinearLayout) parent
+									.findViewById(new
+											Integer(50000));
+							ImageView image =(ImageView)imageLayout.getChildAt(0);
+							image.setImageResource(R.drawable.ic_list_download);
+						} else {// not downloaded
+							DownloadAsyncTask task = new DownloadAsyncTask(context,
+									videoList
+											.get(position).getUrl(), videoList.get
+									(position).getFileName());
+							task.execute();
+							LinearLayout imageLayout = (LinearLayout) parent
+									.findViewById(new
+											Integer(50000));
+							ImageView image =(ImageView)imageLayout.getChildAt(0);
+							image.setImageResource(R.drawable.ic_list_trash);
+						}
 						break;
-					case 1:
+					case 50001:
 						isVideoDownloaded = fileHelper.isContentDownloaded(videoList
 								.get(position).getFileName());
 						String url = videoList.get(position).getUrl();
@@ -195,11 +212,12 @@ public class VideoFragment extends Fragment {
 						i.putExtra("filename", name);
 						i.putExtra("isVideoDownloaded", isVideoDownloaded);
 						context.startActivity(i);
-						dbHandler.addContent(videoList.get(position).getContentId());
 						break;
+					default:
+						gridAdapter.notifyDataSetChanged();
+						listAdapter.notifyDataSetChanged();
 				}
 				return false;
-
 			}
 		});
 

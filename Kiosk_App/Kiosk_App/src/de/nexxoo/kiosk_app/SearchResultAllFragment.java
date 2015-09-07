@@ -122,7 +122,7 @@ public class SearchResultAllFragment extends Fragment {
 		// step 2. listener item click event
 		listview.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
 			@Override
-			public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+			public boolean onMenuItemClick(int position, SwipeMenuView parent,SwipeMenu menu, int index) {
 				int contentTypeId = menu.getViewType();
 				switch (index) {
 					case 0:

@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import de.nexxoo.kiosk_app.db.DatabaseHandler;
 import de.nexxoo.kiosk_app.entity.BaseEntity;
 import de.nexxoo.kiosk_app.layout.*;
@@ -104,22 +105,28 @@ public class HistoryActivity extends Activity {
 			@Override
 			public void create(SwipeMenu menu) {
 				SwipeMenuItem download = new SwipeMenuItem(mContext);
+				download.setId(30000);
 				download.setBackground(new ColorDrawable(Color.rgb(0xF3, 0xF3, 0xF3)));
 				download.setWidth(Nexxoo.dp2px(mContext, isNormal ? 90 : 120));
-				download.setIcon(R.drawable.ic_list_download);
+				download.setIcon(R.drawable.ic_list_trash);
+				download.setIsVisiable(menu.getViewType() > 0);
 				menu.addMenuItem(download);
 
 				if (menu.getViewType() == CONTENT_TYPE_VIDEO) {
 					SwipeMenuItem play = new SwipeMenuItem(mContext);
+					play.setId(40000);
 					play.setBackground(new ColorDrawable(Color.rgb(0xE5, 0xF5, 0xFF)));
 					play.setWidth(Nexxoo.dp2px(mContext, isNormal ? 90 : 120));
 					play.setIcon(R.drawable.ic_list_play);
+					play.setIsVisiable(true);
 					menu.addMenuItem(play);
 				} else {
 					SwipeMenuItem view = new SwipeMenuItem(mContext);
+					view.setId(40000);
 					view.setBackground(new ColorDrawable(Color.rgb(0xE5, 0xF5, 0xFF)));
 					view.setWidth(Nexxoo.dp2px(mContext, isNormal ? 90 : 120));
 					view.setIcon(R.drawable.ic_list_view);
+					view.setIsVisiable(true);
 					menu.addMenuItem(view);
 				}
 			}
@@ -130,88 +137,144 @@ public class HistoryActivity extends Activity {
 		// step 2. listener item click event
 		listview.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
 			@Override
-			public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+			public boolean onMenuItemClick(int position, SwipeMenuView parent,
+										   SwipeMenu menu, int index) {
 				int contentTypeId = menu.getViewType();
-				switch (index) {
-					case 0:
-						if (contentTypeId == CONTENT_TYPE_MAUNAL || contentTypeId == CONTENT_TYPE_CATALOG) {
-							String filename = mBaseEntityList.get(position).getFileName();
-							if (mFileStorgeHelper.isContentDownloaded(filename)) {
-								File file = new File(mFileStorgeHelper.getFileAbsolutePath(filename));
-								Intent target = new Intent(Intent.ACTION_VIEW);
-								target.setDataAndType(Uri.fromFile(file), "application/pdf");
-								target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+				if (mFileStorgeHelper.isContentDownloaded(mBaseEntityList.get(position).getFileName())) {
+					//content download with two buttons
+					switch (index) {
+						case 50000:
+							File file1 = new File(mFileStorgeHelper.getFileAbsolutePath
+									(mBaseEntityList
+											.get(position).getFileName()));
+							file1.delete();
+							LinearLayout image = (LinearLayout) parent.findViewById(new
+									Integer(50000));
+							image.setVisibility(View.GONE);
+							/*if (contentTypeId == CONTENT_TYPE_MAUNAL || contentTypeId == CONTENT_TYPE_CATALOG) {
+								String filename = mBaseEntityList.get(position).getFileName();
+								if (mFileStorgeHelper.isContentDownloaded(filename)) {
+									File file = new File(mFileStorgeHelper.getFileAbsolutePath(filename));
+									Intent target = new Intent(Intent.ACTION_VIEW);
+									target.setDataAndType(Uri.fromFile(file), "application/pdf");
+									target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 
-								Intent i = Intent.createChooser(target, "Open File");
-								startActivity(i);
-							} else {
-								if (listview.getChildAt(position) instanceof SwipeMenuLayout) {
-									SwipeMenuLayout menuLayout = (SwipeMenuLayout)
-											listview.getChildAt(position);
-									menuLayout.smoothCloseMenu();
+									Intent i = Intent.createChooser(target, "Open File");
+									startActivity(i);
+								} else {
+									if (listview.getChildAt(position) instanceof SwipeMenuLayout) {
+										SwipeMenuLayout menuLayout = (SwipeMenuLayout)
+												listview.getChildAt(position);
+										menuLayout.smoothCloseMenu();
+									}
+									DownloadAsyncTask task = new DownloadAsyncTask(mContext,
+											mBaseEntityList
+													.get(position).getUrl(), mBaseEntityList.get
+											(position).getFileName(), Global
+											.DOWNLOAD_TASK_TYPE_PDF);
+									task.execute();
+
 								}
+							} else {
+								//click event for video
 								DownloadAsyncTask task = new DownloadAsyncTask(mContext,
 										mBaseEntityList
 												.get(position).getUrl(), mBaseEntityList.get
-										(position).getFileName(), Global
-										.DOWNLOAD_TASK_TYPE_PDF);
+										(position).getFileName());
 								task.execute();
+							}*/
 
+							break;
+						case 50001:
+							if (contentTypeId == CONTENT_TYPE_MAUNAL || contentTypeId == CONTENT_TYPE_CATALOG) {
+								// click event for manual and catalog
+								String filename1 = mBaseEntityList.get(position).getFileName();
+								if (mFileStorgeHelper.isContentDownloaded(filename1)) {
+									File file = new File(mFileStorgeHelper.getFileAbsolutePath
+											(filename1));
+									Intent target = new Intent(Intent.ACTION_VIEW);
+									target.setDataAndType(Uri.fromFile(file), "application/pdf");
+									target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+
+									Intent i = Intent.createChooser(target, "Open File");
+									startActivity(i);
+								} else {
+									if (listview.getChildAt(position) instanceof SwipeMenuLayout) {
+										SwipeMenuLayout menuLayout = (SwipeMenuLayout)
+												listview.getChildAt(position);
+										menuLayout.smoothCloseMenu();
+									}
+									DownloadAsyncTask task1 = new DownloadAsyncTask(mContext,
+											mBaseEntityList
+													.get(position).getUrl(), mBaseEntityList.get
+											(position).getFileName(), Global
+											.DOWNLOAD_TASK_TYPE_PDF);
+									task1.execute();
+
+								}
+							} else {
+								//click event for video
+								Boolean isVideoDownloaded = mFileStorgeHelper.isContentDownloaded(mBaseEntityList
+										.get(position).getFileName());
+								String url = mBaseEntityList.get(position).getUrl();
+								url.replace("www", "nexxoo:wenexxoo4kiosk!@www");
+								Intent i = new Intent(mContext, VideoActivity.class);
+								i.putExtra(mContext.getString(R.string
+										.video_activity_intent_url_extra), url);
+								String name = mBaseEntityList.get(position).getFileName();
+								i.putExtra("filename", name);
+								i.putExtra("isVideoDownloaded", isVideoDownloaded);
+								mContext.startActivity(i);
 							}
+
+							break;
+					}
+				}else{//with one button
+					LinearLayout image = (LinearLayout) parent.findViewById(new
+							Integer(50000));
+					image.setVisibility(View.VISIBLE);
+					if (contentTypeId == CONTENT_TYPE_MAUNAL || contentTypeId == CONTENT_TYPE_CATALOG) {
+						// click event for manual and catalog
+						String filename1 = mBaseEntityList.get(position).getFileName();
+						if (mFileStorgeHelper.isContentDownloaded(filename1)) {
+							File file = new File(mFileStorgeHelper.getFileAbsolutePath
+									(filename1));
+							Intent target = new Intent(Intent.ACTION_VIEW);
+							target.setDataAndType(Uri.fromFile(file), "application/pdf");
+							target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+
+							Intent i = Intent.createChooser(target, "Open File");
+							startActivity(i);
 						} else {
-							//click event for video
-							DownloadAsyncTask task = new DownloadAsyncTask(mContext,
+							if (listview.getChildAt(position) instanceof SwipeMenuLayout) {
+								SwipeMenuLayout menuLayout = (SwipeMenuLayout)
+										listview.getChildAt(position);
+								menuLayout.smoothCloseMenu();
+							}
+							DownloadAsyncTask task1 = new DownloadAsyncTask(mContext,
 									mBaseEntityList
 											.get(position).getUrl(), mBaseEntityList.get
-									(position).getFileName());
-							task.execute();
+									(position).getFileName(), Global
+									.DOWNLOAD_TASK_TYPE_PDF);
+							task1.execute();
+
 						}
-
-						break;
-					case 1:
-						if (contentTypeId == CONTENT_TYPE_MAUNAL || contentTypeId == CONTENT_TYPE_CATALOG) {
-							// click event for manual and catalog
-							String filename1 = mBaseEntityList.get(position).getFileName();
-							if (mFileStorgeHelper.isContentDownloaded(filename1)) {
-								File file = new File(mFileStorgeHelper.getFileAbsolutePath
-										(filename1));
-								Intent target = new Intent(Intent.ACTION_VIEW);
-								target.setDataAndType(Uri.fromFile(file), "application/pdf");
-								target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-
-								Intent i = Intent.createChooser(target, "Open File");
-								startActivity(i);
-							} else {
-								if (listview.getChildAt(position) instanceof SwipeMenuLayout) {
-									SwipeMenuLayout menuLayout = (SwipeMenuLayout)
-											listview.getChildAt(position);
-									menuLayout.smoothCloseMenu();
-								}
-								DownloadAsyncTask task1 = new DownloadAsyncTask(mContext,
-										mBaseEntityList
-												.get(position).getUrl(), mBaseEntityList.get
-										(position).getFileName(), Global
-										.DOWNLOAD_TASK_TYPE_PDF);
-								task1.execute();
-
-							}
-						} else {
-							//click event for video
-							Boolean isVideoDownloaded = mFileStorgeHelper.isContentDownloaded(mBaseEntityList
-									.get(position).getFileName());
-							String url = mBaseEntityList.get(position).getUrl();
-							url.replace("www", "nexxoo:wenexxoo4kiosk!@www");
-							Intent i = new Intent(mContext, VideoActivity.class);
-							i.putExtra(mContext.getString(R.string
-									.video_activity_intent_url_extra), url);
-							String name = mBaseEntityList.get(position).getFileName();
-							i.putExtra("filename", name);
-							i.putExtra("isVideoDownloaded", isVideoDownloaded);
-							mContext.startActivity(i);
-						}
-
-						break;
+					} else {
+						//click event for video
+						Boolean isVideoDownloaded = mFileStorgeHelper.isContentDownloaded(mBaseEntityList
+								.get(position).getFileName());
+						String url = mBaseEntityList.get(position).getUrl();
+						url.replace("www", "nexxoo:wenexxoo4kiosk!@www");
+						Intent i = new Intent(mContext, VideoActivity.class);
+						i.putExtra(mContext.getString(R.string
+								.video_activity_intent_url_extra), url);
+						String name = mBaseEntityList.get(position).getFileName();
+						i.putExtra("filename", name);
+						i.putExtra("isVideoDownloaded", isVideoDownloaded);
+						mContext.startActivity(i);
+					}
 				}
+
 				return false;
 			}
 		});

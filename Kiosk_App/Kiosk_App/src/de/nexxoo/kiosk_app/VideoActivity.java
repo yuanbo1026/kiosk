@@ -77,17 +77,18 @@ public class VideoActivity extends Activity {
 				myVideoView.setMediaController(mediaControls);
 				if (isVideoDownloaded) {
 					File temp = new File(fileHelper.getFileAbsolutePath(filename));
-					if(temp.exists()){
+					if (temp.exists()) {
 						myVideoView.setVideoPath(fileHelper.getFileAbsolutePath(filename));
-						Log.e(Nexxoo.TAG, fileHelper.getFileAbsolutePath(filename)+" " +
+						Log.e(Nexxoo.TAG, fileHelper.getFileAbsolutePath(filename) + " " +
 								"exists");
-					}else{
-						Log.e(Nexxoo.TAG,fileHelper.getFileAbsolutePath(filename)+" " +
+					} else {
+						Log.e(Nexxoo.TAG, fileHelper.getFileAbsolutePath(filename) + " " +
 								"doesn't exist.");
 					}
 
-				}else
+				} else {
 					myVideoView.setVideoURI(Uri.parse(url));
+				}
 				myVideoView.requestFocus();
 				myVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
 					// Close the progress bar and play the video

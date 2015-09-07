@@ -4,12 +4,10 @@ import android.content.Context;
 import android.database.DataSetObserver;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.WrapperListAdapter;
-import de.nexxoo.kiosk_app.tools.Nexxoo;
 
 /**
  * @author baoyz
@@ -63,23 +61,13 @@ public class SwipeMenuAdapter implements WrapperListAdapter,
 				public void onClick(View v) {
 					SwipeMenuLayout menuLayout = (SwipeMenuLayout) v;
 					if(menuLayout.isOpen()){
-						Log.d(Nexxoo.TAG,"SwipeMenuAdapter MenuLayout onclickEvent is" +
-								" open");
 						menuLayout.closeMenu();
 					}else{
-						Log.d(Nexxoo.TAG,"SwipeMenuAdapter MenuLayout onclickEvent is" +
-								" not open");
 						SwipeMenuListView listview = (SwipeMenuListView) v.getParent();
 						listview.smoothOpenMenu(position);
 					}
 					SwipeMenu menu = new SwipeMenu(mContext);
 					menu.setViewType(mAdapter.getItemViewType(position));
-
-					createMenu(menu);//invoke createMenu callback
-					/*SwipeMenu menu = new SwipeMenu(mContext);
-					menu.setViewType(mAdapter.getItemViewType(position));
-					createMenu(menu);//invoke createMenu callback*/
-
 
 				}
 			});
@@ -87,8 +75,6 @@ public class SwipeMenuAdapter implements WrapperListAdapter,
 			layout = (SwipeMenuLayout) convertView;
 			layout.closeMenu();
 			layout.setPosition(position);
-			View view = mAdapter.getView(position, layout.getContentView(),
-					parent);
 		}
 		return layout;
 	}
@@ -111,7 +97,7 @@ public class SwipeMenuAdapter implements WrapperListAdapter,
 	@Override
 	public void onItemClick(SwipeMenuView view, SwipeMenu menu, int index) {
 		if (onMenuItemClickListener != null) {
-			onMenuItemClickListener.onMenuItemClick(view.getPosition(), menu,
+			onMenuItemClickListener.onMenuItemClick(view.getPosition(),view, menu,
 					index);
 		}
 	}

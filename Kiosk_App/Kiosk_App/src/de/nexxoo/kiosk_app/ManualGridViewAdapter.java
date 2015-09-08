@@ -34,7 +34,7 @@ public class ManualGridViewAdapter extends ArrayAdapter<Manual> {
 	private int mLayoutId;
 	private FileStorageHelper fileHelper;
 	private DatabaseHandler dbHandler;
-	private UpdateListViewInterface callback;
+	private UpdateSwipeListViewMenuItem callback;
 
 	public ManualGridViewAdapter(Context context, int layoutId, List<Manual> objects) {
 		super(context, layoutId, objects);
@@ -85,24 +85,20 @@ public class ManualGridViewAdapter extends ArrayAdapter<Manual> {
 				video.delete();
 				ImageView image = (ImageView) v;
 				image.setVisibility(View.INVISIBLE);
-				callback.update(position);
+				//hide trash button on listview item
+				callback.updateListViewItemIcon(position, false);
 			}
 		});
 		item.manualCover.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-//				dbHandler.addContent(mManualList.get(position).getContentId());
 				Nexxoo.saveContentId(mContext,mManualList.get(position).getContentId());
-				/*DownloadAsyncTask task = new DownloadAsyncTask(mContext,
-						mManualList
-								.get(position).getUrl(), mManualList.get
-						(position).getFileName(), Global.DOWNLOAD_TASK_TYPE_OPEN);
-				task.execute();*/
 				SquareLayout parent = (SquareLayout) v.getParent();
 				LinearLayout fatherView = (LinearLayout)parent.getParent();
 				ImageView mImageView = (ImageView) fatherView.findViewById(R.id
 						.manual_grid_item_trash_button);
-
+				//show trash button on listview item
+				callback.updateListViewItemIcon(position,true);
 				String filename = mManualList.get(position).getFileName();
 				if (fileHelper.isContentDownloaded(filename)) {
 					File file = new File(fileHelper.getFileAbsolutePath(filename));
@@ -119,7 +115,6 @@ public class ManualGridViewAdapter extends ArrayAdapter<Manual> {
 							(position).getFileName(),mImageView, Global
 							.DOWNLOAD_TASK_TYPE_PDF);
 					task.execute();
-//					notifyDataSetChanged();
 				}
 			}
 		});
@@ -130,7 +125,7 @@ public class ManualGridViewAdapter extends ArrayAdapter<Manual> {
 				RelativeLayout parent = (RelativeLayout) v.getParent();
 				ImageView mImageView = (ImageView) parent.findViewById(R.id
 						.manual_grid_item_trash_button);
-
+				callback.updateListViewItemIcon(position,true);
 				String filename = mManualList.get(position).getFileName();
 				if (fileHelper.isContentDownloaded(filename)) {
 					File file = new File(fileHelper.getFileAbsolutePath(filename));
@@ -211,16 +206,13 @@ public class ManualGridViewAdapter extends ArrayAdapter<Manual> {
 		ImageView watch_button;
 	}
 
-	public UpdateListViewInterface getCallback() {
+	public UpdateSwipeListViewMenuItem getCallback() {
 		return callback;
 	}
 
-	public void setCallback(UpdateListViewInterface callback) {
+	public void setCallback(UpdateSwipeListViewMenuItem callback) {
 		this.callback = callback;
 	}
 
-	public interface UpdateListViewInterface{
-		public void update(int position);
-	}
 
 }

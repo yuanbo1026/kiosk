@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +27,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CatalogFragment extends Fragment {
+public class CatalogFragment extends Fragment implements UpdateSwipeListViewMenuItem{
 	private SwipeMenuListView listview;
 	private GridView gridview;
 	private List<Catalog> catalogList = new ArrayList<Catalog>();
@@ -109,7 +108,7 @@ public class CatalogFragment extends Fragment {
 					CatalogGridViewAdapter gridAdapter = new CatalogGridViewAdapter
 							(getActivity(), R.layout.catalog_gridview_item, catalogList);
 					gridview.setAdapter(gridAdapter);
-
+					gridAdapter.setCallback(CatalogFragment.this);
 					CatalogListAdapter listAdapter = new CatalogListAdapter(getActivity
 							(), Global.isNormalScreenSize ? R.layout
 							.catalog_listview_item : R.layout.catalog_listview_item_big, catalogList);
@@ -174,6 +173,7 @@ public class CatalogFragment extends Fragment {
 							LinearLayout image = (LinearLayout) parent.findViewById(new
 									Integer(50000));
 							image.setVisibility(View.GONE);
+							updateGridViewItemIcon(position);
 							break;
 						case 50001:
 							String filename = catalogList.get(position).getFileName();
@@ -227,20 +227,6 @@ public class CatalogFragment extends Fragment {
 			}
 		});
 
-		// set SwipeListener
-		listview.setOnSwipeListener(new SwipeMenuListView.OnSwipeListener() {
-
-			@Override
-			public void onSwipeStart(int position) {
-				// swipe start
-			}
-
-			@Override
-			public void onSwipeEnd(int position) {
-				// swipe end
-			}
-		});
-
 		listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -253,11 +239,6 @@ public class CatalogFragment extends Fragment {
 				listview.closeAllMenu();
 			}
 		});
-	}
-
-	private int dp2px(int dp) {
-		return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
-				getResources().getDisplayMetrics());
 	}
 
 	private void prepareListData(JSONObject json) {
@@ -279,4 +260,15 @@ public class CatalogFragment extends Fragment {
 		}
 	}
 
+	private void updateGridViewItemIcon(int position){
+		LinearLayout griditemLayout = (LinearLayout) gridview.getChildAt(0);
+		ImageView trash_icon = (ImageView) griditemLayout.findViewById(R.id
+				.catalog_grid_item_trash_button);
+		trash_icon.setVisibility(View.INVISIBLE);
+	}
+
+	@Override
+	public void updateListViewItemIcon(int position,boolean isVisible) {
+		listview.updateMenuIcon(position,isVisible);
+	}
 }

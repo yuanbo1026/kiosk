@@ -29,6 +29,7 @@ public class VideoListAdapter extends ArrayAdapter<Video> {
 	private Context mContext;
 	private List<Video> mVideoList;
 	private int mLayoutId;
+	private FileStorageHelper helper;
 
 	public VideoListAdapter(Context context, int layoutId, List<Video> objects) {
 		super(context, layoutId, objects);
@@ -37,6 +38,7 @@ public class VideoListAdapter extends ArrayAdapter<Video> {
 		mContext = context;
 		mVideoList = new ArrayList<Video>(objects);
 		mLayoutId = layoutId;
+		helper = new FileStorageHelper(context);
 	}
 
 	@Override
@@ -118,11 +120,9 @@ public class VideoListAdapter extends ArrayAdapter<Video> {
 
 	@Override
 	public int getItemViewType(int position) {
-		// current menu type
-		Video video = mVideoList.get(position);
-		FileStorageHelper helper = new FileStorageHelper(mContext);
-		boolean isVideoDownloaded = helper.isContentDownloaded(video.getName());
-		return isVideoDownloaded?1:0;
+		String fileName = mVideoList.get(position).getFileName();
+		boolean isContentDownloaded = helper.isContentDownloaded(fileName);
+		return isContentDownloaded?1:0;
 	}
 
 	private static class Item {

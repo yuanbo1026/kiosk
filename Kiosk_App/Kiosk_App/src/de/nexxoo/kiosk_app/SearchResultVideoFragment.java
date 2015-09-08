@@ -19,15 +19,13 @@ import de.nexxoo.kiosk_app.layout.*;
 import de.nexxoo.kiosk_app.tools.FileStorageHelper;
 import de.nexxoo.kiosk_app.tools.Global;
 import de.nexxoo.kiosk_app.tools.Nexxoo;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchResultVideoFragment extends Fragment {
+public class SearchResultVideoFragment extends Fragment implements UpdateSwipeListViewMenuItem{
 	private SwipeMenuListView listview;
 	private GridView gridview;
 	private List<Video> videoList = new ArrayList<Video>();
@@ -78,7 +76,7 @@ public class SearchResultVideoFragment extends Fragment {
 				(getActivity(), R.layout.video_gridview_item,
 						videoList);
 		gridview.setAdapter(gridAdapter);
-
+		gridAdapter.setCallback(SearchResultVideoFragment.this);
 		listAdapter = new VideoListAdapter(getActivity
 				(), Global.isNormalScreenSize ? R.layout
 				.video_listview_item : R.layout.video_listview_item_big, videoList);
@@ -145,8 +143,9 @@ public class SearchResultVideoFragment extends Fragment {
 				download.setId(30000);
 				download.setBackground(new ColorDrawable(Color.rgb(0xF3, 0xF3, 0xF3)));
 				download.setWidth(Nexxoo.dp2px(context, isNormal ? 90 : 120));
-				download.setIcon(R.drawable.ic_list_trash);
-				download.setIsVisiable(menu.getViewType() > 0);
+				download.setIcon(menu.getViewType() > 0?R.drawable.ic_list_trash:R
+						.drawable.ic_list_download);
+				download.setIsVisiable(true);
 				menu.addMenuItem(download);
 
 				SwipeMenuItem view = new SwipeMenuItem(context);
@@ -164,18 +163,54 @@ public class SearchResultVideoFragment extends Fragment {
 		// step 2. listener item click event
 		listview.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
 			@Override
-			public boolean onMenuItemClick(int position, SwipeMenuView parent,SwipeMenu menu, int index) {
-				Nexxoo.saveContentId(context,videoList.get(position).getContentId());
-				if (fileHelper.isContentDownloaded(videoList.get(position)
-						.getFileName())) {
-					switch (index) {
-						case 50000:
-							/*DownloadAsyncTask task = new DownloadAsyncTask(context,
+			public boolean onMenuItemClick(int position, SwipeMenuView parent, SwipeMenu menu, int index) {
+				Nexxoo.saveContentId(context, videoList.get(position).getContentId());
+				switch (index) {
+					case 50000:
+						if (fileHelper.isContentDownloaded(videoList.get(position)
+								.getFileName())) {//downloaded
+							File video = new File(fileHelper.getFileAbsolutePath
+									(videoList
+											.get(position).getFileName()));
+							video.delete();
+							LinearLayout imageLayout = (LinearLayout) parent
+									.findViewById(new
+											Integer(50000));
+							ImageView image =(ImageView)imageLayout.getChildAt(0);
+							image.setImageResource(R.drawable.ic_list_download);
+							updateGridViewItemIcon(position, false);
+						} else {// not downloaded
+							updateGridViewItemIcon(position,true);
+							DownloadAsyncTask task = new DownloadAsyncTask(context,
 									videoList
 											.get(position).getUrl(), videoList.get
 									(position).getFileName());
 							task.execute();
-							dbHandler.addContent(videoList.get(position).getContentId());*/
+							LinearLayout imageLayout = (LinearLayout) parent
+									.findViewById(new
+											Integer(50000));
+							ImageView image =(ImageView)imageLayout.getChildAt(0);
+							image.setImageResource(R.drawable.ic_list_trash);
+						}
+						break;
+					case 50001://play button
+						isVideoDownloaded = fileHelper.isContentDownloaded(videoList
+								.get(position).getFileName());
+						String url = videoList.get(position).getUrl();
+						url.replace("www", "nexxoo:wenexxoo4kiosk!@www");
+						Intent i = new Intent(context, VideoActivity.class);
+						i.putExtra(context.getString(R.string
+								.video_activity_intent_url_extra), url);
+						String name = videoList.get(position).getFileName();
+						i.putExtra("filename", name);
+						i.putExtra("isVideoDownloaded", isVideoDownloaded);
+						context.startActivity(i);
+						break;
+				}
+				/*if (fileHelper.isContentDownloaded(videoList.get(position)
+						.getFileName())) {
+					switch (index) {
+						case 50000:
 							File video = new File(fileHelper.getFileAbsolutePath
 									(videoList
 											.get(position).getFileName()));
@@ -199,7 +234,7 @@ public class SearchResultVideoFragment extends Fragment {
 							break;
 					}
 
-				}else{
+				} else {
 					isVideoDownloaded = fileHelper.isContentDownloaded(videoList
 							.get(position).getFileName());
 					String url = videoList.get(position).getUrl();
@@ -211,23 +246,9 @@ public class SearchResultVideoFragment extends Fragment {
 					i.putExtra("filename", name);
 					i.putExtra("isVideoDownloaded", isVideoDownloaded);
 					context.startActivity(i);
-				}
+				}*/
 				return false;
 
-			}
-		});
-
-		// set SwipeListener
-		listview.setOnSwipeListener(new SwipeMenuListView.OnSwipeListener() {
-
-			@Override
-			public void onSwipeStart(int position) {
-				// swipe start
-			}
-
-			@Override
-			public void onSwipeEnd(int position) {
-				// swipe end
 			}
 		});
 
@@ -246,28 +267,16 @@ public class SearchResultVideoFragment extends Fragment {
 		});
 	}
 
-	private int dp2px(int dp) {
-		return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
-				getResources().getDisplayMetrics());
+	private void updateGridViewItemIcon(int position,boolean isDownloaded){
+		LinearLayout griditemLayout = (LinearLayout) gridview.getChildAt(0);
+		ImageView download_icon = (ImageView) griditemLayout.findViewById(R.id
+				.video_gridview_item_download_button);
+		download_icon.setImageResource(isDownloaded?R.drawable.ic_grid_trash:R
+				.drawable.ic_grid_download);
 	}
 
-	private void prepareListData(JSONObject json) {
-		try {
-			int count = json.getInt("count");
-			Video video = null;
-			for (int i = 0; i < count; i++) {
-				try {
-					JSONObject jsonContentObj = json.getJSONObject("content" + i);
-					video = new Video(jsonContentObj);
-					videoList.add(video);
-
-				} catch (Exception e) {
-					Log.d(Nexxoo.TAG, e.getMessage());
-				}
-			}
-
-		} catch (JSONException e) {
-			Log.d(Nexxoo.TAG, e.getMessage());
-		}
+	@Override
+	public void updateListViewItemIcon(int position,boolean isVisible) {
+		listview.updateVideoMenuIcon(position,isVisible);
 	}
 }

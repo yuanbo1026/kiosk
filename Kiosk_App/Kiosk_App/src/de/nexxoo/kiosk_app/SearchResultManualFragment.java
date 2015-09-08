@@ -28,7 +28,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchResultManualFragment extends Fragment {
+public class SearchResultManualFragment extends Fragment implements UpdateSwipeListViewMenuItem{
 	private SwipeMenuListView listview;
 	private GridView gridview;
 	private List<Manual> manualList = new ArrayList<Manual>();
@@ -120,6 +120,7 @@ public class SearchResultManualFragment extends Fragment {
 		gridAdapter = new ManualGridViewAdapter
 				(getActivity(), R.layout.manual_gridview_item, manualList);
 		gridview.setAdapter(gridAdapter);
+		gridAdapter.setCallback(SearchResultManualFragment.this);
 		gridview.setNumColumns(Global.isNormalScreenSize ? 1 : 2);
 		Header = (View) rootView.findViewById(R.id.manual_header);
 		Header.setVisibility(View.INVISIBLE);
@@ -177,6 +178,7 @@ public class SearchResultManualFragment extends Fragment {
 							LinearLayout image = (LinearLayout) parent.findViewById(new
 									Integer(50000));
 							image.setVisibility(View.GONE);
+							updateGridViewItemIcon(position);
 							break;
 						case 50001://watch button
 							String filename1 = manualList.get(position).getFileName();
@@ -290,5 +292,15 @@ public class SearchResultManualFragment extends Fragment {
 			Log.d(Nexxoo.TAG, e.getMessage());
 		}
 	}
+	private void updateGridViewItemIcon(int position){
+		LinearLayout griditemLayout = (LinearLayout) gridview.getChildAt(0);
+		ImageView trash_icon = (ImageView) griditemLayout.findViewById(R.id
+				.manual_grid_item_trash_button);
+		trash_icon.setVisibility(View.INVISIBLE);
+	}
 
+	@Override
+	public void updateListViewItemIcon(int position,boolean isVisible) {
+		listview.updateMenuIcon(position,isVisible);
+	}
 }

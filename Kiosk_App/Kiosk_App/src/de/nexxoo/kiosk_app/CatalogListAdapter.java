@@ -13,6 +13,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import de.nexxoo.kiosk_app.entity.Catalog;
+import de.nexxoo.kiosk_app.tools.FileStorageHelper;
 import de.nexxoo.kiosk_app.tools.Misc;
 import de.nexxoo.kiosk_app.tools.Nexxoo;
 
@@ -28,6 +29,7 @@ public class CatalogListAdapter extends ArrayAdapter<Catalog> {
 	private Context mContext;
 	private List<Catalog> mCatalogList;
 	private int mLayoutId;
+	private FileStorageHelper helper;
 
 
 	public CatalogListAdapter(Context context, int layoutId, List<Catalog> objects) {
@@ -36,6 +38,7 @@ public class CatalogListAdapter extends ArrayAdapter<Catalog> {
 		mContext = context;
 		mCatalogList = new ArrayList<Catalog>(objects);
 		mLayoutId = layoutId;
+		helper = new FileStorageHelper(context);
 	}
 
 	@Override
@@ -102,6 +105,13 @@ public class CatalogListAdapter extends ArrayAdapter<Catalog> {
 		}
 
 		return v;
+	}
+
+	@Override
+	public int getItemViewType(int position) {
+		String fileName = mCatalogList.get(position).getFileName();
+		boolean isContentDownloaded = helper.isContentDownloaded(fileName);
+		return isContentDownloaded?1:0;
 	}
 
 	@Override

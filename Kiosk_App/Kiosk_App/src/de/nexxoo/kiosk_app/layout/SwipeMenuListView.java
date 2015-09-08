@@ -7,9 +7,11 @@ import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Interpolator;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import de.nexxoo.kiosk_app.R;
 
 public class SwipeMenuListView extends ListView {
 
@@ -217,19 +219,28 @@ public class SwipeMenuListView extends ListView {
 		}
 	}
 
-	public void updateMenuIcon(int position){
+	public void updateMenuIcon(int position,boolean isVisible){
 		View view = getChildAt(position);
 		if (view instanceof SwipeMenuLayout) {
 			mTouchView = (SwipeMenuLayout) view;
 			LinearLayout image = (LinearLayout) mTouchView.findViewById(new
 					Integer(50000));
-			image.setVisibility(View.GONE);
+			image.setVisibility(isVisible?View.VISIBLE:View.GONE);
 
 		}
 	}
 
-	public void changeMenuItemIcon(int position,int index, int drawableId){
+	public void updateVideoMenuIcon(int position, boolean isDownloaded){
+		View view = getChildAt(position);
+		if (view instanceof SwipeMenuLayout) {
+			mTouchView = (SwipeMenuLayout) view;
+			LinearLayout imageLayout = (LinearLayout) mTouchView.findViewById(new
+					Integer(50000));
+			ImageView image = (ImageView) imageLayout.getChildAt(0);
+			image.setImageResource(isDownloaded?R.drawable.ic_list_trash:R.drawable
+					.ic_list_download);
 
+		}
 	}
 
 	private int dp2px(int dp) {

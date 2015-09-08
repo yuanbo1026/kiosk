@@ -32,6 +32,7 @@ public class CatalogGridViewAdapter extends ArrayAdapter<Catalog> {
 	private List<Catalog> mCatalogList;
 	private int mLayoutId;
 	private FileStorageHelper fileHelper;
+	private UpdateSwipeListViewMenuItem callback;
 
 	public CatalogGridViewAdapter(Context context, int layoutId, List<Catalog> objects) {
 		super(context, layoutId, objects);
@@ -82,6 +83,8 @@ public class CatalogGridViewAdapter extends ArrayAdapter<Catalog> {
 				video.delete();
 				ImageView image = (ImageView) v;
 				image.setVisibility(View.INVISIBLE);
+				//hide the trash icon on listview item
+				callback.updateListViewItemIcon(position, false);
 			}
 		});
 		item.catalogCover.setOnClickListener(new View.OnClickListener() {
@@ -92,7 +95,8 @@ public class CatalogGridViewAdapter extends ArrayAdapter<Catalog> {
 				LinearLayout fatherView = (LinearLayout)parent.getParent();
 				ImageView mImageView = (ImageView) fatherView.findViewById(R.id
 						.catalog_grid_item_trash_button);
-
+				//show the trash icon on listview item
+				callback.updateListViewItemIcon(position,true);
 				String filename = mCatalogList.get(position).getFileName();
 				if (fileHelper.isContentDownloaded(filename)) {
 					File file = new File(fileHelper.getFileAbsolutePath(filename));
@@ -119,7 +123,7 @@ public class CatalogGridViewAdapter extends ArrayAdapter<Catalog> {
 				RelativeLayout parent = (RelativeLayout) v.getParent();
 				ImageView mImageView = (ImageView) parent.findViewById(R.id
 						.catalog_grid_item_trash_button);
-
+				callback.updateListViewItemIcon(position,true);
 				String filename = mCatalogList.get(position).getFileName();
 				if (fileHelper.isContentDownloaded(filename)) {
 					File file = new File(fileHelper.getFileAbsolutePath(filename));
@@ -199,4 +203,11 @@ public class CatalogGridViewAdapter extends ArrayAdapter<Catalog> {
 		ImageView watch_button;
 	}
 
+	public UpdateSwipeListViewMenuItem getCallback() {
+		return callback;
+	}
+
+	public void setCallback(UpdateSwipeListViewMenuItem callback) {
+		this.callback = callback;
+	}
 }

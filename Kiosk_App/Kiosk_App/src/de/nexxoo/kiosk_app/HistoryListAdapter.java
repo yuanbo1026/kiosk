@@ -32,7 +32,6 @@ public class HistoryListAdapter extends ArrayAdapter<BaseEntity> {
 	private FileStorageHelper helper;
 
 
-
 	public HistoryListAdapter(Context context, int layoutId, List<BaseEntity> objects) {
 		super(context, layoutId, objects);
 		mInflater = LayoutInflater.from(context);
@@ -51,23 +50,23 @@ public class HistoryListAdapter extends ArrayAdapter<BaseEntity> {
 			v = mInflater.inflate(mLayoutId, parent, false);
 			v.setBackgroundColor(mContext.getResources().getColor(
 					R.color.RealWhite));
-				Log.d(Nexxoo.TAG,"ListView Adapter Position: "+position);
-				item = new Item();
-				item.name = (TextView) v
-						.findViewById(R.id.history_listview_item_name);
-				item.name.setTypeface(Misc.getCustomFont(mContext,
-						Misc.FONT_NORMAL));
-				item.size = (TextView) v.findViewById(R.id.history_listview_item_size);
-				item.size.setTypeface(Misc.getCustomFont(mContext,
-						Misc.FONT_NORMAL));
-				item.cover = (ImageView) v.findViewById(R.id.history_listview_item_cover);
+			Log.d(Nexxoo.TAG, "ListView Adapter Position: " + position);
+			item = new Item();
+			item.name = (TextView) v
+					.findViewById(R.id.history_listview_item_name);
+			item.name.setTypeface(Misc.getCustomFont(mContext,
+					Misc.FONT_NORMAL));
+			item.size = (TextView) v.findViewById(R.id.history_listview_item_size);
+			item.size.setTypeface(Misc.getCustomFont(mContext,
+					Misc.FONT_NORMAL));
+			item.cover = (ImageView) v.findViewById(R.id.history_listview_item_cover);
 
 			item.name.setText(mBaseEntityList.get(position).getName());
 			if (!mBaseEntityList.get(position).getmPictureList().isEmpty()) {
 				ImageLoader imageLoader = ImageLoader.getInstance(); // Get singleton instance
 				imageLoader.displayImage(mBaseEntityList.get(position).getmPictureList().get
 								(0).getmUrl(),
-						item.cover,new ImageLoadingListener(){
+						item.cover, new ImageLoadingListener() {
 
 							@Override
 							public void onLoadingStarted(String imageUri, View view) {
@@ -90,7 +89,7 @@ public class HistoryListAdapter extends ArrayAdapter<BaseEntity> {
 
 							}
 						});
-			}else{
+			} else {
 				item.cover.setImageResource(R.drawable.default_no_image);
 			}
 

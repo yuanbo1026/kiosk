@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
-import de.nexxoo.kiosk_app.db.DatabaseHandler;
 import de.nexxoo.kiosk_app.entity.Video;
 import de.nexxoo.kiosk_app.tools.FileStorageHelper;
 import de.nexxoo.kiosk_app.tools.Global;
@@ -34,7 +33,7 @@ public class VideoGridViewAdapter extends ArrayAdapter<Video> {
 	private int mLayoutId;
 	private Boolean isVideoDownloaded;
 	private FileStorageHelper fileHelper;
-	private DatabaseHandler dbHandler;
+	private UpdateSwipeListViewMenuItem callback;
 
 
 	public VideoGridViewAdapter(Context context, int layoutId, List<Video> objects) {
@@ -44,7 +43,6 @@ public class VideoGridViewAdapter extends ArrayAdapter<Video> {
 		mVideoList = new ArrayList<Video>(objects);
 		mLayoutId = layoutId;
 		fileHelper = new FileStorageHelper(context);
-		dbHandler = new DatabaseHandler(context);
 	}
 
 	@Override
@@ -107,7 +105,6 @@ public class VideoGridViewAdapter extends ArrayAdapter<Video> {
 						i.putExtra("filename", name);
 						i.putExtra("isVideoDownloaded", isDownloaded);
 						mContext.startActivity(i);
-						dbHandler.addContent(mVideoList.get(position).getContentId());
 					}
 				});
 
@@ -121,13 +118,16 @@ public class VideoGridViewAdapter extends ArrayAdapter<Video> {
 					video.delete();
 					ImageView image = (ImageView) v;
 					image.setImageResource(R.drawable.ic_grid_download);
+					//hide trash button on listview item
+					callback.updateListViewItemIcon(position, false);
 				} else {
 					DownloadAsyncTask task = new DownloadAsyncTask(mContext, mVideoList
 							.get(position).getUrl(), mVideoList.get
 							(position).getFileName(),(ImageView)v, Global
 							.DOWNLOAD_TASK_TYPE_VIDEO);
 					task.execute();
-					dbHandler.addContent(mVideoList.get(position).getContentId());
+					//show trash button on listview item
+					callback.updateListViewItemIcon(position,true);
 				}
 			}
 		});
@@ -190,4 +190,11 @@ public class VideoGridViewAdapter extends ArrayAdapter<Video> {
 		ImageView download_button;
 	}
 
+	public UpdateSwipeListViewMenuItem getCallback() {
+		return callback;
+	}
+
+	public void setCallback(UpdateSwipeListViewMenuItem callback) {
+		this.callback = callback;
+	}
 }

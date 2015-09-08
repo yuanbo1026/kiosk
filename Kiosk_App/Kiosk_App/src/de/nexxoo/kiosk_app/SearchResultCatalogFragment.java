@@ -28,7 +28,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchResultCatalogFragment extends Fragment {
+public class SearchResultCatalogFragment extends Fragment implements UpdateSwipeListViewMenuItem{
 	private SwipeMenuListView listview;
 	private GridView gridview;
 	private List<Catalog> catalogList = new ArrayList<Catalog>();
@@ -119,6 +119,7 @@ public class SearchResultCatalogFragment extends Fragment {
 		gridAdapter = new CatalogGridViewAdapter
 				(getActivity(), R.layout.catalog_gridview_item, catalogList);
 		gridview.setAdapter(gridAdapter);
+		gridAdapter.setCallback(SearchResultCatalogFragment.this);
 
 		listAdapter= new CatalogListAdapter(getActivity
 				(), Global.isNormalScreenSize ? R.layout
@@ -177,6 +178,7 @@ public class SearchResultCatalogFragment extends Fragment {
 							LinearLayout image = (LinearLayout) parent.findViewById(new
 									Integer(50000));
 							image.setVisibility(View.GONE);
+							updateGridViewItemIcon(position);
 							break;
 						case 50001:
 							String filename = catalogList.get(position).getFileName();
@@ -283,6 +285,17 @@ public class SearchResultCatalogFragment extends Fragment {
 		} catch (JSONException e) {
 			Log.d(Nexxoo.TAG, e.getMessage());
 		}
+	}
+	private void updateGridViewItemIcon(int position){
+		LinearLayout griditemLayout = (LinearLayout) gridview.getChildAt(0);
+		ImageView trash_icon = (ImageView) griditemLayout.findViewById(R.id
+				.catalog_grid_item_trash_button);
+		trash_icon.setVisibility(View.INVISIBLE);
+	}
+
+	@Override
+	public void updateListViewItemIcon(int position,boolean isVisible) {
+		listview.updateMenuIcon(position,isVisible);
 	}
 
 }

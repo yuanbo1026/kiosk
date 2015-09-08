@@ -7,12 +7,10 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
-import de.nexxoo.kiosk_app.db.DatabaseHandler;
 import de.nexxoo.kiosk_app.entity.Video;
 import de.nexxoo.kiosk_app.layout.*;
 import de.nexxoo.kiosk_app.tools.FileStorageHelper;
@@ -27,7 +25,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VideoFragment extends Fragment {
+public class VideoFragment extends Fragment implements UpdateSwipeListViewMenuItem{
 	private SwipeMenuListView listview;
 	private GridView gridview;
 	private List<Video> videoList = new ArrayList<Video>();
@@ -44,13 +42,11 @@ public class VideoFragment extends Fragment {
 
 	private boolean isVideoDownloaded;
 	private FileStorageHelper fileHelper;
-	private DatabaseHandler dbHandler;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		context = this.getActivity();
 		fileHelper = new FileStorageHelper(context);
-		dbHandler = new DatabaseHandler(context);
 
 		View rootView = inflater.inflate(R.layout.video_fragment, container, false);
 
@@ -109,7 +105,7 @@ public class VideoFragment extends Fragment {
 							(getActivity(), R.layout.video_gridview_item,
 									videoList);
 					gridview.setAdapter(gridAdapter);
-
+					gridAdapter.setCallback(VideoFragment.this);
 					listAdapter = new VideoListAdapter(getActivity
 							(), Global.isNormalScreenSize ? R.layout
 							.video_listview_item : R.layout.video_listview_item_big, videoList);
@@ -129,16 +125,6 @@ public class VideoFragment extends Fragment {
 
 		return rootView;
 	}
-
-	/*private List<Video> getVideoList() {
-		String[] video_name = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M"};
-		for (String str : video_name) {
-			Video video = new Video();
-			video.setmName("Video " + str);
-			videoList.add(video);
-		}
-		return videoList;
-	}*/
 
 	/**
 	 * initialize swipe listview component
@@ -187,7 +173,9 @@ public class VideoFragment extends Fragment {
 											Integer(50000));
 							ImageView image =(ImageView)imageLayout.getChildAt(0);
 							image.setImageResource(R.drawable.ic_list_download);
+							updateGridViewItemIcon(position, false);
 						} else {// not downloaded
+							updateGridViewItemIcon(position,true);
 							DownloadAsyncTask task = new DownloadAsyncTask(context,
 									videoList
 											.get(position).getUrl(), videoList.get
@@ -200,7 +188,7 @@ public class VideoFragment extends Fragment {
 							image.setImageResource(R.drawable.ic_list_trash);
 						}
 						break;
-					case 50001:
+					case 50001://play button
 						isVideoDownloaded = fileHelper.isContentDownloaded(videoList
 								.get(position).getFileName());
 						String url = videoList.get(position).getUrl();
@@ -213,33 +201,14 @@ public class VideoFragment extends Fragment {
 						i.putExtra("isVideoDownloaded", isVideoDownloaded);
 						context.startActivity(i);
 						break;
-					default:
-						gridAdapter.notifyDataSetChanged();
-						listAdapter.notifyDataSetChanged();
 				}
 				return false;
 			}
 		});
-
-		// set SwipeListener
-		listview.setOnSwipeListener(new SwipeMenuListView.OnSwipeListener() {
-
-			@Override
-			public void onSwipeStart(int position) {
-				// swipe start
-			}
-
-			@Override
-			public void onSwipeEnd(int position) {
-				// swipe end
-			}
-		});
-
 		listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				listview.smoothOpenMenu(position);
-				Log.e(Nexxoo.TAG, "Get SwipeListview Item's view type: " + listAdapter.getItemViewType(position));
 			}
 		});
 		listview.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -248,11 +217,6 @@ public class VideoFragment extends Fragment {
 				listview.closeAllMenu();
 			}
 		});
-	}
-
-	private int dp2px(int dp) {
-		return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
-				getResources().getDisplayMetrics());
 	}
 
 	private void prepareListData(JSONObject json) {
@@ -273,5 +237,18 @@ public class VideoFragment extends Fragment {
 		} catch (JSONException e) {
 			Log.d(Nexxoo.TAG, e.getMessage());
 		}
+	}
+
+	private void updateGridViewItemIcon(int position,boolean isDownloaded){
+		LinearLayout griditemLayout = (LinearLayout) gridview.getChildAt(0);
+		ImageView download_icon = (ImageView) griditemLayout.findViewById(R.id
+				.video_gridview_item_download_button);
+		download_icon.setImageResource(isDownloaded?R.drawable.ic_grid_trash:R
+				.drawable.ic_grid_download);
+	}
+
+	@Override
+	public void updateListViewItemIcon(int position,boolean isVisible) {
+		listview.updateVideoMenuIcon(position,isVisible);
 	}
 }

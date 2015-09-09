@@ -1,8 +1,10 @@
 package de.nexxoo.kiosk_app;
 
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Typeface;
@@ -19,6 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
 import com.astuetz.PagerSlidingTabStrip;
+import de.nexxoo.kiosk_app.tools.Misc;
 import de.nexxoo.kiosk_app.tools.Nexxoo;
 
 import java.util.ArrayList;
@@ -40,6 +43,24 @@ public class MainActivity extends FragmentActivity {
 	private String[] mFragmentTitles;
 	private Context context;
 	private ActionBar actionbar;
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+		if (!Misc.isOnline(this)) {
+			new AlertDialog.Builder(context)
+					.setMessage("Please open WiFi or 3G to " +
+							"review the content")
+					.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+						}
+					})
+					.setIcon(android.R.drawable.ic_dialog_alert)
+					.show();
+		}
+
+
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -106,7 +127,7 @@ public class MainActivity extends FragmentActivity {
 
 		pager = (ViewPager) findViewById(R.id.pager);
 		fragmentAdapter = new FragmentAdapter(getSupportFragmentManager(),
-				fragmentList,getActionBar());
+				fragmentList, getActionBar());
 		pager.setAdapter(fragmentAdapter);
 		pager.setOffscreenPageLimit(2);
 
@@ -114,14 +135,14 @@ public class MainActivity extends FragmentActivity {
 		PagerSlidingTabStrip tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
 		tabs.setBackgroundColor(getResources().getColor(R.color.RealWhite));
 		tabs.setIndicatorColor(getResources().getColor(R.color.Tabs_Indicator_Color));
-		Typeface font = Typeface.createFromAsset(getAssets(),"OpenSans-Regular.ttf");
+		Typeface font = Typeface.createFromAsset(getAssets(), "OpenSans-Regular.ttf");
 		tabs.setTypeface(font, Typeface.NORMAL);
 		tabs.setViewPager(pager);
 
 		tabs.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
 			@Override
 			public void onPageSelected(int position) {
-				actionbar.setTitle(Nexxoo.getStyledText(context,mFragmentTitles[pager
+				actionbar.setTitle(Nexxoo.getStyledText(context, mFragmentTitles[pager
 						.getCurrentItem()]));
 				pager.getChildAt(position).requestFocus();
 			}
@@ -144,15 +165,15 @@ public class MainActivity extends FragmentActivity {
 		mDrawerLayout.closeDrawer(mDrawerList);
 		switch (position) {
 			case 0:
-				Intent contact = new Intent(context,ContactActivity.class);
+				Intent contact = new Intent(context, ContactActivity.class);
 				startActivity(contact);
 				break;
 			case 1:
-				Intent imprint = new Intent(context,ImprintActivity.class);
+				Intent imprint = new Intent(context, ImprintActivity.class);
 				startActivity(imprint);
 				break;
 			case 2:
-				Intent history = new Intent(context,HistoryActivity.class);
+				Intent history = new Intent(context, HistoryActivity.class);
 				startActivity(history);
 				break;
 		}

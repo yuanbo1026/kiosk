@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+import de.nexxoo.kiosk_app.db.ContentDBHelper;
 import de.nexxoo.kiosk_app.entity.Video;
 import de.nexxoo.kiosk_app.layout.*;
 import de.nexxoo.kiosk_app.tools.FileStorageHelper;
@@ -178,6 +179,13 @@ public class VideoFragment extends Fragment implements UpdateSwipeListViewMenuIt
 							updateGridViewItemIcon(position, false);
 						} else {// not downloaded
 							updateGridViewItemIcon(position,true);
+							/**
+							 * add download content to local DB
+							 */
+							Video video = videoList.get(position);
+							ContentDBHelper db = new ContentDBHelper(context);
+							db.addContact(video);
+
 							DownloadAsyncTask task = new DownloadAsyncTask(context,
 									videoList
 											.get(position).getUrl(), videoList.get

@@ -12,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+import de.nexxoo.kiosk_app.db.ContentDBHelper;
+import de.nexxoo.kiosk_app.db.DatabaseHandler;
 import de.nexxoo.kiosk_app.entity.Manual;
 import de.nexxoo.kiosk_app.layout.*;
 import de.nexxoo.kiosk_app.tools.FileStorageHelper;
@@ -45,11 +47,14 @@ public class ManualFragment extends Fragment implements UpdateSwipeListViewMenuI
 	private ManualListAdapter listAdapter;
 	private ManualGridViewAdapter gridAdapter;
 
+	private DatabaseHandler DBHelper;
+
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		context = this.getActivity();
 		fileHelper = new FileStorageHelper(context);
+		DBHelper = new DatabaseHandler(context);
 
 		View rootView = inflater.inflate(R.layout.manual_fragment, container, false);
 		mViewSwitcher = (ViewSwitcher) rootView.findViewById(R.id.manual_viewswitcher);
@@ -101,32 +106,32 @@ public class ManualFragment extends Fragment implements UpdateSwipeListViewMenuI
 
 		NexxooWebservice.getContent(true, 0, -1, Global.MANUAL_DATABASE_ENTITY_TYPE,
 				new OnJSONResponse() {
-			@Override
-			public void onReceivedJSONResponse(JSONObject json) {
-				try {
-					int count = json.getInt("count");
-					Log.d(Nexxoo.TAG, "get manual list size is : " + count);
-					prepareListData(json);
+					@Override
+					public void onReceivedJSONResponse(JSONObject json) {
+						try {
+							int count = json.getInt("count");
+//							Log.d(Nexxoo.TAG, "get manual list size is : " + count);
+							prepareListData(json);
 
-					gridAdapter = new ManualGridViewAdapter
-							(getActivity(), R.layout.manual_gridview_item, manualList);
-					gridview.setAdapter(gridAdapter);
-					gridAdapter.setCallback(ManualFragment.this);
-					listAdapter = new ManualListAdapter(getActivity
-							(), Global.isNormalScreenSize ? R.layout
-							.manual_listview_item : R.layout.manual_listview_item_big, manualList);
-					listview.setAdapter(listAdapter);
+							gridAdapter = new ManualGridViewAdapter
+									(getActivity(), R.layout.manual_gridview_item, manualList);
+							gridview.setAdapter(gridAdapter);
+							gridAdapter.setCallback(ManualFragment.this);
+							listAdapter = new ManualListAdapter(getActivity
+									(), Global.isNormalScreenSize ? R.layout
+									.manual_listview_item : R.layout.manual_listview_item_big, manualList);
+							listview.setAdapter(listAdapter);
 
-				} catch (JSONException e) {
-					Log.d("KioskError", "Error!" + e.getMessage());
-				}
-			}
+						} catch (JSONException e) {
+							Log.d("KioskError", "Error!" + e.getMessage());
+						}
+					}
 
-			@Override
-			public void onReceivedError(String msg, int code) {
-				Log.d("KioskError", "Error!" + msg);
-			}
-		});
+					@Override
+					public void onReceivedError(String msg, int code) {
+						Log.d("KioskError", "Error!" + msg);
+					}
+				});
 
 
 		return rootView;
@@ -204,6 +209,7 @@ public class ManualFragment extends Fragment implements UpdateSwipeListViewMenuI
 								startActivity(i);
 							} else {
 								listview.closeAllMenu();
+
 								DownloadAsyncTask task1 = new DownloadAsyncTask(context,
 										manualList
 												.get(position).getUrl(), manualList.get
@@ -233,6 +239,14 @@ public class ManualFragment extends Fragment implements UpdateSwipeListViewMenuI
 									listview.getChildAt(position);
 							menuLayout.smoothCloseMenu();
 						}
+
+						/**
+						 * add download content to local DB
+						 */
+						Manual manual = manualList.get(position);
+						ContentDBHelper db = new ContentDBHelper(context);
+						db.addContact(manual);
+
 						DownloadAsyncTask task1 = new DownloadAsyncTask(context,
 								manualList
 										.get(position).getUrl(), manualList.get

@@ -15,7 +15,7 @@
             android:contentDescription="@null"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
-            android:layout_margin="50dp"
+            android:layout_margin="100dp"
             android:gravity="center"
             android:layout_gravity="center"
             android:src="@drawable/splash_logo"

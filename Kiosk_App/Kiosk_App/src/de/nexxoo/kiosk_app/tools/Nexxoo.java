@@ -9,7 +9,6 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import com.astuetz.TypefaceSpan;
-import de.nexxoo.kiosk_app.db.DatabaseHandler;
 
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -78,13 +77,6 @@ public class Nexxoo {
 			ex.printStackTrace();
 		}
 		return result;
-	}
-
-	public static boolean addContentToDB(Context cxt, int id) {
-		DatabaseHandler helper = new DatabaseHandler(cxt);
-		helper.addContent(id);
-		helper.close();
-		return false;
 	}
 
 	public static int dp2px(Context mContext, int dp) {

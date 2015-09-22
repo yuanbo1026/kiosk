@@ -107,7 +107,7 @@ public class SearchResultVideoGridViewAdapter extends ArrayAdapter<Video> {
 						i.putExtra("filename", name);
 						i.putExtra("isVideoDownloaded", isDownloaded);
 						mContext.startActivity(i);
-						dbHandler.addContent(mVideoList.get(position).getContentId());
+//						dbHandler.addContent(mVideoList.get(position).getContentId());
 					}
 				});
 
@@ -127,7 +127,7 @@ public class SearchResultVideoGridViewAdapter extends ArrayAdapter<Video> {
 							(position).getFileName(),(ImageView)v, Global
 							.DOWNLOAD_TASK_TYPE_VIDEO);
 					task.execute();
-					dbHandler.addContent(mVideoList.get(position).getContentId());
+//					dbHandler.addContent(mVideoList.get(position).getContentId());
 				}
 			}
 		});

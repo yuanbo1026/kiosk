@@ -27,6 +27,7 @@
     <string-array name="drawer_titles">
         <item>Impressum</item>
         <item>Verlauf</item>
+        <item>Version:1.0.0</item>
     </string-array>
 
     <string-array name="fragment_titles">
@@ -44,7 +45,8 @@
     <string name="drawer_title"></string>
 
     <string name="video_activity_intent_url_extra">url</string>
-    <string name="video_empty_url_alert_text">Es gibt keine Videos zu spielen!</string>
+    <string name="video_empty_url_alert_text">Das Video kann nicht abgespielt
+        werden.</string>
     <string name="video_url_keywork">nexxoo</string>
     <!-- download alertdialog text -->
     <string name="download_task_message">Herunterladen...</string>

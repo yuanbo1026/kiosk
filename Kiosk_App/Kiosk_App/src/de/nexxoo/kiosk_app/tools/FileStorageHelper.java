@@ -16,6 +16,7 @@ public class FileStorageHelper {
 	private Context mContext;
 
 	private static final String DOWNLOADFOLDER = "downloads";
+	private static final String DBFOLDER = "database";
 
 	public FileStorageHelper(Context context) {
 		mContext = context;
@@ -41,6 +42,22 @@ public class FileStorageHelper {
 			// we switch to internal memory
 			return mContext.getFilesDir().getAbsolutePath() + File.separator
 					+ DOWNLOADFOLDER + File.separator;
+		}
+		return null;
+	}
+
+	public String getDBFolder(){
+		if (mContext != null) {
+			if (Environment.getExternalStorageState().equals(
+					Environment.MEDIA_MOUNTED)
+					&& mContext.getExternalFilesDir(null) != null) {
+				// external is available and will be used
+				return mContext.getExternalFilesDir(null).getAbsolutePath()
+						+ File.separator + DBFOLDER + File.separator;
+			}
+			// we switch to internal memory
+			return mContext.getFilesDir().getAbsolutePath() + File.separator
+					+ DBFOLDER + File.separator;
 		}
 		return null;
 	}

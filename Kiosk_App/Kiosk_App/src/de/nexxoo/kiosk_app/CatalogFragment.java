@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+import de.nexxoo.kiosk_app.db.ContentDBHelper;
 import de.nexxoo.kiosk_app.db.DatabaseHandler;
 import de.nexxoo.kiosk_app.entity.Catalog;
 import de.nexxoo.kiosk_app.layout.*;
@@ -218,6 +219,13 @@ public class CatalogFragment extends Fragment implements UpdateSwipeListViewMenu
 									listview.getChildAt(position);
 							menuLayout.smoothCloseMenu();
 						}
+						/**
+						 * add download content to local DB
+						 */
+						Catalog catalog = catalogList.get(position);
+						ContentDBHelper db = new ContentDBHelper(context);
+						db.addContact(catalog);
+
 						DownloadAsyncTask task1 = new DownloadAsyncTask(context,
 								catalogList
 										.get(position).getUrl(), catalogList.get

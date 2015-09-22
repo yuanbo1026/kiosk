@@ -2,7 +2,6 @@ package de.nexxoo.kiosk_app;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,68 +43,63 @@ public class ManualListAdapter extends ArrayAdapter<Manual> {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 
-		Item item = null;
+		Item item;
 		View v = convertView;
 		if (v == null) {
+			item = new Item();
 			v = mInflater.inflate(mLayoutId, parent, false);
-			v.setBackgroundColor(mContext.getResources().getColor(
-					R.color.RealWhite));
-				Log.d(Nexxoo.TAG, "ListView Adapter Position: " + position);
-				item = new Item();
-				item.manualName = (TextView) v
-						.findViewById(R.id.manual_listview_item_name);
-				item.manualName.setTypeface(Misc.getCustomFont(mContext,
-						Misc.FONT_NORMAL));
-				item.manualSize = (TextView) v.findViewById(R.id.manual_listview_item_size);
-				item.manualSize.setTypeface(Misc.getCustomFont(mContext,
-						Misc.FONT_NORMAL));
-				item.manualCover = (ImageView) v.findViewById(R.id.manual_listview_item_cover);
-
-			item.manualName.setText(mManualList.get(position).getName());
-			String deteilInformation = mManualList.get(position).getPages()
-					+Nexxoo.PAGES+	Nexxoo
-					.readableFileSize(mManualList.get(position)
-							.getSize());
-			item.manualSize.setText(deteilInformation);
-			if (!mManualList.get(position).getmPictureList().isEmpty()) {
-				ImageLoader imageLoader = ImageLoader.getInstance(); // Get singleton instance
-				imageLoader.displayImage(mManualList.get(position).getmPictureList().get
-								(0).getmUrl(),
-						item.manualCover,new ImageLoadingListener(){
-
-							@Override
-							public void onLoadingStarted(String imageUri, View view) {
-//								Log.d(Nexxoo.TAG, "Image loading starts: " + imageUri);
-							}
-
-							@Override
-							public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-								ImageView mImageView = (ImageView) view;
-								mImageView.setImageResource(R.drawable.default_no_image);
-							}
-
-							@Override
-							public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-//								Log.d(Nexxoo.TAG,"Image loading completes: "+imageUri);
-							}
-
-							@Override
-							public void onLoadingCancelled(String imageUri, View view) {
-
-							}
-						});
-			}else{
-				item.manualCover.setImageResource(R.drawable.default_no_image);
-			}
+			item.manualName = (TextView) v
+					.findViewById(R.id.manual_listview_item_name);
+			item.manualSize = (TextView) v.findViewById(R.id.manual_listview_item_size);
+			item.manualCover = (ImageView) v.findViewById(R.id.manual_listview_item_cover);
 			v.setTag(item);
 		} else {
 			item = (Item) v.getTag();
+		}
+//		v.setBackgroundColor(mContext.getResources().getColor(
+//				R.color.RealWhite));
+		item.manualName.setTypeface(Misc.getCustomFont(mContext,
+				Misc.FONT_NORMAL));
+		item.manualSize.setTypeface(Misc.getCustomFont(mContext,
+				Misc.FONT_NORMAL));
+		item.manualName.setText(mManualList.get(position).getName());
+		String deteilInformation = mManualList.get(position).getPages()
+				+ Nexxoo.PAGES + Nexxoo
+				.readableFileSize(mManualList.get(position)
+						.getSize());
+		item.manualSize.setText(deteilInformation);
+		if (!mManualList.get(position).getmPictureList().isEmpty()) {
+			ImageLoader imageLoader = ImageLoader.getInstance(); // Get singleton instance
+			imageLoader.displayImage(mManualList.get(position).getmPictureList().get
+							(0).getmUrl(),
+					item.manualCover, new ImageLoadingListener() {
+
+						@Override
+						public void onLoadingStarted(String imageUri, View view) {
+						}
+
+						@Override
+						public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+							ImageView mImageView = (ImageView) view;
+							mImageView.setImageResource(R.drawable.default_no_image);
+						}
+
+						@Override
+						public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+						}
+
+						@Override
+						public void onLoadingCancelled(String imageUri, View view) {
+
+						}
+					});
+		} else {
+			item.manualCover.setImageResource(R.drawable.default_no_image);
 		}
 		return v;
 	}
 
 	/**
-	 *
 	 * @param position
 	 * @return downloaded : 1; not download : 0
 	 */
@@ -113,7 +107,7 @@ public class ManualListAdapter extends ArrayAdapter<Manual> {
 	public int getItemViewType(int position) {
 		String fileName = mManualList.get(position).getFileName();
 		boolean isContentDownloaded = helper.isContentDownloaded(fileName);
-		return isContentDownloaded?1:0;
+		return isContentDownloaded ? 1 : 0;
 	}
 
 	@Override

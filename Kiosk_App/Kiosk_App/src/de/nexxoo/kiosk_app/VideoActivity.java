@@ -104,40 +104,8 @@ public class VideoActivity extends Activity {
 			} catch (Exception e) {
 				Log.e("Error", e.getMessage());
 				e.printStackTrace();
+				finish();
 			}
-			/*try {
-				String tmp = "https://archive.org/download/ksnn_compilation_master_the_internet/ksnn_compilation_master_the_internet_512kb.mp4";
-				Cache cache = new FileCache(new File(getExternalCacheDir(), name));
-				HttpUrlSource source = new HttpUrlSource(tmp);
-				HttpProxyCache proxyCache = new HttpProxyCache(source, cache);
-				proxyCache.setCacheListener(new CacheListener() {
-					@Override
-					public void onError(ProxyCacheException e) {
-						Log.e(Nexxoo.TAG, "Error playing video", e);
-					}
-
-					@Override
-					public void onCacheDataAvailable(int cachePercentage) {
-					}
-				});
-				myVideoView.setMediaController(mediaControls);
-				myVideoView.setVideoPath(proxyCache.getUrl());
-				myVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-					// Close the progress bar and play the video
-					public void onPrepared(MediaPlayer mp) {
-						progressDialog.dismiss();
-						myVideoView.seekTo(position);
-						if (position == 0) {
-							myVideoView.start();
-						} else {
-							myVideoView.pause();
-						}
-					}
-				});
-			} catch (ProxyCacheException e) {
-				// do nothing. onError() handles all errors
-			}*/
-
 		} else {
 			Toast.makeText(context, getString(R.string.video_empty_url_alert_text), Toast.LENGTH_LONG).show();
 		}
@@ -158,19 +126,4 @@ public class VideoActivity extends Activity {
 		position = savedInstanceState.getInt("Position");
 		myVideoView.seekTo(position);
 	}
-
-	/*@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.menu, menu);
-
-		// Associate searchable configuration with the SearchView
-		SearchManager searchManager =
-				(SearchManager) getSystemService(Context.SEARCH_SERVICE);
-		SearchView searchView =
-				(SearchView) menu.findItem(R.id.search).getActionView();
-		searchView.setSearchableInfo(
-				searchManager.getSearchableInfo(getComponentName()));
-
-		return true;
-	}*/
 }

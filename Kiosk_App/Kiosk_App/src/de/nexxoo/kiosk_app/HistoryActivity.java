@@ -17,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import de.nexxoo.kiosk_app.db.ContentDBHelper;
 import de.nexxoo.kiosk_app.db.DatabaseHandler;
 import de.nexxoo.kiosk_app.entity.BaseEntity;
 import de.nexxoo.kiosk_app.entity.Catalog;
@@ -59,6 +60,7 @@ public class HistoryActivity extends Activity {
 	public static String CONTENTTYPE = "contentTypeId";
 
 
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		getActionBar().setDisplayHomeAsUpEnabled(false);
@@ -83,6 +85,10 @@ public class HistoryActivity extends Activity {
 		emptyView.setVisibility(View.GONE);
 		((ViewGroup)listview.getParent()).addView(emptyView);
 		listview.setEmptyView(emptyView);
+
+		ContentDBHelper db = new ContentDBHelper(this);
+		db.getContactsCount();
+//		Log.d(Nexxoo.TAG,"get content from DB :" + db.getContactsCount());
 
 		getHistoryContetnsFromWebServer();
 		initSwipeListView(Global.isNormalScreenSize);

@@ -75,7 +75,7 @@ public class ManualListAdapter extends ArrayAdapter<Manual> {
 
 							@Override
 							public void onLoadingStarted(String imageUri, View view) {
-								Log.d(Nexxoo.TAG, "Image loading starts: " + imageUri);
+//								Log.d(Nexxoo.TAG, "Image loading starts: " + imageUri);
 							}
 
 							@Override
@@ -86,7 +86,7 @@ public class ManualListAdapter extends ArrayAdapter<Manual> {
 
 							@Override
 							public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-								Log.d(Nexxoo.TAG,"Image loading completes: "+imageUri);
+//								Log.d(Nexxoo.TAG,"Image loading completes: "+imageUri);
 							}
 
 							@Override

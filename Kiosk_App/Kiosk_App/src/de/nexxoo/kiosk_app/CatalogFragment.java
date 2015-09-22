@@ -25,6 +25,8 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class CatalogFragment extends Fragment implements UpdateSwipeListViewMenuItem{
@@ -97,12 +99,13 @@ public class CatalogFragment extends Fragment implements UpdateSwipeListViewMenu
 		 */
 		initSwipeListView(Global.isNormalScreenSize);
 
-		NexxooWebservice.getContent(true, 0, 10, Global.CATALOG_DATABASE_ENTITY_TYPE, new OnJSONResponse() {
+		NexxooWebservice.getContent(true, 0, -1, Global.CATALOG_DATABASE_ENTITY_TYPE,
+				new OnJSONResponse() {
 			@Override
 			public void onReceivedJSONResponse(JSONObject json) {
 				try {
 					int count = json.getInt("count");
-					Log.d(Nexxoo.TAG,"get catalog list size is : "+count);
+//					Log.d(Nexxoo.TAG,"get catalog list size is : "+count);
 
 					prepareListData(json);
 					CatalogGridViewAdapter gridAdapter = new CatalogGridViewAdapter
@@ -253,6 +256,15 @@ public class CatalogFragment extends Fragment implements UpdateSwipeListViewMenu
 				} catch (Exception e) {
 					Log.d(Nexxoo.TAG, e.getMessage());
 				}
+			}
+
+			if (catalogList.size() > 0) {
+				Collections.sort(catalogList, new Comparator<Catalog>() {
+					@Override
+					public int compare(final Catalog object1, final Catalog object2) {
+						return object1.getName().compareTo(object2.getName());
+					}
+				});
 			}
 
 		} catch (JSONException e) {

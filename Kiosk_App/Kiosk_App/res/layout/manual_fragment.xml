@@ -45,6 +45,8 @@
                 android:id="@+id/manual_grid"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
+                android:verticalSpacing="0px"
+                android:horizontalSpacing="0px"
                 >
         </GridView>
         <de.nexxoo.kiosk_app.layout.SwipeMenuListView

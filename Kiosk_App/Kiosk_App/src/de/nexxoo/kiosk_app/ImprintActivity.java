@@ -3,6 +3,8 @@ package de.nexxoo.kiosk_app;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.TextView;
+import de.nexxoo.kiosk_app.tools.Misc;
 import de.nexxoo.kiosk_app.tools.Nexxoo;
 
 /**
@@ -14,10 +16,16 @@ public class ImprintActivity extends Activity {
 		getActionBar().setDisplayHomeAsUpEnabled(false);
 		getActionBar().setHomeButtonEnabled(true);
 		getActionBar().setDisplayUseLogoEnabled(false);
-		getActionBar().setIcon(R.drawable.ic_chevron_left_white_36dp);
+		getActionBar().setIcon(R.drawable.ic_arrow_back);
 		getActionBar().setTitle(Nexxoo.getStyledText(this, "Impressum"));
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.imprint);
+
+		TextView title = (TextView) findViewById(R.id.imprint_title);
+		TextView content = (TextView) findViewById(R.id.imprint_content);
+
+		title.setTypeface(Misc.getCustomFont(this,Misc.FONT_BOLD ));
+		content.setTypeface(Misc.getCustomFont(this, Misc.FONT_NORMAL));
 	}
 
 	@Override

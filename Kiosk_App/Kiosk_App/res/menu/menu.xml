@@ -1,26 +1,12 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:appcompat="http://schemas.android.com/apk/res-auto"
-        >
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <item android:id="@+id/search"
-          android:title="@string/search_title"
-          android:icon="@drawable/ic_search"
-          android:showAsAction="always"
-          android:actionViewClass="android.widget.SearchView"/>
-    <!--android:actionViewClass="android.widget.SearchView"-->
-    <!--<item
-            android:id="@+id/action_protocol"
-            android:orderInCategory="100"
-            android:showAsAction="never"
-            android:title="@string/action_protocol"/>
+
     <item
-            android:id="@+id/action_contact"
+            android:id="@+id/search"
             android:orderInCategory="200"
-            android:showAsAction="never"
-            android:title="@string/action_contact"/>
-    <item
-            android:id="@+id/action_imprint"
-            android:orderInCategory="300"
-            android:showAsAction="never"
-            android:title="@string/action_imprint"/>-->
+            android:showAsAction="always"
+            android:title="search"
+            android:icon="@drawable/ic_list"
+            android:actionViewClass="android.widget.SearchView"/>
+
 </menu>

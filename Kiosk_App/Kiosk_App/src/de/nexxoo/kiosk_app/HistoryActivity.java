@@ -8,13 +8,20 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import de.nexxoo.kiosk_app.db.DatabaseHandler;
 import de.nexxoo.kiosk_app.entity.BaseEntity;
+import de.nexxoo.kiosk_app.entity.Catalog;
+import de.nexxoo.kiosk_app.entity.Manual;
+import de.nexxoo.kiosk_app.entity.Video;
 import de.nexxoo.kiosk_app.layout.*;
 import de.nexxoo.kiosk_app.tools.FileStorageHelper;
 import de.nexxoo.kiosk_app.tools.Global;
@@ -26,6 +33,8 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -35,7 +44,7 @@ public class HistoryActivity extends Activity {
 
 	private SwipeMenuListView listview;
 	private List<BaseEntity> mBaseEntityList = new ArrayList<BaseEntity>();
-	private HistoryListAdapter listAdapter;
+	private SearchResultAllListAdapter listAdapter;
 
 	private Context mContext;
 
@@ -47,13 +56,15 @@ public class HistoryActivity extends Activity {
 
 	private boolean isVideoDownloaded;
 
+	public static String CONTENTTYPE = "contentTypeId";
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		getActionBar().setDisplayHomeAsUpEnabled(false);
 		getActionBar().setHomeButtonEnabled(true);
 		getActionBar().setDisplayUseLogoEnabled(false);
-		getActionBar().setIcon(R.drawable.ic_chevron_left_white_36dp);
+		getActionBar().setIcon(R.drawable.ic_arrow_back);
 		getActionBar().setTitle(Nexxoo.getStyledText(this, "Verlauf"));
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.history);
@@ -63,6 +74,15 @@ public class HistoryActivity extends Activity {
 		mFileStorgeHelper = new FileStorageHelper(mContext);
 		mDatabaseHandler = new DatabaseHandler(mContext);
 		listview = (SwipeMenuListView) findViewById(R.id.history_list);
+		TextView emptyView = new TextView(mContext);
+		emptyView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+		emptyView.setText(Nexxoo.getStyledText(mContext, mContext.getString(R.string
+				.search_no_result)));
+		emptyView.setGravity(Gravity.CENTER);
+		emptyView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+		emptyView.setVisibility(View.GONE);
+		((ViewGroup)listview.getParent()).addView(emptyView);
+		listview.setEmptyView(emptyView);
 
 		getHistoryContetnsFromWebServer();
 		initSwipeListView(Global.isNormalScreenSize);
@@ -88,7 +108,7 @@ public class HistoryActivity extends Activity {
 			public void onReceivedJSONResponse(JSONObject json) {
 				try {
 					prepareListData(json);
-					listAdapter = new HistoryListAdapter(mContext, Global.isNormalScreenSize ? R.layout
+					listAdapter = new SearchResultAllListAdapter(mContext, Global.isNormalScreenSize ? R.layout
 							.history_listview_item : R.layout.history_listview_item_big, mBaseEntityList);
 					listview.setAdapter(listAdapter);
 				} catch (Exception e) {
@@ -107,13 +127,7 @@ public class HistoryActivity extends Activity {
 		SwipeMenuCreator creator = new SwipeMenuCreator() {
 			@Override
 			public void create(SwipeMenu menu) {
-				SwipeMenuItem download = new SwipeMenuItem(mContext);
-				download.setId(30000);
-				download.setBackground(new ColorDrawable(Color.rgb(0xF3, 0xF3, 0xF3)));
-				download.setWidth(Nexxoo.dp2px(mContext, isNormal ? 90 : 120));
-				download.setIcon(R.drawable.ic_list_trash);
-				download.setIsVisiable(menu.getViewType() > 0);
-				menu.addMenuItem(download);
+
 
 				if (menu.getViewType() == CONTENT_TYPE_VIDEO) {
 					SwipeMenuItem play = new SwipeMenuItem(mContext);
@@ -124,6 +138,14 @@ public class HistoryActivity extends Activity {
 					play.setIsVisiable(true);
 					menu.addMenuItem(play);
 				} else {
+					SwipeMenuItem download = new SwipeMenuItem(mContext);
+					download.setId(30000);
+					download.setBackground(new ColorDrawable(Color.rgb(0xF3, 0xF3, 0xF3)));
+					download.setWidth(Nexxoo.dp2px(mContext, isNormal ? 90 : 120));
+					download.setIcon(R.drawable.ic_list_trash);
+					download.setIsVisiable(menu.getViewType() > 0);
+					menu.addMenuItem(download);
+
 					SwipeMenuItem view = new SwipeMenuItem(mContext);
 					view.setId(40000);
 					view.setBackground(new ColorDrawable(Color.rgb(0xE5, 0xF5, 0xFF)));
@@ -210,7 +232,8 @@ public class HistoryActivity extends Activity {
 									Intent target = new Intent(Intent.ACTION_VIEW);
 									target.setDataAndType(Uri.fromFile(file), "application/pdf");
 									target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-									Intent i = Intent.createChooser(target, "Open File");
+									Intent i = Intent.createChooser(target, mContext
+											.getString(R.string.open_pdf_file));
 									startActivity(i);
 								} else {
 									listview.closeAllMenu();
@@ -234,7 +257,8 @@ public class HistoryActivity extends Activity {
 							Intent target = new Intent(Intent.ACTION_VIEW);
 							target.setDataAndType(Uri.fromFile(file), "application/pdf");
 							target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-							Intent i = Intent.createChooser(target, "Open File");
+							Intent i = Intent.createChooser(target, mContext
+									.getString(R.string.open_pdf_file));
 							startActivity(i);
 						} else {
 							if (listview.getChildAt(position) instanceof SwipeMenuLayout) {
@@ -375,17 +399,34 @@ public class HistoryActivity extends Activity {
 	private void prepareListData(JSONObject json) {
 		try {
 			int count = json.getInt("count");
+			Manual manual = null;
+			Catalog catalog = null;
+			Video video = null;
 			List<BaseEntity> tmpList = new ArrayList<BaseEntity>();
 			List<Integer> ids = Nexxoo.getContentIdList(mContext);
 			BaseEntity mBaseEntity = null;
 			for (int i = 0; i < count; i++) {
 				try {
 					JSONObject jsonContentObj = json.getJSONObject("content" + i);
-					mBaseEntity = new BaseEntity(jsonContentObj);
-//					mBaseEntityList.add(mBaseEntity);
-					tmpList.add(mBaseEntity);
+					int contentTypeId = jsonContentObj.getInt(CONTENTTYPE);
 
+					switch (contentTypeId){
+						case 1://catalog
+							catalog = new Catalog(jsonContentObj);
+							tmpList.add(catalog);
+							break;
+						case 2://manual
+							manual = new Manual(jsonContentObj);
+							tmpList.add(manual);
+							break;
+						case 3://video
+							video = new Video(jsonContentObj);
+							tmpList.add(video);
+							break;
+					}
 
+//					mBaseEntity = new BaseEntity(jsonContentObj);
+//					tmpList.add(mBaseEntity);
 				} catch (Exception e) {
 					Log.d(Nexxoo.TAG, e.getMessage());
 				}
@@ -394,8 +435,16 @@ public class HistoryActivity extends Activity {
 				for (BaseEntity base : tmpList) {
 					if (base != null && base.getContentId() == id)
 						mBaseEntityList.add(base);
-					Log.d(Nexxoo.TAG, "History item lite content ids :" + base.getContentId());
 				}
+			}
+
+			if (mBaseEntityList.size() > 0) {
+				Collections.sort(mBaseEntityList, new Comparator<BaseEntity>() {
+					@Override
+					public int compare(final BaseEntity object1, final BaseEntity object2) {
+						return object1.getName().compareTo(object2.getName());
+					}
+				});
 			}
 			}catch(JSONException e){
 				Log.d(Nexxoo.TAG, e.getMessage());

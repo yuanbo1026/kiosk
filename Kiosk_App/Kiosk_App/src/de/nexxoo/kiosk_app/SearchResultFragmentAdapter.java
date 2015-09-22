@@ -10,7 +10,7 @@ import java.util.List;
 
 public class SearchResultFragmentAdapter extends FragmentPagerAdapter implements ViewPager.OnPageChangeListener{
 
-    private String[] titles = new String[]{"Alle","Anleitung", "Video", "Katalog"};
+    private String[] titles = new String[]{"Alle","Anleitungen", "Videos", "Kataloge"};
     private List<Fragment> fragmentList;
 	private ActionBar mActionBar;
 

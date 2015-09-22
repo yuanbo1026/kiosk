@@ -106,7 +106,8 @@ public class ManualGridViewAdapter extends ArrayAdapter<Manual> {
 					target.setDataAndType(Uri.fromFile(file), "application/pdf");
 					target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 
-					Intent i = Intent.createChooser(target, "Open File");
+					Intent i = Intent.createChooser(target, mContext
+							.getString(R.string.open_pdf_file));
 					mContext.startActivity(i);
 				} else {
 					DownloadAsyncTask task = new DownloadAsyncTask(mContext,
@@ -133,7 +134,8 @@ public class ManualGridViewAdapter extends ArrayAdapter<Manual> {
 					target.setDataAndType(Uri.fromFile(file), "application/pdf");
 					target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 
-					Intent i = Intent.createChooser(target, "Open File");
+					Intent i = Intent.createChooser(target, mContext
+							.getString(R.string.open_pdf_file));
 					mContext.startActivity(i);
 				} else {
 					DownloadAsyncTask task = new DownloadAsyncTask(mContext,

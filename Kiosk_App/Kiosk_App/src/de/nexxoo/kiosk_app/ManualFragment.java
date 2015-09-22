@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
-import de.nexxoo.kiosk_app.db.DatabaseHandler;
 import de.nexxoo.kiosk_app.entity.Manual;
 import de.nexxoo.kiosk_app.layout.*;
 import de.nexxoo.kiosk_app.tools.FileStorageHelper;
@@ -25,9 +24,11 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
-public class ManualFragment extends Fragment implements UpdateSwipeListViewMenuItem{
+public class ManualFragment extends Fragment implements UpdateSwipeListViewMenuItem {
 	private SwipeMenuListView listview;
 	private GridView gridview;
 	private List<Manual> manualList = new ArrayList<Manual>();
@@ -40,7 +41,6 @@ public class ManualFragment extends Fragment implements UpdateSwipeListViewMenuI
 
 	private Context context;
 	private FileStorageHelper fileHelper;
-	private DatabaseHandler dbHandler;
 
 	private ManualListAdapter listAdapter;
 	private ManualGridViewAdapter gridAdapter;
@@ -50,7 +50,6 @@ public class ManualFragment extends Fragment implements UpdateSwipeListViewMenuI
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		context = this.getActivity();
 		fileHelper = new FileStorageHelper(context);
-		dbHandler = new DatabaseHandler(context);
 
 		View rootView = inflater.inflate(R.layout.manual_fragment, container, false);
 		mViewSwitcher = (ViewSwitcher) rootView.findViewById(R.id.manual_viewswitcher);
@@ -100,7 +99,8 @@ public class ManualFragment extends Fragment implements UpdateSwipeListViewMenuI
 		 */
 		initSwipeListView(Global.isNormalScreenSize);
 
-		NexxooWebservice.getContent(true, 0, 10, Global.MANUAL_DATABASE_ENTITY_TYPE, new OnJSONResponse() {
+		NexxooWebservice.getContent(true, 0, -1, Global.MANUAL_DATABASE_ENTITY_TYPE,
+				new OnJSONResponse() {
 			@Override
 			public void onReceivedJSONResponse(JSONObject json) {
 				try {
@@ -159,11 +159,23 @@ public class ManualFragment extends Fragment implements UpdateSwipeListViewMenuI
 		};
 		// set creator
 		listview.setMenuCreator(creator);
+		listview.setOnSwipeListener(new SwipeMenuListView.OnSwipeListener() {
+
+			@Override
+			public void onSwipeStart(int position) {
+				// swipe start
+			}
+
+			@Override
+			public void onSwipeEnd(int position) {
+				// swipe end
+			}
+		});
 
 		// step 2. listener item click event
 		listview.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
 			@Override
-			public boolean onMenuItemClick(int position, SwipeMenuView parent,SwipeMenu menu, int index) {
+			public boolean onMenuItemClick(int position, SwipeMenuView parent, SwipeMenu menu, int index) {
 				Nexxoo.saveContentId(context, manualList.get(position).getContentId());
 				if (fileHelper.isContentDownloaded(manualList.get(position)
 						.getFileName())) {//two buttons
@@ -187,7 +199,8 @@ public class ManualFragment extends Fragment implements UpdateSwipeListViewMenuI
 								Intent target = new Intent(Intent.ACTION_VIEW);
 								target.setDataAndType(Uri.fromFile(file), "application/pdf");
 								target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-								Intent i = Intent.createChooser(target, "Open File");
+								Intent i = Intent.createChooser(target, context
+										.getString(R.string.open_pdf_file));
 								startActivity(i);
 							} else {
 								listview.closeAllMenu();
@@ -199,7 +212,7 @@ public class ManualFragment extends Fragment implements UpdateSwipeListViewMenuI
 							}
 							break;
 					}
-				}else{// one button
+				} else {// one button
 					LinearLayout image = (LinearLayout) parent.findViewById(new
 							Integer(50000));
 					image.setVisibility(View.VISIBLE);
@@ -211,7 +224,8 @@ public class ManualFragment extends Fragment implements UpdateSwipeListViewMenuI
 						Intent target = new Intent(Intent.ACTION_VIEW);
 						target.setDataAndType(Uri.fromFile(file), "application/pdf");
 						target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-						Intent i = Intent.createChooser(target, "Open File");
+						Intent i = Intent.createChooser(target, context
+								.getString(R.string.open_pdf_file));
 						startActivity(i);
 					} else {
 						if (listview.getChildAt(position) instanceof SwipeMenuLayout) {
@@ -237,6 +251,7 @@ public class ManualFragment extends Fragment implements UpdateSwipeListViewMenuI
 				listview.smoothOpenMenu(position);
 			}
 		});
+
 		listview.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 			@Override
 			public void onFocusChange(View v, boolean hasFocus) {
@@ -260,13 +275,24 @@ public class ManualFragment extends Fragment implements UpdateSwipeListViewMenuI
 					Log.d(Nexxoo.TAG, e.getMessage());
 				}
 			}
+			/**
+			 * sort list by alphabet
+			 */
+			if (manualList.size() > 0) {
+				Collections.sort(manualList, new Comparator<Manual>() {
+					@Override
+					public int compare(final Manual object1, final Manual object2) {
+						return object1.getName().compareTo(object2.getName());
+					}
+				});
+			}
 
 		} catch (JSONException e) {
 			Log.d(Nexxoo.TAG, e.getMessage());
 		}
 	}
 
-	private void updateGridViewItemIcon(int position){
+	private void updateGridViewItemIcon(int position) {
 		LinearLayout griditemLayout = (LinearLayout) gridview.getChildAt(0);
 		ImageView trash_icon = (ImageView) griditemLayout.findViewById(R.id
 				.manual_grid_item_trash_button);
@@ -274,7 +300,7 @@ public class ManualFragment extends Fragment implements UpdateSwipeListViewMenuI
 	}
 
 	@Override
-	public void updateListViewItemIcon(int position,boolean isVisible) {
-		listview.updateMenuIcon(position,isVisible);
+	public void updateListViewItemIcon(int position, boolean isVisible) {
+		listview.updateMenuIcon(position, isVisible);
 	}
 }

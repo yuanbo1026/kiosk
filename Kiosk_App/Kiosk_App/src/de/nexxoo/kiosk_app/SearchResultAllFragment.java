@@ -37,7 +37,7 @@ import java.util.List;
 public class SearchResultAllFragment extends Fragment {
 	private SwipeMenuListView listview;
 	private List<BaseEntity> mBaseEntityList = new ArrayList<BaseEntity>();
-	private HistoryListAdapter listAdapter;
+	private SearchResultAllListAdapter listAdapter;
 
 	private Context mContext;
 
@@ -89,7 +89,7 @@ public class SearchResultAllFragment extends Fragment {
 	}
 
 	private void getHistoryContetnsFromWebServer() {
-		listAdapter = new HistoryListAdapter(mContext, Global.isNormalScreenSize ? R.layout
+		listAdapter = new SearchResultAllListAdapter(mContext, Global.isNormalScreenSize ? R.layout
 				.history_listview_item : R.layout.history_listview_item_big, mBaseEntityList);
 		listview.setAdapter(listAdapter);
 	}
@@ -98,14 +98,6 @@ public class SearchResultAllFragment extends Fragment {
 		SwipeMenuCreator creator = new SwipeMenuCreator() {
 			@Override
 			public void create(SwipeMenu menu) {
-				SwipeMenuItem download = new SwipeMenuItem(mContext);
-				download.setId(30000);
-				download.setBackground(new ColorDrawable(Color.rgb(0xF3, 0xF3, 0xF3)));
-				download.setWidth(Nexxoo.dp2px(mContext, isNormal ? 90 : 120));
-				download.setIcon(R.drawable.ic_list_trash);
-				download.setIsVisiable(menu.getViewType() > 0);
-				menu.addMenuItem(download);
-
 				if (menu.getViewType() == CONTENT_TYPE_VIDEO) {
 					SwipeMenuItem play = new SwipeMenuItem(mContext);
 					play.setId(40000);
@@ -115,6 +107,15 @@ public class SearchResultAllFragment extends Fragment {
 					play.setIsVisiable(true);
 					menu.addMenuItem(play);
 				} else {
+					SwipeMenuItem download = new SwipeMenuItem(mContext);
+					download.setId(30000);
+					download.setBackground(new ColorDrawable(Color.rgb(0xF3, 0xF3, 0xF3)));
+					download.setWidth(Nexxoo.dp2px(mContext, isNormal ? 90 : 120));
+					download.setIcon(R.drawable.ic_list_trash);
+					download.setIsVisiable(menu.getViewType() > 0);
+					menu.addMenuItem(download);
+
+
 					SwipeMenuItem view = new SwipeMenuItem(mContext);
 					view.setId(40000);
 					view.setBackground(new ColorDrawable(Color.rgb(0xE5, 0xF5, 0xFF)));
@@ -199,7 +200,8 @@ public class SearchResultAllFragment extends Fragment {
 									Intent target = new Intent(Intent.ACTION_VIEW);
 									target.setDataAndType(Uri.fromFile(file), "application/pdf");
 									target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-									Intent i = Intent.createChooser(target, "Open File");
+									Intent i = Intent.createChooser(target, mContext
+											.getString(R.string.open_pdf_file));
 									startActivity(i);
 								} else {
 									listview.closeAllMenu();
@@ -223,7 +225,8 @@ public class SearchResultAllFragment extends Fragment {
 							Intent target = new Intent(Intent.ACTION_VIEW);
 							target.setDataAndType(Uri.fromFile(file), "application/pdf");
 							target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-							Intent i = Intent.createChooser(target, "Open File");
+							Intent i = Intent.createChooser(target, mContext
+									.getString(R.string.open_pdf_file));
 							startActivity(i);
 						} else {
 							if (listview.getChildAt(position) instanceof SwipeMenuLayout) {

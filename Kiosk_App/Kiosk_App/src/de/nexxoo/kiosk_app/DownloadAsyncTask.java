@@ -103,7 +103,8 @@ public class DownloadAsyncTask extends AsyncTask<Void, Integer, String> {
 			folder.mkdirs();
 
 		if (fileStorageHelper.isContentDownloaded(filename)) {
-			Toast.makeText(mContext, "Already Downloaded", Toast.LENGTH_LONG).show();
+			Toast.makeText(mContext, mContext.getString(R.string.download_file_exist), Toast
+					.LENGTH_LONG).show();
 			onPostExecute(filename);
 		}
 	}
@@ -213,7 +214,8 @@ public class DownloadAsyncTask extends AsyncTask<Void, Integer, String> {
 			target.setDataAndType(Uri.fromFile(file), "application/pdf");
 			target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 
-			Intent intent = Intent.createChooser(target, "Open File");
+			Intent intent = Intent.createChooser(target, mContext.getString(R.string
+					.open_pdf_file));
 			try {
 				mContext.startActivity(intent);
 			} catch (ActivityNotFoundException e) {

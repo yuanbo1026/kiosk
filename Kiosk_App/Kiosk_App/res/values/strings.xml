@@ -1,58 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Kiosk_App</string>
+    <string name="app_name">InfoDesk</string>
     <!-- menu title -->
-    <string name="action_protocol">Protocol</string>
-    <string name="action_contact">Contact</string>
-    <string name="action_imprint">Imprint</string>
 
-    <string name="search_title">Suche</string>
+    <string name="search_title">Inhalte suchen&#8230;</string>
 
     <!-- search empty result -->
     <string name="listview.empty.text">No Results</string>
     <!-- search hint -->
-    <string name="search_hint">Suche..</string>
+    <string name="search_hint">suchen..</string>
     <!-- search bundle -->
     <string name="kiosk_search_bundle_group">kiosk.search.result.bundle.group</string>
     <string name="kiosk_search_bundle_child">kiosk.search.result.bundle.child</string>
 
     <!-- Manual view button text -->
-    <string name="manual_view_button_download">Download</string>
-    <string name="manual_view_button_open">Open</string>
+    <string name="manual_view_button_download">Unterladen</string>
+    <string name="manual_view_button_open">Öffnen</string>
     <string name="manual_view_progress_index"> % </string>
 
-    <!-- contact -->
-    <string name="contact_title">Contact...</string>
+    <!-- open PDF file -->
+    <string name="open_pdf_file">Öffnen</string>
 
-    <!-- imprint -->
-    <string name="imprint_title">Imprint...</string>
-
-    <!-- protocol -->
-    <string name="protocol_title">Protocol...</string>
 
     <!-- drawer title list -->
     <string-array name="drawer_titles">
-        <item>Kontakt</item>
         <item>Impressum</item>
         <item>Verlauf</item>
     </string-array>
 
     <string-array name="fragment_titles">
-        <item>Anleitung</item>
-        <item>Video</item>
-        <item>Katalog</item>
+        <item>Anleitungen</item>
+        <item>Videos</item>
+        <item>Kataloge</item>
     </string-array>
+
+    <!-- home page fragments names -->
+    <string name="manual_fragment_title">  Anleitungen</string>
+    <string name="video_fragment_title">  Videos</string>
+    <string name="catalog_fragment_title">  Kataloge</string>
 
     <!-- drawer empty string title -->
     <string name="drawer_title"></string>
 
     <string name="video_activity_intent_url_extra">url</string>
-    <string name="video_empty_url_alert_text">There is no video to play!</string>
+    <string name="video_empty_url_alert_text">Es gibt keine Videos zu spielen!</string>
     <string name="video_url_keywork">nexxoo</string>
     <!-- download alertdialog text -->
-    <string name="download_task_message">Downloading...</string>
-    <string name="download_task_success_title">The Video is already saved onyour device.</string>
+    <string name="download_task_message">Herunterladen...</string>
+    <string name="download_task_success_title">Das Video ist bereits auf dem Gerät gespeichert.</string>
+    <string name="download_file_exist">Diese Datei ist bereits auf dem Gerät vorhanden
+        .</string>
 
     <!-- search result fragment-->
     <string name="search_result_fragment_type">type</string>
@@ -65,15 +63,15 @@
     <string name="search_no_result">Es gibt kein Ergebnis</string>
     <!-- imprint -->
     <string name="impressumactivity.caption.imprint">Impressum</string>
-    <string name="impressumactivity.text.imprint"><![CDATA[Anbieter, Kontakt u. Hinweise \n
-        Anbieter \n
+    <string
+            name="impressumactivity.text.imprint"><![CDATA[\n \n Anbieter, Kontakt u. Hinweise \n \n
         TechniSat Digital GmbH \n
         Julius-Saxler-Straße 3 \n
         TechniPark \n
         D-54550 Daun / Germany \n
         Geschäftsführung: Peter Lepper, Stefan Kön, Peter Kohlschmidt, Beatrix Simon-Ludwig \n
         Register und Registernummer: Amtsgericht Wittlich HRB 11561 \n
-        Umsatzsteuer-Identifikationsnummer: DE 149 932 421 \n
+        Umsatzsteuer-Identifikationsnummer: DE 149 932 421 \n \n
         Kontakt \n
         Telefon +49 - (0)6592 / 712-600 \n
         Telefax +49 - (0)6592 / 4910 \n
@@ -102,7 +100,7 @@
         Die bereitgestellten Informationen auf dieser Webseite wurden sorgfältig geprüft und werden regelmäßig aktualisiert. Jedoch kann keine
         Haftung oder Garantie dafür übernommen werden, dass alle Angaben zu jeder Zeit vollständig,
         richtig und in letzter Aktualität dargestellt sind. Dies gilt insbesondere für alle Links zu anderen Websites,
-        auf die direkt oder indirekt verwiesen wird. Alle Angaben können ohne vorherige Ankündigung geändert, entfernt oder ergänzt werden. ]]></string>
+        auf die direkt oder indirekt verwiesen wird. Alle Angaben können ohne vorherige Ankündigung geändert, entfernt oder ergänzt werden. \n \n \n \n]]></string>
 
 
 </resources>

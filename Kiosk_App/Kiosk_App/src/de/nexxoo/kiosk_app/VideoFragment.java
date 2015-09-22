@@ -23,6 +23,8 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class VideoFragment extends Fragment implements UpdateSwipeListViewMenuItem{
@@ -233,7 +235,14 @@ public class VideoFragment extends Fragment implements UpdateSwipeListViewMenuIt
 					Log.d(Nexxoo.TAG, e.getMessage());
 				}
 			}
-
+			if (videoList.size() > 0) {
+				Collections.sort(videoList, new Comparator<Video>() {
+					@Override
+					public int compare(final Video object1, final Video object2) {
+						return object1.getName().compareTo(object2.getName());
+					}
+				});
+			}
 		} catch (JSONException e) {
 			Log.d(Nexxoo.TAG, e.getMessage());
 		}

@@ -29,7 +29,7 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="5dp"
                 android:text="search_result_all item"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="@color/swipe_listview_item_text_color"
                 android:layout_marginBottom="0dp"/>
@@ -42,7 +42,7 @@
                 android:paddingRight="5dp"
                 android:singleLine="true"
                 android:maxLines="2"
-                android:textSize="15sp"
+                android:textSize="13sp"
                 android:text="132 Pages / 45 MB"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="@color/swipe_listview_item_sub_text_color"/>

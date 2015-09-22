@@ -187,7 +187,8 @@ public class SearchResultCatalogFragment extends Fragment implements UpdateSwipe
 								Intent target = new Intent(Intent.ACTION_VIEW);
 								target.setDataAndType(Uri.fromFile(file), "application/pdf");
 								target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-								Intent i = Intent.createChooser(target, "Open File");
+								Intent i = Intent.createChooser(target, context
+										.getString(R.string.open_pdf_file));
 								startActivity(i);
 							} else {
 								if (listview.getChildAt(position) instanceof SwipeMenuLayout) {
@@ -215,7 +216,8 @@ public class SearchResultCatalogFragment extends Fragment implements UpdateSwipe
 						Intent target = new Intent(Intent.ACTION_VIEW);
 						target.setDataAndType(Uri.fromFile(file), "application/pdf");
 						target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-						Intent i = Intent.createChooser(target, "Open File");
+						Intent i = Intent.createChooser(target, context
+								.getString(R.string.open_pdf_file));
 						startActivity(i);
 					} else {
 						if (listview.getChildAt(position) instanceof SwipeMenuLayout) {

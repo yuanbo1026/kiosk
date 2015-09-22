@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
@@ -22,7 +23,6 @@ import android.view.View;
 import android.widget.*;
 import com.astuetz.PagerSlidingTabStrip;
 import de.nexxoo.kiosk_app.tools.Misc;
-import de.nexxoo.kiosk_app.tools.Nexxoo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,8 +49,8 @@ public class MainActivity extends FragmentActivity {
 		super.onStart();
 		if (!Misc.isOnline(this)) {
 			new AlertDialog.Builder(context)
-					.setMessage("Please open WiFi or 3G to " +
-							"review the content")
+					.setMessage("Bitte stellen Sie eine WiFi Verbindung, um den " +
+							"Inhalt darzustellen.")
 					.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
 						}
@@ -58,22 +58,37 @@ public class MainActivity extends FragmentActivity {
 					.setIcon(android.R.drawable.ic_dialog_alert)
 					.show();
 		}
-
-
 	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		context = this;
-		getActionBar().setDisplayHomeAsUpEnabled(false);
+		ActionBar actionBar = getActionBar();
+		actionBar.setCustomView(R.layout.custom_actionbar);
+		actionBar.setDisplayShowTitleEnabled(false);
+		actionBar.setDisplayShowCustomEnabled(true);
+		actionBar.setDisplayUseLogoEnabled(false);
+		actionBar.setDisplayHomeAsUpEnabled(true);
+		actionBar.setDisplayUseLogoEnabled(false);
+		getActionBar().setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
+
+		/*actionBar.setCustomView(R.layout.custom_actionbar);
+		actionBar.setDisplayShowTitleEnabled(false);
+		actionBar.setDisplayShowCustomEnabled(true);
+		actionBar.setDisplayShowHomeEnabled(false);
+		actionBar.setDisplayHomeAsUpEnabled(true);
+		actionBar.setDisplayShowHomeEnabled(false);
+		actionBar.setDisplayShowTitleEnabled(true);
+		actionBar.setDisplayUseLogoEnabled(false);*/
+
+		/*getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
-		getActionBar().setDisplayUseLogoEnabled(false);
-		getActionBar().setIcon(R.drawable.ic_menu_white_36dp);
-		getActionBar().setTitle(Nexxoo.getStyledText(context, "Anleitung"));
-
+		getActionBar().setDisplayUseLogoEnabled(true);
+		getActionBar().setIcon(R.drawable.app_icon);
+		getActionBar().setTitle(Nexxoo.getStyledText(context, " " + getString(R.string
+				.manual_fragment_title)));*/
 		setContentView(R.layout.drawer_container);
-
 		mTitle = mDrawerTitle = getTitle();
 		mTitles = getResources().getStringArray(R.array.drawer_titles);
 		mFragmentTitles = getResources().getStringArray(R.array.fragment_titles);
@@ -87,27 +102,32 @@ public class MainActivity extends FragmentActivity {
 				R.layout.drawer_list_item, mTitles));
 		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
-		// enable ActionBar app icon to behave as action to toggle nav drawer
-		actionbar = getActionBar();
-
-
 		// ActionBarDrawerToggle ties together the the proper interactions
 		// between the sliding drawer and the action bar app icon
 		mDrawerToggle = new ActionBarDrawerToggle(
 				this,                  /* host Activity */
 				mDrawerLayout,         /* DrawerLayout object */
-				R.drawable.ic_drawer,  /* nav drawer image to replace 'Up' caret */
+				R.drawable.ic_menu_white_36dp,  /* nav drawer image to replace 'Up' caret */
 				R.string.drawer_title,  /* "open drawer" description for accessibility */
 				R.string.drawer_title  /* "close drawer" description for accessibility */
 		) {
 			public void onDrawerClosed(View view) {
 //				getActionBar().setTitle(mFragmentTitles[pager.getCurrentItem()]);
-				invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+//				invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+
 			}
 
 			public void onDrawerOpened(View drawerView) {
 //				getActionBar().setTitle(mFragmentTitles[pager.getCurrentItem()]);
-				invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+//				invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+				//without moving left
+				super.onDrawerSlide(drawerView, 0);
+			}
+
+			@Override
+			public void onDrawerSlide(View drawerView, float slideOffset) {
+				//without moving left
+				super.onDrawerSlide(drawerView, 0); // this disables the animation
 			}
 		};
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
@@ -142,9 +162,14 @@ public class MainActivity extends FragmentActivity {
 		tabs.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
 			@Override
 			public void onPageSelected(int position) {
-				actionbar.setTitle(Nexxoo.getStyledText(context, mFragmentTitles[pager
-						.getCurrentItem()]));
-				pager.getChildAt(position).requestFocus();
+				/**
+				 * use new structure of actionbar :(
+				 */
+
+				/*actionbar.setTitle(Nexxoo.getStyledText(context,
+						"  " + mFragmentTitles[pager
+								.getCurrentItem()]));
+				pager.getChildAt(position).requestFocus();*/
 			}
 		});
 
@@ -165,14 +190,10 @@ public class MainActivity extends FragmentActivity {
 		mDrawerLayout.closeDrawer(mDrawerList);
 		switch (position) {
 			case 0:
-				Intent contact = new Intent(context, ContactActivity.class);
-				startActivity(contact);
-				break;
-			case 1:
 				Intent imprint = new Intent(context, ImprintActivity.class);
 				startActivity(imprint);
 				break;
-			case 2:
+			case 1:
 				Intent history = new Intent(context, HistoryActivity.class);
 				startActivity(history);
 				break;
@@ -189,7 +210,7 @@ public class MainActivity extends FragmentActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.menu, menu);
+		/*getMenuInflater().inflate(R.menu.menu, menu);
 		MenuItem searchMI = (MenuItem) menu.findItem(R.id.search);
 		searchMI.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
 			@Override
@@ -212,7 +233,17 @@ public class MainActivity extends FragmentActivity {
 		searchView.setSearchableInfo(
 				searchManager.getSearchableInfo(getComponentName()));
 
-		return super.onCreateOptionsMenu(menu);
+		return super.onCreateOptionsMenu(menu);*/
+		getMenuInflater().inflate(R.menu.menu, menu);
+		SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+		SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
+		searchView.setSearchableInfo( searchManager.getSearchableInfo(getComponentName()));
+
+		int searchIconId = searchView.getContext().getResources().
+				getIdentifier("android:id/search_button", null, null);
+		ImageView searchIcon = (ImageView) searchView.findViewById(searchIconId);
+		searchIcon.setImageResource(R.drawable.ic_search);
+		return true;
 	}
 
 	@Override
@@ -244,6 +275,13 @@ public class MainActivity extends FragmentActivity {
 		}
 //		getActionBar().setIcon(R.drawable.ic_chevron_left_white_36dp);
 		getActionBar().setDisplayShowHomeEnabled(false);
+
+
+		getActionBar().setDisplayShowHomeEnabled(false);
+		getActionBar().setDisplayHomeAsUpEnabled(false);
+		getActionBar().setDisplayShowHomeEnabled(false);
+		getActionBar().setDisplayShowTitleEnabled(false);
+		getActionBar().setDisplayUseLogoEnabled(false);
 
 		// Handle action buttons
 		return super.onOptionsItemSelected(item);

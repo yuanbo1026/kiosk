@@ -24,6 +24,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -144,33 +146,65 @@ public class SearchActivity extends FragmentActivity {
 				try {
 					JSONObject jsonContentObj = json.getJSONObject("content" + i);
 					int contentTypeId = jsonContentObj.getInt(CONTENTTYPE);
-					BaseEntity base = new BaseEntity(jsonContentObj);
-					mBaseEntityList.add(base);
+//					BaseEntity base = new BaseEntity(jsonContentObj);
+//					mBaseEntityList.add(base);
 					switch (contentTypeId){
 						case 1://catalog
 							catalog = new Catalog(jsonContentObj);
 							mCatalogList.add(catalog);
+							mBaseEntityList.add(catalog);
 							break;
 						case 2://manual
 							manual = new Manual(jsonContentObj);
 							mManualList.add(manual);
+							mBaseEntityList.add(manual);
 							break;
 						case 3://video
 							video = new Video(jsonContentObj);
 							mVideoList.add(video);
+							mBaseEntityList.add(video);
 							break;
 					}
 				} catch (Exception e) {
 					Log.d(Nexxoo.TAG, e.getMessage());
 				}
 			}
+			if (mBaseEntityList.size() > 0) {
+				Collections.sort(mBaseEntityList, new Comparator<BaseEntity>() {
+					@Override
+					public int compare(final BaseEntity object1, final BaseEntity object2) {
+						return object1.getName().toUpperCase().compareTo(object2.getName().toUpperCase());
+					}
+				});
+			}
+			if (mCatalogList.size() > 0) {
+				Collections.sort(mCatalogList, new Comparator<BaseEntity>() {
+					@Override
+					public int compare(final BaseEntity object1, final BaseEntity object2) {
+						return object1.getName().compareTo(object2.getName());
+					}
+				});
+			}
+			if (mManualList.size() > 0) {
+				Collections.sort(mManualList, new Comparator<BaseEntity>() {
+					@Override
+					public int compare(final BaseEntity object1, final BaseEntity object2) {
+						return object1.getName().compareTo(object2.getName());
+					}
+				});
+			}
+			if (mVideoList.size() > 0) {
+				Collections.sort(mVideoList, new Comparator<BaseEntity>() {
+					@Override
+					public int compare(final BaseEntity object1, final BaseEntity object2) {
+						return object1.getName().compareTo(object2.getName());
+					}
+				});
+			}
 
 		} catch (JSONException e) {
 			Log.d(Nexxoo.TAG, e.getMessage());
 		}
-		Log.d(Nexxoo.TAG, "mCatalogList.size(): " + mCatalogList.size() + " mManualList" +
-				".size(): " + mManualList.size() + " mVideoList.size(): " + mVideoList.size
-				());
 	}
 
 	@Override

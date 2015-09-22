@@ -191,7 +191,8 @@ public class SearchResultManualFragment extends Fragment implements UpdateSwipeL
 
 								View view = listview.getChildAt(position);
 
-								Intent i = Intent.createChooser(target, "Open File");
+								Intent i = Intent.createChooser(target, context
+										.getString(R.string.open_pdf_file));
 								startActivity(i);
 							} else {
 								if (listview.getChildAt(position) instanceof SwipeMenuLayout) {
@@ -223,7 +224,8 @@ public class SearchResultManualFragment extends Fragment implements UpdateSwipeL
 
 						View view = listview.getChildAt(position);
 
-						Intent i = Intent.createChooser(target, "Open File");
+						Intent i = Intent.createChooser(target, context
+								.getString(R.string.open_pdf_file));
 						startActivity(i);
 					} else {
 						if (listview.getChildAt(position) instanceof SwipeMenuLayout) {

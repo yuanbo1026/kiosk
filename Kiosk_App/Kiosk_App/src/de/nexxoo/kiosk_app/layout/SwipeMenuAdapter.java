@@ -56,21 +56,24 @@ public class SwipeMenuAdapter implements WrapperListAdapter,
 					listView.getCloseInterpolator(),
 					listView.getOpenInterpolator());
 			layout.setPosition(position);
-			layout.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					SwipeMenuLayout menuLayout = (SwipeMenuLayout) v;
-					if(menuLayout.isOpen()){
-						menuLayout.closeMenu();
-					}else{
-						SwipeMenuListView listview = (SwipeMenuListView) v.getParent();
-						listview.smoothOpenMenu(position);
-					}
-					SwipeMenu menu = new SwipeMenu(mContext);
-					menu.setViewType(mAdapter.getItemViewType(position));
-
-				}
-			});
+			/**
+			 * this listener causes the listview position not correct.
+			 */
+//			layout.setOnClickListener(new View.OnClickListener() {
+//				@Override
+//				public void onClick(View v) {
+//					SwipeMenuLayout menuLayout = (SwipeMenuLayout) v;
+//					if(menuLayout.isOpen()){
+//						menuLayout.closeMenu();
+//					}else{
+//						SwipeMenuListView listview = (SwipeMenuListView) v.getParent();
+//						listview.smoothOpenMenu(position);
+//					}
+//					SwipeMenu menu = new SwipeMenu(mContext);
+//					menu.setViewType(mAdapter.getItemViewType(position));
+//
+//				}
+//			});
 		} else {
 			layout = (SwipeMenuLayout) convertView;
 			layout.closeMenu();

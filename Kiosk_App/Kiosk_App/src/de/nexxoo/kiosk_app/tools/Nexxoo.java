@@ -23,7 +23,7 @@ public class Nexxoo {
 
 	public static final String REPLACE_1 = "###x###";
 	public static final String REPLACE_2 = "###y###";
-	public static String PAGES = " Pages / ";
+	public static String PAGES = " Seiten / ";
 	public static String DURATION_DIVIDER = " / ";
 	public static String TIME_DIVIDER = ":";
 

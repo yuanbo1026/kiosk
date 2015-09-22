@@ -52,7 +52,7 @@
                             android:layout_height="wrap_content"
                             android:id="@+id/video_gridview_item_name"
                             android:text="AudioMaster BT 90"
-                            android:textSize="20sp"
+                            android:textSize="18sp"
                             android:textColor="@color/gridview_item_name"
                             android:layout_marginLeft="10dp"
                             android:layout_marginBottom="-1dp"
@@ -65,7 +65,7 @@
                             android:text="132 Pages / 45 MB"
                             android:layout_marginLeft="10dp"
                             android:textColor="@color/gridview_item_size"
-                            android:textSize="15sp"
+                            android:textSize="13sp"
                             />
                 </LinearLayout>
 

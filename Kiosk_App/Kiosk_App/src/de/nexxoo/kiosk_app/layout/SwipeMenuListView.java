@@ -191,6 +191,7 @@ public class SwipeMenuListView extends ListView {
 	}
 
 	public void smoothOpenMenu(int position) {
+		int firstVisiblePosition = getFirstVisiblePosition();
 		if (position >= getFirstVisiblePosition()
 				&& position <= getLastVisiblePosition()) {
 			View view = getChildAt(position - getFirstVisiblePosition());

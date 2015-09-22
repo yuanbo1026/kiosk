@@ -2,16 +2,13 @@ package de.nexxoo.kiosk_app;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.widget.MediaController;
-import android.widget.SearchView;
 import android.widget.Toast;
 import android.widget.VideoView;
 import de.nexxoo.kiosk_app.tools.FileStorageHelper;
@@ -67,8 +64,8 @@ public class VideoActivity extends Activity {
 			myVideoView = (VideoView) findViewById(R.id.video_view);
 
 			progressDialog = new ProgressDialog(this);
-			progressDialog.setTitle("Playing Video...");
-			progressDialog.setMessage("Loading...");
+			progressDialog.setTitle("Video abspielen");
+			progressDialog.setMessage("Loading");
 			progressDialog.setCancelable(false);
 			progressDialog.show();
 			/*myVideoView.setVideoURI(Uri.parse("https://nexxoo:wenexxoo4kiosk!@www.appstock" +
@@ -162,7 +159,7 @@ public class VideoActivity extends Activity {
 		myVideoView.seekTo(position);
 	}
 
-	@Override
+	/*@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.menu, menu);
 
@@ -175,5 +172,5 @@ public class VideoActivity extends Activity {
 				searchManager.getSearchableInfo(getComponentName()));
 
 		return true;
-	}
+	}*/
 }

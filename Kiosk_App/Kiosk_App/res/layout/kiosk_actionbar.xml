@@ -21,7 +21,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dp"
-            android:src="@drawable/ic_menu_white_36dp" />
+            android:src="@drawable/logo_technisat" />
 
     <ImageButton
             android:id="@+id/imageButton"

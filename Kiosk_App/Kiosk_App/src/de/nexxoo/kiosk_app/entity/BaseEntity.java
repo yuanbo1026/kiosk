@@ -2,6 +2,7 @@ package de.nexxoo.kiosk_app.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import de.nexxoo.kiosk_app.db.Content;
 import de.nexxoo.kiosk_app.exception.KioskContentError;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,6 +44,15 @@ public class BaseEntity implements Parcelable {
 	}
 
 	public BaseEntity() {}
+
+	public BaseEntity(Content content){
+		contentId = content.getContentId();
+		name = content.getName();
+		url = content.getUrl();
+		fileName = content.getFileName();
+		size = content.getSize();
+		contentTypeId = content.getContentTypeId();
+	}
 
 	public BaseEntity(JSONObject jsonObj) throws KioskContentError {
 		if (jsonObj != null) {

@@ -79,7 +79,7 @@ public class DownloadAsyncTask extends AsyncTask<Void, Integer, Boolean> {
 		super.onCancelled();
 		
 		if(fileStorageHelper.isContentDownloaded(mContent.getName())){
-			File file = new File(fileStorageHelper.getFileAbsolutePath(mContent.getName()));
+			File file = new File(fileStorageHelper.getDownloadAbsolutePath(mContent.getName()));
 			file.delete();
 		}
 		

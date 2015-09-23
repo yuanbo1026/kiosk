@@ -140,7 +140,7 @@ public class SearchResultAllFragment extends Fragment {
 						case 50000:
 							if (mFileStorgeHelper.isContentDownloaded(mBaseEntityList.get(position)
 									.getFileName())) {//downloaded
-								File video = new File(mFileStorgeHelper.getFileAbsolutePath
+								File video = new File(mFileStorgeHelper.getDownloadAbsolutePath
 										(mBaseEntityList
 												.get(position).getFileName()));
 								video.delete();
@@ -183,7 +183,7 @@ public class SearchResultAllFragment extends Fragment {
 							.getFileName())) {//two buttons
 						switch (index) {
 							case 50000:
-								File manual = new File(mFileStorgeHelper.getFileAbsolutePath
+								File manual = new File(mFileStorgeHelper.getDownloadAbsolutePath
 										(mBaseEntityList
 												.get(position).getFileName()));
 								manual.delete();
@@ -196,7 +196,7 @@ public class SearchResultAllFragment extends Fragment {
 								String filename = mBaseEntityList.get(position).getFileName();
 								if (mFileStorgeHelper.isContentDownloaded(filename)) {
 									listview.closeAllMenu();
-									File file = new File(mFileStorgeHelper.getFileAbsolutePath(filename));
+									File file = new File(mFileStorgeHelper.getDownloadAbsolutePath(filename));
 									Intent target = new Intent(Intent.ACTION_VIEW);
 									target.setDataAndType(Uri.fromFile(file), "application/pdf");
 									target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
@@ -220,7 +220,7 @@ public class SearchResultAllFragment extends Fragment {
 
 						String filename1 = mBaseEntityList.get(position).getFileName();
 						if (mFileStorgeHelper.isContentDownloaded(filename1)) {
-							File file = new File(mFileStorgeHelper.getFileAbsolutePath
+							File file = new File(mFileStorgeHelper.getDownloadAbsolutePath
 									(filename1));
 							Intent target = new Intent(Intent.ACTION_VIEW);
 							target.setDataAndType(Uri.fromFile(file), "application/pdf");
@@ -248,7 +248,7 @@ public class SearchResultAllFragment extends Fragment {
 						if (contentTypeId == CONTENT_TYPE_MAUNAL || contentTypeId == CONTENT_TYPE_CATALOG) {
 							String filename = mBaseEntityList.get(position).getFileName();
 							if (mFileStorgeHelper.isContentDownloaded(filename)) {
-								File file = new File(mFileStorgeHelper.getFileAbsolutePath(filename));
+								File file = new File(mFileStorgeHelper.getDownloadAbsolutePath(filename));
 								Intent target = new Intent(Intent.ACTION_VIEW);
 								target.setDataAndType(Uri.fromFile(file), "application/pdf");
 								target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
@@ -284,7 +284,7 @@ public class SearchResultAllFragment extends Fragment {
 							// click event for manual and catalog
 							String filename1 = mBaseEntityList.get(position).getFileName();
 							if (mFileStorgeHelper.isContentDownloaded(filename1)) {
-								File file = new File(mFileStorgeHelper.getFileAbsolutePath
+								File file = new File(mFileStorgeHelper.getDownloadAbsolutePath
 										(filename1));
 								Intent target = new Intent(Intent.ACTION_VIEW);
 								target.setDataAndType(Uri.fromFile(file), "application/pdf");
@@ -362,7 +362,7 @@ public class SearchResultAllFragment extends Fragment {
 				for (BaseEntity base : tmpList) {
 					if (base != null && base.getContentId() == id)
 						mBaseEntityList.add(base);
-					Log.d(Nexxoo.TAG, "History item lite content ids :" + base.getContentId());
+//					Log.d(Nexxoo.TAG, "History item lite content ids :" + base.getContentId());
 				}
 			}
 		} catch (JSONException e) {

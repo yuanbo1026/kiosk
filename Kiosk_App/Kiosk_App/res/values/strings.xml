@@ -19,6 +19,9 @@
     <string name="manual_view_button_open">Öffnen</string>
     <string name="manual_view_progress_index"> % </string>
 
+    <!-- no WIFI alert message -->
+    <string name="no_wifi_message">Bitte stellen Sie eine WiFi Verbindung, um den Inhalt darzustellen.</string>
+
     <!-- open PDF file -->
     <string name="open_pdf_file">Öffnen</string>
 
@@ -45,14 +48,12 @@
     <string name="drawer_title"></string>
 
     <string name="video_activity_intent_url_extra">url</string>
-    <string name="video_empty_url_alert_text">Das Video kann nicht abgespielt
-        werden.</string>
+    <string name="video_empty_url_alert_text">Das Video kann nicht abgespielt werden.</string>
     <string name="video_url_keywork">nexxoo</string>
     <!-- download alertdialog text -->
     <string name="download_task_message">Herunterladen...</string>
     <string name="download_task_success_title">Das Video ist bereits auf dem Gerät gespeichert.</string>
-    <string name="download_file_exist">Diese Datei ist bereits auf dem Gerät vorhanden
-        .</string>
+    <string name="download_file_exist">Diese Datei ist bereits auf dem Gerät vorhanden.</string>
 
     <!-- search result fragment-->
     <string name="search_result_fragment_type">type</string>
@@ -62,7 +63,7 @@
     <string name="search_result_video_list">video_list</string>
     <string name="search_result_catalog_list">catalog_list</string>
     <!-- serch no result -->
-    <string name="search_no_result">Es gibt kein Ergebnis</string>
+    <string name="search_no_result">Es gibt kein Ergebnis.</string>
     <!-- imprint -->
     <string name="impressumactivity.caption.imprint">Impressum</string>
     <string

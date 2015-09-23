@@ -171,7 +171,7 @@ public class SearchResultManualFragment extends Fragment implements UpdateSwipeL
 					//two button on item
 					switch (id) {
 						case 50000://trash button
-							File manual = new File(fileHelper.getFileAbsolutePath
+							File manual = new File(fileHelper.getDownloadAbsolutePath
 									(manualList
 											.get(position).getFileName()));
 							manual.delete();
@@ -183,7 +183,7 @@ public class SearchResultManualFragment extends Fragment implements UpdateSwipeL
 						case 50001://watch button
 							String filename1 = manualList.get(position).getFileName();
 							if (fileHelper.isContentDownloaded(filename1)) {
-								File file = new File(fileHelper.getFileAbsolutePath
+								File file = new File(fileHelper.getDownloadAbsolutePath
 										(filename1));
 								Intent target = new Intent(Intent.ACTION_VIEW);
 								target.setDataAndType(Uri.fromFile(file), "application/pdf");
@@ -216,7 +216,7 @@ public class SearchResultManualFragment extends Fragment implements UpdateSwipeL
 
 					String filename1 = manualList.get(position).getFileName();
 					if (fileHelper.isContentDownloaded(filename1)) {
-						File file = new File(fileHelper.getFileAbsolutePath
+						File file = new File(fileHelper.getDownloadAbsolutePath
 								(filename1));
 						Intent target = new Intent(Intent.ACTION_VIEW);
 						target.setDataAndType(Uri.fromFile(file), "application/pdf");

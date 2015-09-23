@@ -171,7 +171,7 @@ public class SearchResultCatalogFragment extends Fragment implements UpdateSwipe
 						.getFileName())) {//two buttons
 					switch (index) {
 						case 50000:
-							File manual = new File(fileHelper.getFileAbsolutePath
+							File manual = new File(fileHelper.getDownloadAbsolutePath
 									(catalogList
 											.get(position).getFileName()));
 							manual.delete();
@@ -183,7 +183,7 @@ public class SearchResultCatalogFragment extends Fragment implements UpdateSwipe
 						case 50001:
 							String filename = catalogList.get(position).getFileName();
 							if (fileHelper.isContentDownloaded(filename)) {
-								File file = new File(fileHelper.getFileAbsolutePath(filename));
+								File file = new File(fileHelper.getDownloadAbsolutePath(filename));
 								Intent target = new Intent(Intent.ACTION_VIEW);
 								target.setDataAndType(Uri.fromFile(file), "application/pdf");
 								target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
@@ -211,7 +211,7 @@ public class SearchResultCatalogFragment extends Fragment implements UpdateSwipe
 
 					String filename1 = catalogList.get(position).getFileName();
 					if (fileHelper.isContentDownloaded(filename1)) {
-						File file = new File(fileHelper.getFileAbsolutePath
+						File file = new File(fileHelper.getDownloadAbsolutePath
 								(filename1));
 						Intent target = new Intent(Intent.ACTION_VIEW);
 						target.setDataAndType(Uri.fromFile(file), "application/pdf");

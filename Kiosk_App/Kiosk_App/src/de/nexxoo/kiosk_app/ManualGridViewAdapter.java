@@ -80,7 +80,7 @@ public class ManualGridViewAdapter extends ArrayAdapter<Manual> {
 		item.trash_button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				File video = new File(fileHelper.getFileAbsolutePath(mManualList
+				File video = new File(fileHelper.getDownloadAbsolutePath(mManualList
 						.get(position).getFileName()));
 				video.delete();
 				ImageView image = (ImageView) v;
@@ -101,7 +101,7 @@ public class ManualGridViewAdapter extends ArrayAdapter<Manual> {
 				callback.updateListViewItemIcon(position,true);
 				String filename = mManualList.get(position).getFileName();
 				if (fileHelper.isContentDownloaded(filename)) {
-					File file = new File(fileHelper.getFileAbsolutePath(filename));
+					File file = new File(fileHelper.getDownloadAbsolutePath(filename));
 					Intent target = new Intent(Intent.ACTION_VIEW);
 					target.setDataAndType(Uri.fromFile(file), "application/pdf");
 					target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
@@ -129,7 +129,7 @@ public class ManualGridViewAdapter extends ArrayAdapter<Manual> {
 				callback.updateListViewItemIcon(position,true);
 				String filename = mManualList.get(position).getFileName();
 				if (fileHelper.isContentDownloaded(filename)) {
-					File file = new File(fileHelper.getFileAbsolutePath(filename));
+					File file = new File(fileHelper.getDownloadAbsolutePath(filename));
 					Intent target = new Intent(Intent.ACTION_VIEW);
 					target.setDataAndType(Uri.fromFile(file), "application/pdf");
 					target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);

@@ -30,7 +30,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class CatalogFragment extends Fragment implements UpdateSwipeListViewMenuItem{
+public class CatalogFragment extends Fragment implements UpdateSwipeListViewMenuItem {
 	private SwipeMenuListView listview;
 	private GridView gridview;
 	private List<Catalog> catalogList = new ArrayList<Catalog>();
@@ -102,32 +102,30 @@ public class CatalogFragment extends Fragment implements UpdateSwipeListViewMenu
 
 		NexxooWebservice.getContent(true, 0, -1, Global.CATALOG_DATABASE_ENTITY_TYPE,
 				new OnJSONResponse() {
-			@Override
-			public void onReceivedJSONResponse(JSONObject json) {
-				try {
-					int count = json.getInt("count");
-//					Log.d(Nexxoo.TAG,"get catalog list size is : "+count);
+					@Override
+					public void onReceivedJSONResponse(JSONObject json) {
+						try {
+							int count = json.getInt("count");
+							prepareListData(json);
+							CatalogGridViewAdapter gridAdapter = new CatalogGridViewAdapter
+									(getActivity(), R.layout.catalog_gridview_item, catalogList);
+							gridview.setAdapter(gridAdapter);
+							gridAdapter.setCallback(CatalogFragment.this);
+							CatalogListAdapter listAdapter = new CatalogListAdapter(getActivity
+									(), Global.isNormalScreenSize ? R.layout
+									.catalog_listview_item : R.layout.catalog_listview_item_big, catalogList);
+							listview.setAdapter(listAdapter);
 
-					prepareListData(json);
-					CatalogGridViewAdapter gridAdapter = new CatalogGridViewAdapter
-							(getActivity(), R.layout.catalog_gridview_item, catalogList);
-					gridview.setAdapter(gridAdapter);
-					gridAdapter.setCallback(CatalogFragment.this);
-					CatalogListAdapter listAdapter = new CatalogListAdapter(getActivity
-							(), Global.isNormalScreenSize ? R.layout
-							.catalog_listview_item : R.layout.catalog_listview_item_big, catalogList);
-					listview.setAdapter(listAdapter);
+						} catch (JSONException e) {
+							Log.d("KioskError", "Error!" + e.getMessage());
+						}
+					}
 
-				} catch (JSONException e) {
-					Log.d("KioskError", "Error!" + e.getMessage());
-				}
-			}
-
-			@Override
-			public void onReceivedError(String msg, int code) {
-				Log.d("KioskError", "Error!" + msg);
-			}
-		});
+					@Override
+					public void onReceivedError(String msg, int code) {
+						Log.d("KioskError", "Error!" + msg);
+					}
+				});
 
 
 		return rootView;
@@ -164,13 +162,13 @@ public class CatalogFragment extends Fragment implements UpdateSwipeListViewMenu
 		// step 2. listener item click event
 		listview.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
 			@Override
-			public boolean onMenuItemClick(int position, SwipeMenuView parent,SwipeMenu menu, int index) {
+			public boolean onMenuItemClick(int position, SwipeMenuView parent, SwipeMenu menu, int index) {
 				Nexxoo.saveContentId(context, catalogList.get(position).getContentId());
 				if (fileHelper.isContentDownloaded(catalogList.get(position)
 						.getFileName())) {//two buttons
 					switch (index) {
 						case 50000:
-							File manual = new File(fileHelper.getFileAbsolutePath
+							File manual = new File(fileHelper.getDownloadAbsolutePath
 									(catalogList
 											.get(position).getFileName()));
 							manual.delete();
@@ -183,7 +181,7 @@ public class CatalogFragment extends Fragment implements UpdateSwipeListViewMenu
 							String filename = catalogList.get(position).getFileName();
 							if (fileHelper.isContentDownloaded(filename)) {
 								listview.closeAllMenu();
-								File file = new File(fileHelper.getFileAbsolutePath(filename));
+								File file = new File(fileHelper.getDownloadAbsolutePath(filename));
 								Intent target = new Intent(Intent.ACTION_VIEW);
 								target.setDataAndType(Uri.fromFile(file), "application/pdf");
 								target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
@@ -199,14 +197,14 @@ public class CatalogFragment extends Fragment implements UpdateSwipeListViewMenu
 							}
 							break;
 					}
-				}else{// one button
+				} else {// one button
 					LinearLayout image = (LinearLayout) parent.findViewById(new
 							Integer(50000));
 					image.setVisibility(View.VISIBLE);
 
 					String filename1 = catalogList.get(position).getFileName();
 					if (fileHelper.isContentDownloaded(filename1)) {
-						File file = new File(fileHelper.getFileAbsolutePath
+						File file = new File(fileHelper.getDownloadAbsolutePath
 								(filename1));
 						Intent target = new Intent(Intent.ACTION_VIEW);
 						target.setDataAndType(Uri.fromFile(file), "application/pdf");
@@ -280,7 +278,7 @@ public class CatalogFragment extends Fragment implements UpdateSwipeListViewMenu
 		}
 	}
 
-	private void updateGridViewItemIcon(int position){
+	private void updateGridViewItemIcon(int position) {
 		LinearLayout griditemLayout = (LinearLayout) gridview.getChildAt(0);
 		ImageView trash_icon = (ImageView) griditemLayout.findViewById(R.id
 				.catalog_grid_item_trash_button);
@@ -288,7 +286,7 @@ public class CatalogFragment extends Fragment implements UpdateSwipeListViewMenu
 	}
 
 	@Override
-	public void updateListViewItemIcon(int position,boolean isVisible) {
-		listview.updateMenuIcon(position,isVisible);
+	public void updateListViewItemIcon(int position, boolean isVisible) {
+		listview.updateMenuIcon(position, isVisible);
 	}
 }

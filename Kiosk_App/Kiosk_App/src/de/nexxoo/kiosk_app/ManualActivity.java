@@ -15,7 +15,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import de.nexxoo.kiosk_app.tools.FileStorageHelper;
-import de.nexxoo.kiosk_app.tools.Nexxoo;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -124,7 +123,7 @@ public class ManualActivity extends Activity implements View.OnClickListener {
 
 			case R.id.manual_view_button_open:
 				if(fileStorageHelper.isContentDownloaded(filename)){
-					File file = new File(fileStorageHelper.getFileAbsolutePath(filename));
+					File file = new File(fileStorageHelper.getDownloadAbsolutePath(filename));
 					Intent target = new Intent(Intent.ACTION_VIEW);
 					target.setDataAndType(Uri.fromFile(file),"application/pdf");
 					target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
@@ -164,11 +163,11 @@ public class ManualActivity extends Activity implements View.OnClickListener {
 		}
 
 		protected String doInBackground(String... urls) {
-			File myFile = new File(fileStorageHelper.getFileAbsolutePath(filename));
+			File myFile = new File(fileStorageHelper.getDownloadAbsolutePath(filename));
 			InputStream input = null;
 			OutputStream output = null;
 
-			Log.d(Nexxoo.TAG,urls[0]);
+//			Log.d(Nexxoo.TAG,urls[0]);
 
 			try {
 				URL url = new URL(urls[0]);
@@ -196,7 +195,7 @@ public class ManualActivity extends Activity implements View.OnClickListener {
 				if (!folder.exists())
 					folder.mkdirs();
 
-				output = new FileOutputStream(fileStorageHelper.getFileAbsolutePath(filename));
+				output = new FileOutputStream(fileStorageHelper.getDownloadAbsolutePath(filename));
 
 				byte data[] = new byte[4096];
 				long total = 0;
@@ -221,7 +220,7 @@ public class ManualActivity extends Activity implements View.OnClickListener {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			return fileStorageHelper.getFileAbsolutePath(filename);
+			return fileStorageHelper.getDownloadAbsolutePath(filename);
 
 		}
 

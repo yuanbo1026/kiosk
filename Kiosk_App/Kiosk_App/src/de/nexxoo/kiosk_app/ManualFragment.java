@@ -186,10 +186,17 @@ public class ManualFragment extends Fragment implements UpdateSwipeListViewMenuI
 						.getFileName())) {//two buttons
 					switch (index) {
 						case 50000:
-							File manual = new File(fileHelper.getFileAbsolutePath
+							File manual = new File(fileHelper.getDownloadAbsolutePath
 									(manualList
 											.get(position).getFileName()));
 							manual.delete();
+							/**
+							 * delete content from DB
+							 */
+							ContentDBHelper db = new ContentDBHelper(context);
+							db.deleteContent(manualList.get(position).getContentId());
+							Log.e(Nexxoo.TAG, "delete content from DB :" + db.getContentsCount());
+
 							LinearLayout image = (LinearLayout) parent.findViewById(new
 									Integer(50000));
 							image.setVisibility(View.GONE);
@@ -200,7 +207,7 @@ public class ManualFragment extends Fragment implements UpdateSwipeListViewMenuI
 							String filename = manualList.get(position).getFileName();
 							if (fileHelper.isContentDownloaded(filename)) {
 								listview.closeAllMenu();
-								File file = new File(fileHelper.getFileAbsolutePath(filename));
+								File file = new File(fileHelper.getDownloadAbsolutePath(filename));
 								Intent target = new Intent(Intent.ACTION_VIEW);
 								target.setDataAndType(Uri.fromFile(file), "application/pdf");
 								target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
@@ -225,7 +232,7 @@ public class ManualFragment extends Fragment implements UpdateSwipeListViewMenuI
 
 					String filename1 = manualList.get(position).getFileName();
 					if (fileHelper.isContentDownloaded(filename1)) {
-						File file = new File(fileHelper.getFileAbsolutePath
+						File file = new File(fileHelper.getDownloadAbsolutePath
 								(filename1));
 						Intent target = new Intent(Intent.ACTION_VIEW);
 						target.setDataAndType(Uri.fromFile(file), "application/pdf");
@@ -234,25 +241,27 @@ public class ManualFragment extends Fragment implements UpdateSwipeListViewMenuI
 								.getString(R.string.open_pdf_file));
 						startActivity(i);
 					} else {
-						if (listview.getChildAt(position) instanceof SwipeMenuLayout) {
-							SwipeMenuLayout menuLayout = (SwipeMenuLayout)
-									listview.getChildAt(position);
-							menuLayout.smoothCloseMenu();
-						}
-
 						/**
 						 * add download content to local DB
 						 */
 						Manual manual = manualList.get(position);
 						ContentDBHelper db = new ContentDBHelper(context);
 						db.addContact(manual);
+						Log.e(Nexxoo.TAG, "add content into DB :" + db.getContentsCount());
 
-						DownloadAsyncTask task1 = new DownloadAsyncTask(context,
-								manualList
-										.get(position).getUrl(), manualList.get
-								(position).getFileName(), Global
+						if (listview.getChildAt(position) instanceof SwipeMenuLayout) {
+							SwipeMenuLayout menuLayout = (SwipeMenuLayout)
+									listview.getChildAt(position);
+							menuLayout.smoothCloseMenu();
+						}
+
+						DownloadAsyncTask task = new DownloadAsyncTask(context,
+								manualList.get(position).getUrl(), manualList.get
+								(position).getFileName(),manualList.get
+								(position).getmPictureList().get(0).getmUrl(),manualList.get
+								(position).getContentId()+".jpg", Global
 								.DOWNLOAD_TASK_TYPE_PDF);
-						task1.execute();
+						task.execute();
 					}
 				}
 				gridAdapter.notifyDataSetChanged();

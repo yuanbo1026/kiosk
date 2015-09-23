@@ -44,6 +44,68 @@ public class ManualListAdapter extends ArrayAdapter<Manual> {
 	public View getView(int position, View convertView, ViewGroup parent) {
 
 		Item item;
+		if (convertView == null) {
+			convertView = mInflater.inflate(mLayoutId, parent, false);
+			item = new Item();
+			item.manualName = (TextView) convertView
+					.findViewById(R.id.manual_listview_item_name);
+			item.manualSize = (TextView) convertView.findViewById(R.id.manual_listview_item_size);
+			item.manualCover = (ImageView) convertView.findViewById(R.id.manual_listview_item_cover);
+			convertView.setTag(item);
+		} else {
+			if (convertView.getTag() != null)
+				item = (Item) convertView.getTag();
+			else {
+				convertView = mInflater.inflate(mLayoutId, parent, false);
+				item = new Item();
+				item.manualName = (TextView) convertView
+						.findViewById(R.id.manual_listview_item_name);
+				item.manualSize = (TextView) convertView.findViewById(R.id.manual_listview_item_size);
+				item.manualCover = (ImageView) convertView.findViewById(R.id.manual_listview_item_cover);
+				convertView.setTag(item);
+			}
+		}
+		convertView.setBackgroundColor(mContext.getResources().getColor(
+				R.color.RealWhite));
+		item.manualName.setText(mManualList.get(position).getName());
+		item.manualName.setTypeface(Misc.getCustomFont(mContext, Misc.FONT_NORMAL));
+		String detailInformation = mManualList.get(position).getPages()
+				+ Nexxoo.PAGES + Nexxoo
+				.readableFileSize(mManualList.get(position)
+						.getSize());
+		item.manualSize.setText(detailInformation);
+		item.manualSize.setTypeface(Misc.getCustomFont(mContext, Misc.FONT_NORMAL));
+		if (!mManualList.get(position).getmPictureList().isEmpty()) {
+			ImageLoader imageLoader = ImageLoader.getInstance(); // Get singleton instance
+			imageLoader.displayImage(mManualList.get(position).getmPictureList().get
+							(0).getmUrl(),
+					item.manualCover, new ImageLoadingListener() {
+
+						@Override
+						public void onLoadingStarted(String imageUri, View view) {
+						}
+
+						@Override
+						public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+							ImageView mImageView = (ImageView) view;
+							mImageView.setImageResource(R.drawable.default_no_image);
+						}
+
+						@Override
+						public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+						}
+
+						@Override
+						public void onLoadingCancelled(String imageUri, View view) {
+
+						}
+					});
+		} else {
+			item.manualCover.setImageResource(R.drawable.default_no_image);
+		}
+		return convertView;
+
+		/*Item item;
 		View v = convertView;
 		if (v == null) {
 			item = new Item();
@@ -96,7 +158,7 @@ public class ManualListAdapter extends ArrayAdapter<Manual> {
 		} else {
 			item.manualCover.setImageResource(R.drawable.default_no_image);
 		}
-		return v;
+		return v;*/
 	}
 
 	/**
@@ -113,7 +175,6 @@ public class ManualListAdapter extends ArrayAdapter<Manual> {
 	@Override
 	public int getCount() {
 		return mManualList.size();
-
 	}
 
 	@Override

@@ -48,11 +48,12 @@ public class MainActivity extends FragmentActivity {
 	protected void onStart() {
 		super.onStart();
 		if (!Misc.isOnline(this)) {
-			new AlertDialog.Builder(context)
-					.setMessage("Bitte stellen Sie eine WiFi Verbindung, um den " +
-							"Inhalt darzustellen.")
+			new AlertDialog.Builder(this)
+					.setMessage(this.getResources().getString(R.string.no_wifi_message))
 					.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
+							Intent i = new Intent(MainActivity.this, HistoryActivity.class);
+							startActivity(i);
 						}
 					})
 					.setIcon(android.R.drawable.ic_dialog_alert)
@@ -237,7 +238,7 @@ public class MainActivity extends FragmentActivity {
 		getMenuInflater().inflate(R.menu.menu, menu);
 		SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
 		SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
-		searchView.setSearchableInfo( searchManager.getSearchableInfo(getComponentName()));
+		searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 
 		int searchIconId = searchView.getContext().getResources().
 				getIdentifier("android:id/search_button", null, null);

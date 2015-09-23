@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Environment;
-import android.util.Log;
 import de.nexxoo.kiosk_app.download.OnDownloadResult;
 import de.nexxoo.kiosk_app.entity.BaseEntity;
 import de.nexxoo.kiosk_app.webservice.NexxooWebservice;
@@ -16,6 +15,7 @@ public class FileStorageHelper {
 	private Context mContext;
 
 	private static final String DOWNLOADFOLDER = "downloads";
+	private static final String IMAGEFOLDER = "images";
 	private static final String DBFOLDER = "database";
 
 	public FileStorageHelper(Context context) {
@@ -46,6 +46,22 @@ public class FileStorageHelper {
 		return null;
 	}
 
+	public String getImageFolder(){
+		if (mContext != null) {
+			if (Environment.getExternalStorageState().equals(
+					Environment.MEDIA_MOUNTED)
+					&& mContext.getExternalFilesDir(null) != null) {
+				// external is available and will be used
+				return mContext.getExternalFilesDir(null).getAbsolutePath()
+						+ File.separator + IMAGEFOLDER + File.separator;
+			}
+			// we switch to internal memory
+			return mContext.getFilesDir().getAbsolutePath() + File.separator
+					+ IMAGEFOLDER + File.separator;
+		}
+		return null;
+	}
+
 	public String getDBFolder(){
 		if (mContext != null) {
 			if (Environment.getExternalStorageState().equals(
@@ -67,8 +83,17 @@ public class FileStorageHelper {
 		return file.exists();
 	}
 
-	public String getFileAbsolutePath(String fileName){
+	public boolean isImageDownloaded(String imageName){
+		File file = new File(getImageFolder()+imageName);
+		return file.exists();
+	}
+
+	public String getDownloadAbsolutePath(String fileName){
 		return getDownloadFolder()+fileName;
+	}
+
+	public String getImageAbsolutePath(String filename){
+		return getImageFolder()+filename;
 	}
 
 	/**
@@ -102,7 +127,7 @@ public class FileStorageHelper {
 	public static boolean isNewestVersion(String packageName,
 			int currentVersion, Context ctx) {
 		try {
-			Log.e("APP_VERSION", packageName + " - - " + ctx.getPackageManager().getPackageInfo(packageName, 0).versionCode);
+//			Log.e("APP_VERSION", packageName + " - - " + ctx.getPackageManager().getPackageInfo(packageName, 0).versionCode);
 			return (ctx.getPackageManager().getPackageInfo(packageName, 0).versionCode == currentVersion);
 		} catch (PackageManager.NameNotFoundException e) {
 			return false;

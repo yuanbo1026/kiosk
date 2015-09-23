@@ -1,5 +1,6 @@
 package de.nexxoo.kiosk_app.entity;
 
+import de.nexxoo.kiosk_app.db.Content;
 import de.nexxoo.kiosk_app.exception.KioskContentError;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,7 +20,9 @@ public class Catalog extends BaseEntity {
 			e.printStackTrace();
 		}
 	}
-
+	public Catalog(Content content){
+		pages = content.getPages();
+	}
 	public Catalog() {
 	}
 

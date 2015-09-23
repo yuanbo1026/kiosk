@@ -78,7 +78,7 @@ public class CatalogGridViewAdapter extends ArrayAdapter<Catalog> {
 		item.trash_button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				File video = new File(fileHelper.getFileAbsolutePath(mCatalogList
+				File video = new File(fileHelper.getDownloadAbsolutePath(mCatalogList
 						.get(currentPosition).getFileName()));
 				video.delete();
 				ImageView image = (ImageView) v;
@@ -99,7 +99,7 @@ public class CatalogGridViewAdapter extends ArrayAdapter<Catalog> {
 				callback.updateListViewItemIcon(position,true);
 				String filename = mCatalogList.get(position).getFileName();
 				if (fileHelper.isContentDownloaded(filename)) {
-					File file = new File(fileHelper.getFileAbsolutePath(filename));
+					File file = new File(fileHelper.getDownloadAbsolutePath(filename));
 					Intent target = new Intent(Intent.ACTION_VIEW);
 					target.setDataAndType(Uri.fromFile(file), "application/pdf");
 					target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
@@ -127,7 +127,7 @@ public class CatalogGridViewAdapter extends ArrayAdapter<Catalog> {
 				callback.updateListViewItemIcon(position,true);
 				String filename = mCatalogList.get(position).getFileName();
 				if (fileHelper.isContentDownloaded(filename)) {
-					File file = new File(fileHelper.getFileAbsolutePath(filename));
+					File file = new File(fileHelper.getDownloadAbsolutePath(filename));
 					Intent target = new Intent(Intent.ACTION_VIEW);
 					target.setDataAndType(Uri.fromFile(file), "application/pdf");
 					target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);

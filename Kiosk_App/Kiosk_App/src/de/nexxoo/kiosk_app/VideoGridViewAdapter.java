@@ -113,7 +113,7 @@ public class VideoGridViewAdapter extends ArrayAdapter<Video> {
 			public void onClick(View v) {
 				Nexxoo.saveContentId(mContext,mVideoList.get(position).getContentId());
 				if (isVideoDownloaded) {
-					File video = new File(fileHelper.getFileAbsolutePath(mVideoList
+					File video = new File(fileHelper.getDownloadAbsolutePath(mVideoList
 							.get(position).getFileName()));
 					video.delete();
 					ImageView image = (ImageView) v;
@@ -160,8 +160,6 @@ public class VideoGridViewAdapter extends ArrayAdapter<Video> {
 		}else{
 			item.videoCover.setImageResource(R.drawable.default_no_image);
 		}
-
-
 		return convertView;
 	}
 

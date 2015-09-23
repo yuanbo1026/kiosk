@@ -2,7 +2,6 @@ package de.nexxoo.kiosk_app;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,13 +43,12 @@ public class CatalogListAdapter extends ArrayAdapter<Catalog> {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 
-		Item item = null;
+		Item item;
 		View v = convertView;
 		if (v == null) {
 			v = mInflater.inflate(mLayoutId, parent, false);
 			v.setBackgroundColor(mContext.getResources().getColor(
 					R.color.RealWhite));
-			Log.d(Nexxoo.TAG, "ListView Adapter Position: " + position);
 			item = new Item();
 			item.catalogName = (TextView) v
 					.findViewById(R.id.catalog_listview_item_name);
@@ -60,48 +58,60 @@ public class CatalogListAdapter extends ArrayAdapter<Catalog> {
 			item.catalogSize.setTypeface(Misc.getCustomFont(mContext,
 					Misc.FONT_NORMAL));
 			item.catalogCover = (ImageView) v.findViewById(R.id.catalog_listview_item_cover);
-
-			item.catalogName.setText(mCatalogList.get(position).getName());
-			String deteilInformation = mCatalogList.get(position).getPages()
-					+Nexxoo.PAGES+	Nexxoo
-					.readableFileSize(mCatalogList.get(position)
-							.getSize());
-			item.catalogSize.setText(deteilInformation);
-			if (!mCatalogList.get(position).getmPictureList().isEmpty()) {
-				ImageLoader imageLoader = ImageLoader.getInstance(); // Get singleton instance
-				imageLoader.displayImage(mCatalogList.get(position).getmPictureList().get
-								(0).getmUrl(),
-						item.catalogCover,new ImageLoadingListener(){
-
-							@Override
-							public void onLoadingStarted(String imageUri, View view) {
-								Log.d(Nexxoo.TAG, "Image loading starts: " + imageUri);
-							}
-
-							@Override
-							public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-								ImageView mImageView = (ImageView) view;
-								mImageView.setImageResource(R.drawable.default_no_image);
-							}
-
-							@Override
-							public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-								Log.d(Nexxoo.TAG,"Image loading completes: "+imageUri);
-							}
-
-							@Override
-							public void onLoadingCancelled(String imageUri, View view) {
-
-							}
-						});
-			}else{
-				item.catalogCover.setImageResource(R.drawable.default_no_image);
-			}
-
-
 			v.setTag(item);
 		} else {
-			item = (Item) v.getTag();
+			if (convertView.getTag() != null)
+				item = (Item) v.getTag();
+			else {
+				v = mInflater.inflate(mLayoutId, parent, false);
+				v.setBackgroundColor(mContext.getResources().getColor(
+						R.color.RealWhite));
+				item = new Item();
+				item.catalogName = (TextView) v
+						.findViewById(R.id.catalog_listview_item_name);
+				item.catalogName.setTypeface(Misc.getCustomFont(mContext,
+						Misc.FONT_NORMAL));
+				item.catalogSize = (TextView) v.findViewById(R.id.catalog_listview_item_size);
+				item.catalogSize.setTypeface(Misc.getCustomFont(mContext,
+						Misc.FONT_NORMAL));
+				item.catalogCover = (ImageView) v.findViewById(R.id.catalog_listview_item_cover);
+				v.setTag(item);
+			}
+		}
+
+		item.catalogName.setText(mCatalogList.get(position).getName());
+		String detailInformation = mCatalogList.get(position).getPages()
+				+Nexxoo.PAGES+	Nexxoo
+				.readableFileSize(mCatalogList.get(position)
+						.getSize());
+		item.catalogSize.setText(detailInformation);
+		if (!mCatalogList.get(position).getmPictureList().isEmpty()) {
+			ImageLoader imageLoader = ImageLoader.getInstance(); // Get singleton instance
+			imageLoader.displayImage(mCatalogList.get(position).getmPictureList().get
+							(0).getmUrl(),
+					item.catalogCover,new ImageLoadingListener(){
+
+						@Override
+						public void onLoadingStarted(String imageUri, View view) {
+						}
+
+						@Override
+						public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+							ImageView mImageView = (ImageView) view;
+							mImageView.setImageResource(R.drawable.default_no_image);
+						}
+
+						@Override
+						public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+						}
+
+						@Override
+						public void onLoadingCancelled(String imageUri, View view) {
+
+						}
+					});
+		}else{
+			item.catalogCover.setImageResource(R.drawable.default_no_image);
 		}
 
 		return v;

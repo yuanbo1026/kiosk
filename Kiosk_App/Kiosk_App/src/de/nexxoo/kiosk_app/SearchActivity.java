@@ -78,7 +78,7 @@ public class SearchActivity extends FragmentActivity {
 				public void onReceivedJSONResponse(JSONObject json) {
 					try {
 						int count = json.getInt("count");
-						Log.d(Nexxoo.TAG, "get search result list size is : " + count);
+//						Log.d(Nexxoo.TAG, "get search result list size is : " + count);
 						prepareListData(json);
 
 						/**

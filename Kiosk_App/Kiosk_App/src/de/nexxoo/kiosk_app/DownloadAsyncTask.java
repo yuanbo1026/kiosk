@@ -1,7 +1,6 @@
 package de.nexxoo.kiosk_app;
 
 import android.app.ProgressDialog;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -12,6 +11,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
+import de.nexxoo.kiosk_app.entity.BaseEntity;
 import de.nexxoo.kiosk_app.tools.FileStorageHelper;
 import de.nexxoo.kiosk_app.tools.Global;
 import de.nexxoo.kiosk_app.tools.Nexxoo;
@@ -36,8 +36,9 @@ public class DownloadAsyncTask extends AsyncTask<Void, Integer, String> {
 	private String basicAuthBase64;
 	private int entityType = -1;
 	private ImageView mImageView;
-	private DownloadCallback mCallnack;
-
+	private DownloadCallback mCallback;
+	private String mImageUrl;
+	private String mImageName;
 
 	public DownloadAsyncTask(Context context, String url, String filename) {
 		this.mContext = context;
@@ -45,7 +46,18 @@ public class DownloadAsyncTask extends AsyncTask<Void, Integer, String> {
 		this.filename = filename;
 		if (BASICAUTH != null) {
 			basicAuthBase64 = Base64.encodeToString(BASICAUTH.getBytes(), Base64.NO_WRAP);
-//			Log.e("BASIC", basicAuthBase64);
+		}
+	}
+
+	public DownloadAsyncTask(Context context, BaseEntity base) {
+		this.mContext = context;
+		this.mUrl = base.getUrl().replace("www", "nexxoo:wenexxoo4kiosk!@www");
+		this.filename = base.getFileName();
+		this.entityType = base.getContentTypeId();
+		this.mImageUrl = base.getmPictureList().get(0).getmUrl();
+		this.mImageName = base.getName() + ".jpg";
+		if (BASICAUTH != null) {
+			basicAuthBase64 = Base64.encodeToString(BASICAUTH.getBytes(), Base64.NO_WRAP);
 		}
 	}
 
@@ -57,9 +69,23 @@ public class DownloadAsyncTask extends AsyncTask<Void, Integer, String> {
 		this.entityType = entityType;
 		if (BASICAUTH != null) {
 			basicAuthBase64 = Base64.encodeToString(BASICAUTH.getBytes(), Base64.NO_WRAP);
-//			Log.e("BASIC", basicAuthBase64);
 		}
 	}
+
+	public DownloadAsyncTask(Context context, String pdfUrl, String pdfName,String imageUrl,String
+			imageName, int
+			entityType) {
+		this.mContext = context;
+		this.mUrl = pdfUrl.replace("www", "nexxoo:wenexxoo4kiosk!@www");
+		this.filename = pdfName;
+		this.mImageUrl = imageUrl;
+		this.mImageName = imageName;
+		this.entityType = entityType;
+		if (BASICAUTH != null) {
+			basicAuthBase64 = Base64.encodeToString(BASICAUTH.getBytes(), Base64.NO_WRAP);
+		}
+	}
+
 	public DownloadAsyncTask(Context context, String url, String filename, int entityType, DownloadCallback callback) {
 		this.mContext = context;
 		this.mUrl = url.replace("www", "nexxoo:wenexxoo4kiosk!@www");
@@ -67,10 +93,10 @@ public class DownloadAsyncTask extends AsyncTask<Void, Integer, String> {
 		this.entityType = entityType;
 		if (BASICAUTH != null) {
 			basicAuthBase64 = Base64.encodeToString(BASICAUTH.getBytes(), Base64.NO_WRAP);
-//			Log.e("BASIC", basicAuthBase64);
 		}
-		this.mCallnack = callback;
+		this.mCallback = callback;
 	}
+
 	/**
 	 * This method is not useful anymore, there is not need to change grid view item
 	 * icon to trust image
@@ -84,7 +110,6 @@ public class DownloadAsyncTask extends AsyncTask<Void, Integer, String> {
 		this.entityType = entityType;
 		if (BASICAUTH != null) {
 			basicAuthBase64 = Base64.encodeToString(BASICAUTH.getBytes(), Base64.NO_WRAP);
-//			Log.e("BASIC", basicAuthBase64);
 		}
 	}
 
@@ -98,9 +123,13 @@ public class DownloadAsyncTask extends AsyncTask<Void, Integer, String> {
 		progressDialog.show();
 
 		fileStorageHelper = new FileStorageHelper(mContext);
-		File folder = new File(fileStorageHelper.getDownloadFolder());
-		if (!folder.exists())
-			folder.mkdirs();
+		File downloadFolder = new File(fileStorageHelper.getDownloadFolder());
+		if (!downloadFolder.exists())
+			downloadFolder.mkdirs();
+
+		File imageFolder = new File(fileStorageHelper.getImageFolder());
+		if (!imageFolder.exists())
+			imageFolder.mkdirs();
 
 		if (fileStorageHelper.isContentDownloaded(filename)) {
 			Toast.makeText(mContext, mContext.getString(R.string.download_file_exist), Toast
@@ -110,14 +139,11 @@ public class DownloadAsyncTask extends AsyncTask<Void, Integer, String> {
 	}
 
 	protected String doInBackground(Void... urls) {
-		File myFile = new File(fileStorageHelper.getFileAbsolutePath(filename));
 		InputStream input = null;
 		OutputStream output = null;
-//		Log.e(Nexxoo.TAG, "Video FileName is " + filename);
 		FileStorageHelper helper = new FileStorageHelper(mContext);
 		try {
 			URL url = new URL(mUrl);
-//			Log.e(Nexxoo.TAG, "URL: " + mUrl);
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestProperty("Authorization", basicAuthBase64);
 			connection.setRequestProperty("Accept-Encoding", "identity");
@@ -125,26 +151,20 @@ public class DownloadAsyncTask extends AsyncTask<Void, Integer, String> {
 				connection.setRequestProperty("User-Agent", "nexxoo");
 			connection.setDoInput(true);
 			connection.setDoOutput(true);
-//			Log.e(Nexxoo.TAG, connection.getHeaderFields().toString());
 			connection.connect();
-
-
-			// expect HTTP 200 OK, so we don't mistakenly save error report
-			// instead of the file
 			if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
 				Log.e(Nexxoo.TAG, "HttpURLConnection: " + connection.getResponseCode());
 				Log.e(Nexxoo.TAG, connection.getErrorStream().toString());
 			}
 
 			int fileLength = connection.getContentLength();
-//			Log.e(Nexxoo.TAG, "fileLength: " + fileLength);
 			input = connection.getInputStream();
 
 			File folder = new File(helper.getDownloadFolder());
 			if (!folder.exists())
 				folder.mkdirs();
 
-			output = new FileOutputStream(fileStorageHelper.getFileAbsolutePath(filename));
+			output = new FileOutputStream(fileStorageHelper.getDownloadAbsolutePath(filename));
 
 			byte data[] = new byte[4096];
 			long total = 0;
@@ -159,17 +179,60 @@ public class DownloadAsyncTask extends AsyncTask<Void, Integer, String> {
 				// publishing the progress....
 				if (fileLength > 0) // only if total length is known
 					publishProgress((int) (total * 100 / fileLength));
-
 				output.write(data, 0, count);
-//                Log.d(Nexxoo.TAG, "Filedownload: Wrote " + count + "bytes");
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			Log.e(Nexxoo.TAG, "Exception: " + e.getMessage());
 		}
+		if (mImageUrl != null){
+			try {
+				URL url = new URL(mImageUrl);
+				HttpURLConnection connections = (HttpURLConnection) url.openConnection();
+//				Log.e(Nexxoo.TAG, "image url:" + mImageUrl);
+				connections.setDoInput(true);
+				connections.setDoOutput(true);
+				connections.connect();
+				if (connections.getResponseCode() != HttpURLConnection.HTTP_OK) {
+					Log.e(Nexxoo.TAG, "HttpURLConnection: " + connections.getResponseCode());
+					Log.e(Nexxoo.TAG, connections.getErrorStream().toString());
+					return "";
+				}
 
-		return fileStorageHelper.getFileAbsolutePath(filename);
+				int fileLength = connections.getContentLength();
+				input = connections.getInputStream();
+
+				File folder = new File(helper.getImageFolder());
+				if (!folder.exists())
+					folder.mkdirs();
+
+				output = new FileOutputStream(fileStorageHelper.getImageAbsolutePath(mImageName));
+
+				byte data[] = new byte[4096];
+				long total = 0;
+				int count;
+				while ((count = input.read(data)) != -1) {
+					// allow canceling with back button
+					if (isCancelled()) {
+						input.close();
+						return "";
+					}
+					total += count;
+					// publishing the progress....
+					if (fileLength > 0) // only if total length is known
+						publishProgress((int) (total * 100 / fileLength));
+					output.write(data, 0, count);
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				Log.e(Nexxoo.TAG, "Exception: " + e.getMessage());
+			}
+		}
+
+
+		return fileStorageHelper.getDownloadAbsolutePath(filename);
 
 	}
 
@@ -197,15 +260,6 @@ public class DownloadAsyncTask extends AsyncTask<Void, Integer, String> {
 			image.setVisibility(View.VISIBLE);
 		}
 		/**
-		 * There is no effect to change to swipe menu item icon.
-		 */
-		/*if (menu != null && view instanceof ImageView) {
-			menu.getMenuItem(0).setIcon(R.drawable.ic_list_trash);
-		}*/
-
-
-//		Log.e(Nexxoo.TAG, "fileStorageHelper.getFileAbsolutePath(filename): " + filename);
-		/**
 		 * display PDF file
 		 */
 		if (entityType != -1 && entityType == Global.DOWNLOAD_TASK_TYPE_PDF) {
@@ -216,17 +270,12 @@ public class DownloadAsyncTask extends AsyncTask<Void, Integer, String> {
 
 			Intent intent = Intent.createChooser(target, mContext.getString(R.string
 					.open_pdf_file));
-			try {
-				mContext.startActivity(intent);
-			} catch (ActivityNotFoundException e) {
-				// Instruct the user to install a PDF reader here, or something
-			}
-		}else if(entityType != -1 && entityType == Global.DOWNLOAD_TASK_TYPE_VIDEO){
-
+			mContext.startActivity(intent);
+		} else if (entityType != -1 && entityType == Global.DOWNLOAD_TASK_TYPE_VIDEO) {
 		}
 
-		if(this.mCallnack!= null){
-			mCallnack.OnUpdateInteface();
+		if (this.mCallback != null) {
+			mCallback.OnUpdateInteface();
 		}
 
 	}

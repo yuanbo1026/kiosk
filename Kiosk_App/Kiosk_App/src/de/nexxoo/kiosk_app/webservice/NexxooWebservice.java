@@ -4,11 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Base64;
-import android.util.Log;
 import de.nexxoo.kiosk_app.download.DownloadAsyncTask;
 import de.nexxoo.kiosk_app.download.OnDownloadResult;
 import de.nexxoo.kiosk_app.entity.BaseEntity;
-import de.nexxoo.kiosk_app.tools.Nexxoo;
 import de.nexxoo.kiosk_app.webservice.error.JSONErrorHandler;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -173,7 +171,7 @@ public class NexxooWebservice {
 //							Log.d(Nexxoo.TAG, "Response: " + json);
 							try {
 								JSONObject obj = new JSONObject(json);
-								Log.d(Nexxoo.TAG, "JSON: " + json.toString());
+//								Log.d(Nexxoo.TAG, "JSON: " + json.toString());
 								//check if result == 1
 								int resultCode = obj.getInt("result");
 								if (resultCode == 1)								

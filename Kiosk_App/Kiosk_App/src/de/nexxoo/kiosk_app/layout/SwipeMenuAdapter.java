@@ -7,13 +7,12 @@ import android.graphics.drawable.ColorDrawable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
-import android.widget.WrapperListAdapter;
 
 /**
  * @author baoyz
  * @date 2014-8-24
  */
-public class SwipeMenuAdapter implements WrapperListAdapter,
+public class SwipeMenuAdapter implements ListAdapter,
 		SwipeMenuView.OnSwipeItemClickListener {
 
 	private ListAdapter mAdapter;
@@ -41,8 +40,8 @@ public class SwipeMenuAdapter implements WrapperListAdapter,
 	}
 
 	@Override
-	public View getView(final int position, View convertView, ViewGroup parent) {
-		SwipeMenuLayout layout = null;
+	public View getView(int position, View convertView, ViewGroup parent) {
+		/*SwipeMenuLayout layout = null;
 		if (convertView == null) {
 			View contentView = mAdapter.getView(position, convertView, parent);
 			SwipeMenu menu = new SwipeMenu(mContext);
@@ -56,29 +55,25 @@ public class SwipeMenuAdapter implements WrapperListAdapter,
 					listView.getCloseInterpolator(),
 					listView.getOpenInterpolator());
 			layout.setPosition(position);
-			/**
-			 * this listener causes the listview position not correct.
-			 */
-//			layout.setOnClickListener(new View.OnClickListener() {
-//				@Override
-//				public void onClick(View v) {
-//					SwipeMenuLayout menuLayout = (SwipeMenuLayout) v;
-//					if(menuLayout.isOpen()){
-//						menuLayout.closeMenu();
-//					}else{
-//						SwipeMenuListView listview = (SwipeMenuListView) v.getParent();
-//						listview.smoothOpenMenu(position);
-//					}
-//					SwipeMenu menu = new SwipeMenu(mContext);
-//					menu.setViewType(mAdapter.getItemViewType(position));
-//
-//				}
-//			});
 		} else {
 			layout = (SwipeMenuLayout) convertView;
 			layout.closeMenu();
 			layout.setPosition(position);
 		}
+		return layout;*/
+		View contentView = mAdapter.getView(position, convertView, parent);
+		SwipeMenu menu = new SwipeMenu(mContext);
+		menu.setViewType(mAdapter.getItemViewType(position));
+		createMenu(menu);//invoke createMenu callback
+		SwipeMenuView menuView = new SwipeMenuView(menu,
+				(SwipeMenuListView) parent);
+		menuView.setOnSwipeItemClickListener(this);
+		SwipeMenuListView listView = (SwipeMenuListView) parent;
+		SwipeMenuLayout layout = new SwipeMenuLayout(contentView, menuView,
+				listView.getCloseInterpolator(),
+				listView.getOpenInterpolator());
+		layout.closeMenu();
+		layout.setPosition(position);
 		return layout;
 	}
 
@@ -150,9 +145,9 @@ public class SwipeMenuAdapter implements WrapperListAdapter,
 		return mAdapter.isEmpty();
 	}
 
-	@Override
-	public ListAdapter getWrappedAdapter() {
-		return mAdapter;
-	}
+//	@Override
+//	public ListAdapter getWrappedAdapter() {
+//		return mAdapter;
+//	}
 
 }

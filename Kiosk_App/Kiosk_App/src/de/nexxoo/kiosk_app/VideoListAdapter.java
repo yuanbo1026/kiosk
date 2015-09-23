@@ -45,17 +45,31 @@ public class VideoListAdapter extends ArrayAdapter<Video> {
 	public View getView(int position, View convertView, ViewGroup parent) {
 
 		Item item;
-		if (convertView  == null) {
+		if (convertView == null) {
 			convertView = mInflater.inflate(mLayoutId, parent, false);
 			convertView.setBackgroundColor(mContext.getResources().getColor(
 					R.color.RealWhite));
-			if (mLayoutId == R.layout.video_gridview_item) {
-				// grid view
-				item = new Item();
-				item.videoCover = (ImageView) convertView.findViewById(R.id.video_gridview_item_cover);
 
-			} else {
-				// list layout
+			item = new Item();
+			item.videoName = (TextView) convertView
+					.findViewById(R.id.video_listview_item_name);
+			item.videoName.setTypeface(Misc.getCustomFont(mContext,
+					Misc.FONT_NORMAL));
+			item.videoSize = (TextView) convertView
+					.findViewById(R.id.video_listview_item_size);
+			item.videoSize.setTypeface(Misc.getCustomFont(mContext,
+					Misc.FONT_NORMAL));
+			item.videoCover = (ImageView) convertView.findViewById(R.id.video_listview_item_cover);
+
+			convertView.setTag(item);
+		} else {
+			if (convertView.getTag() != null)
+				item = (Item) convertView.getTag();
+			else {
+				convertView = mInflater.inflate(mLayoutId, parent, false);
+				convertView.setBackgroundColor(mContext.getResources().getColor(
+						R.color.RealWhite));
+
 				item = new Item();
 				item.videoName = (TextView) convertView
 						.findViewById(R.id.video_listview_item_name);
@@ -67,23 +81,21 @@ public class VideoListAdapter extends ArrayAdapter<Video> {
 						Misc.FONT_NORMAL));
 				item.videoCover = (ImageView) convertView.findViewById(R.id.video_listview_item_cover);
 
+				convertView.setTag(item);
 			}
-
-			convertView.setTag(item);
-		} else {
-			item = (Item) convertView.getTag();
 		}
 		item.videoName.setText(mVideoList.get(position).getName());
 		item.videoName.setText(mVideoList.get(position).getName());
-		String deteilInformation = Nexxoo.splitToComponentTimes(mVideoList.get(position).getDuration())
-				+Nexxoo.DURATION_DIVIDER+	Nexxoo
+		String detailInformation = Nexxoo.splitToComponentTimes(mVideoList.get
+				(position).getDuration())
+				+ Nexxoo.DURATION_DIVIDER + Nexxoo
 				.readableFileSize(mVideoList.get(position)
 						.getSize());
-		item.videoSize.setText(deteilInformation);
+		item.videoSize.setText(detailInformation);
 		if (!mVideoList.get(position).getmPictureList().isEmpty()) {
 			mImageLoader.displayImage(mVideoList.get(position).getmPictureList().get
 							(0).getmUrl(),
-					item.videoCover,new ImageLoadingListener(){
+					item.videoCover, new ImageLoadingListener() {
 
 						@Override
 						public void onLoadingStarted(String imageUri, View view) {
@@ -104,11 +116,9 @@ public class VideoListAdapter extends ArrayAdapter<Video> {
 
 						}
 					});
-		}else{
+		} else {
 			item.videoCover.setImageResource(R.drawable.default_no_image);
 		}
-
-
 		return convertView;
 	}
 
@@ -119,10 +129,20 @@ public class VideoListAdapter extends ArrayAdapter<Video> {
 	}
 
 	@Override
+	public Video getItem(int position) {
+		return mVideoList.get(position);
+	}
+
+	@Override
+	public int getCount() {
+		return mVideoList.size();
+	}
+
+	@Override
 	public int getItemViewType(int position) {
 		String fileName = mVideoList.get(position).getFileName();
 		boolean isContentDownloaded = helper.isContentDownloaded(fileName);
-		return isContentDownloaded?1:0;
+		return isContentDownloaded ? 1 : 0;
 	}
 
 	private static class Item {

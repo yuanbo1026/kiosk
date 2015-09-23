@@ -2,19 +2,15 @@ package de.nexxoo.kiosk_app.app;
 
 import android.app.Application;
 import android.content.res.Configuration;
-import android.util.Log;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import de.nexxoo.kiosk_app.tools.Global;
-import de.nexxoo.kiosk_app.tools.Nexxoo;
 
 public class AppStart extends Application {
 
 	@Override
 	public void onCreate() {
-
-
 		if (!ImageLoader.getInstance().isInited()) {
 			DisplayImageOptions options = new DisplayImageOptions.Builder()
 					.cacheInMemory(true)
@@ -57,7 +53,6 @@ public class AppStart extends Application {
 				toastMsg = "Unknown screen";
 		}
 //		nuke();
-		Log.d(Nexxoo.TAG, toastMsg+"-"+screenSize);
 	}
 
 	/*public void nuke() {

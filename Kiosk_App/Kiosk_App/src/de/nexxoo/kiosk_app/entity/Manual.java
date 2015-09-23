@@ -1,5 +1,6 @@
 package de.nexxoo.kiosk_app.entity;
 
+import de.nexxoo.kiosk_app.db.Content;
 import de.nexxoo.kiosk_app.exception.KioskContentError;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,6 +18,9 @@ public class Manual extends BaseEntity {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
+	}
+	public Manual(Content content){
+		pages = content.getPages();
 	}
 	public Manual(){
 	}

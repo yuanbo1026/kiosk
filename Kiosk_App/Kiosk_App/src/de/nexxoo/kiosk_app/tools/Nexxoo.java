@@ -122,7 +122,7 @@ public class Nexxoo {
 		int i = 0;
 		for (Map.Entry<String, Long> map : contentIds) {
 			ids[i] = Integer.parseInt(map.getKey());
-			Log.d(Nexxoo.TAG, "getContentIds :" + ids[i]);
+//			Log.d(Nexxoo.TAG, "getContentIds :" + ids[i]);
 			i++;
 		}
 		return ids;
@@ -147,7 +147,7 @@ public class Nexxoo {
 		List<Integer> ids = new ArrayList<Integer>();
 		for (Map.Entry<String, Long> map : contentIds) {
 			ids.add(Integer.parseInt(map.getKey()));
-			Log.d(Nexxoo.TAG, "getContentIdList :" + Integer.parseInt(map.getKey()));
+//			Log.d(Nexxoo.TAG, "getContentIdList :" + Integer.parseInt(map.getKey()));
 		}
 
 		return ids;

@@ -20,7 +20,6 @@ public class ContentDBHelper extends SQLiteOpenHelper {
 	private static final String TABLE_CONTENTS = "contents";
 
 	private static final String KEY_ID = "id";
-
 	public static String CONTENTID = "contentid";
 	public static String NAME = "name";
 	public static String FILENAME = "filename";
@@ -64,7 +63,7 @@ public class ContentDBHelper extends SQLiteOpenHelper {
 	// Adding new contact
 	public void addContact(BaseEntity content) {
 		SQLiteDatabase db = this.getWritableDatabase();
-		if (getContent(content.getContentId()) != null) {
+		if (isContentExist(content.getContentId())) {
 			updateContact(content);
 		} else {
 			db.insert(TABLE_CONTENTS, null, convertContentIntoValues(content));
@@ -158,7 +157,7 @@ public class ContentDBHelper extends SQLiteOpenHelper {
 
 
 	// Getting contacts Count
-	public int getContactsCount() {
+	public int getContentsCount() {
 		String countQuery = "SELECT  * FROM " + TABLE_CONTENTS;
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor cursor = db.rawQuery(countQuery, null);
@@ -166,6 +165,15 @@ public class ContentDBHelper extends SQLiteOpenHelper {
 		cursor.close();
 
 		return count;
+	}
+
+	public boolean isContentExist(int contentid){
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor cursor = db.query(TABLE_CONTENTS, new String[]{CONTENTID}, CONTENTID + "=?",
+				new String[]{String.valueOf(contentid)}, null, null, null, null);
+		int count = cursor.getCount();
+		cursor.close();
+		return count>0;
 	}
 
 }

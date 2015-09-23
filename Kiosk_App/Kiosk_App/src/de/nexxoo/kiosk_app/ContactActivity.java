@@ -109,7 +109,7 @@ public class ContactActivity extends Activity {
 			public void onReceivedJSONResponse(JSONObject json) {
 				try {
 					int count = json.getInt("count");
-					Log.d(Nexxoo.TAG, "get manual list size is : " + count);
+//					Log.d(Nexxoo.TAG, "get manual list size is : " + count);
 					prepareListData(json);
 
 					gridAdapter = new ManualGridViewAdapter
@@ -176,7 +176,7 @@ public class ContactActivity extends Activity {
 						case 0://download button
 							String filename = manualList.get(position).getFileName();
 							if (fileHelper.isContentDownloaded(filename)) {
-								File file = new File(fileHelper.getFileAbsolutePath(filename));
+								File file = new File(fileHelper.getDownloadAbsolutePath(filename));
 								Intent target = new Intent(Intent.ACTION_VIEW);
 								target.setDataAndType(Uri.fromFile(file), "application/pdf");
 								target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
@@ -195,7 +195,7 @@ public class ContactActivity extends Activity {
 						case 1://watch button
 							String filename1 = manualList.get(position).getFileName();
 							if (fileHelper.isContentDownloaded(filename1)) {
-								File file = new File(fileHelper.getFileAbsolutePath
+								File file = new File(fileHelper.getDownloadAbsolutePath
 										(filename1));
 								Intent target = new Intent(Intent.ACTION_VIEW);
 								target.setDataAndType(Uri.fromFile(file), "application/pdf");
@@ -223,7 +223,7 @@ public class ContactActivity extends Activity {
 				}else{// one button on item
 					String filename1 = manualList.get(position).getFileName();
 					if (fileHelper.isContentDownloaded(filename1)) {
-						File file = new File(fileHelper.getFileAbsolutePath
+						File file = new File(fileHelper.getDownloadAbsolutePath
 								(filename1));
 						Intent target = new Intent(Intent.ACTION_VIEW);
 						target.setDataAndType(Uri.fromFile(file), "application/pdf");

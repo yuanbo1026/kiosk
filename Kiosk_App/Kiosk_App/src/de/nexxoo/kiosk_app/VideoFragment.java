@@ -102,7 +102,7 @@ public class VideoFragment extends Fragment implements UpdateSwipeListViewMenuIt
 			public void onReceivedJSONResponse(JSONObject json) {
 				try {
 					int count = json.getInt("count");
-					Log.d(Nexxoo.TAG, "get Video list size is : " + count);
+//					Log.d(Nexxoo.TAG, "get Video list size is : " + count);
 					prepareListData(json);
 					gridAdapter = new VideoGridViewAdapter
 							(getActivity(), R.layout.video_gridview_item,
@@ -167,7 +167,7 @@ public class VideoFragment extends Fragment implements UpdateSwipeListViewMenuIt
 					case 50000:
 						if (fileHelper.isContentDownloaded(videoList.get(position)
 								.getFileName())) {//downloaded
-							File video = new File(fileHelper.getFileAbsolutePath
+							File video = new File(fileHelper.getDownloadAbsolutePath
 									(videoList
 											.get(position).getFileName()));
 							video.delete();

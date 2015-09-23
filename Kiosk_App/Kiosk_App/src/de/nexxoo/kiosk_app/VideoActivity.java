@@ -73,13 +73,13 @@ public class VideoActivity extends Activity {
 			try {
 				myVideoView.setMediaController(mediaControls);
 				if (isVideoDownloaded) {
-					File temp = new File(fileHelper.getFileAbsolutePath(filename));
+					File temp = new File(fileHelper.getDownloadAbsolutePath(filename));
 					if (temp.exists()) {
-						myVideoView.setVideoPath(fileHelper.getFileAbsolutePath(filename));
-						Log.e(Nexxoo.TAG, fileHelper.getFileAbsolutePath(filename) + " " +
+						myVideoView.setVideoPath(fileHelper.getDownloadAbsolutePath(filename));
+						Log.e(Nexxoo.TAG, fileHelper.getDownloadAbsolutePath(filename) + " " +
 								"exists");
 					} else {
-						Log.e(Nexxoo.TAG, fileHelper.getFileAbsolutePath(filename) + " " +
+						Log.e(Nexxoo.TAG, fileHelper.getDownloadAbsolutePath(filename) + " " +
 								"doesn't exist.");
 					}
 

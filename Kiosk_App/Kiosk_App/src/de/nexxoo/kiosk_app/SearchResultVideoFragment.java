@@ -169,7 +169,7 @@ public class SearchResultVideoFragment extends Fragment implements UpdateSwipeLi
 					case 50000:
 						if (fileHelper.isContentDownloaded(videoList.get(position)
 								.getFileName())) {//downloaded
-							File video = new File(fileHelper.getFileAbsolutePath
+							File video = new File(fileHelper.getDownloadAbsolutePath
 									(videoList
 											.get(position).getFileName()));
 							video.delete();
@@ -211,7 +211,7 @@ public class SearchResultVideoFragment extends Fragment implements UpdateSwipeLi
 						.getFileName())) {
 					switch (index) {
 						case 50000:
-							File video = new File(fileHelper.getFileAbsolutePath
+							File video = new File(fileHelper.getDownloadAbsolutePath
 									(videoList
 											.get(position).getFileName()));
 							video.delete();
@@ -256,7 +256,7 @@ public class SearchResultVideoFragment extends Fragment implements UpdateSwipeLi
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				listview.smoothOpenMenu(position);
-				Log.e(Nexxoo.TAG, "Get SwipeListview Item's view type: " + listAdapter.getItemViewType(position));
+//				Log.e(Nexxoo.TAG, "Get SwipeListview Item's view type: " + listAdapter.getItemViewType(position));
 			}
 		});
 		listview.setOnFocusChangeListener(new View.OnFocusChangeListener() {

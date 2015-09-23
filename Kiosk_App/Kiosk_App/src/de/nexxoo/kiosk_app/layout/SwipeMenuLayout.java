@@ -302,7 +302,6 @@ public class SwipeMenuLayout extends FrameLayout {
 	}
 
 	public void setMenuHeight(int measuredHeight) {
-		Log.i("byz", "pos = " + position + ", height = " + measuredHeight);
 		LayoutParams params = (LayoutParams) mMenuView.getLayoutParams();
 		if (params.height != measuredHeight) {
 			params.height = measuredHeight;

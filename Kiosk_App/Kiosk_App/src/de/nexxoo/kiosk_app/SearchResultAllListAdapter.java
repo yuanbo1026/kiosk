@@ -2,7 +2,6 @@ package de.nexxoo.kiosk_app;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,13 +46,13 @@ public class SearchResultAllListAdapter extends ArrayAdapter<BaseEntity> {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 
-		Item item = null;
+		Item item;
 		View v = convertView;
 		if (v == null) {
 			v = mInflater.inflate(mLayoutId, parent, false);
 			v.setBackgroundColor(mContext.getResources().getColor(
 					R.color.RealWhite));
-			Log.d(Nexxoo.TAG, "ListView Adapter Position: " + position);
+//			Log.d(Nexxoo.TAG, "ListView Adapter Position: " + position);
 			item = new Item();
 			item.name = (TextView) v
 					.findViewById(R.id.history_listview_item_name);
@@ -63,65 +62,78 @@ public class SearchResultAllListAdapter extends ArrayAdapter<BaseEntity> {
 			item.size.setTypeface(Misc.getCustomFont(mContext,
 					Misc.FONT_NORMAL));
 			item.cover = (ImageView) v.findViewById(R.id.history_listview_item_cover);
-
-			item.name.setText(mBaseEntityList.get(position).getName());
-			if (!mBaseEntityList.get(position).getmPictureList().isEmpty()) {
-				ImageLoader imageLoader = ImageLoader.getInstance(); // Get singleton instance
-				imageLoader.displayImage(mBaseEntityList.get(position).getmPictureList().get
-								(0).getmUrl(),
-						item.cover, new ImageLoadingListener() {
-
-							@Override
-							public void onLoadingStarted(String imageUri, View view) {
-							}
-
-							@Override
-							public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-								ImageView mImageView = (ImageView) view;
-								mImageView.setImageResource(R.drawable.default_no_image);
-							}
-
-							@Override
-							public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-							}
-
-							@Override
-							public void onLoadingCancelled(String imageUri, View view) {
-
-							}
-						});
-			} else {
-				item.cover.setImageResource(R.drawable.default_no_image);
-			}
-
-			if(mBaseEntityList.get(position).getContentTypeId() == 3){
-				Video video = (Video)mBaseEntityList.get(position);
-				String deteilInformation = Nexxoo.splitToComponentTimes(
-						video.getDuration())
-						+Nexxoo.DURATION_DIVIDER+	Nexxoo
-						.readableFileSize(mBaseEntityList.get(position)
-								.getSize());
-				item.size.setText(deteilInformation);
-			}else if(mBaseEntityList.get(position).getContentTypeId() == 2){
-				Manual manual = (Manual)mBaseEntityList.get(position);
-				String deteilInformation = manual.getPages()
-						+Nexxoo.PAGES+	Nexxoo
-						.readableFileSize(manual.getSize());
-				item.size.setText(deteilInformation);
-			}else if(mBaseEntityList.get(position).getContentTypeId() == 1){
-				Catalog catalog = (Catalog)mBaseEntityList.get(position);
-				String deteilInformation = catalog.getPages()
-						+Nexxoo.PAGES+	Nexxoo
-						.readableFileSize(catalog.getSize());
-				item.size.setText(deteilInformation);
-			}
-
-
 			v.setTag(item);
 		} else {
-			item = (Item) v.getTag();
+			if(v.getTag()!=null){
+				item = (Item) v.getTag();
+			}else{
+				v = mInflater.inflate(mLayoutId, parent, false);
+				v.setBackgroundColor(mContext.getResources().getColor(
+						R.color.RealWhite));
+//			Log.d(Nexxoo.TAG, "ListView Adapter Position: " + position);
+				item = new Item();
+				item.name = (TextView) v
+						.findViewById(R.id.history_listview_item_name);
+				item.name.setTypeface(Misc.getCustomFont(mContext,
+						Misc.FONT_NORMAL));
+				item.size = (TextView) v.findViewById(R.id.history_listview_item_size);
+				item.size.setTypeface(Misc.getCustomFont(mContext,
+						Misc.FONT_NORMAL));
+				item.cover = (ImageView) v.findViewById(R.id.history_listview_item_cover);
+				v.setTag(item);
+			}
+		}
+		item.name.setText(mBaseEntityList.get(position).getName());
+		if (!mBaseEntityList.get(position).getmPictureList().isEmpty()) {
+			ImageLoader imageLoader = ImageLoader.getInstance(); // Get singleton instance
+			imageLoader.displayImage(mBaseEntityList.get(position).getmPictureList().get
+							(0).getmUrl(),
+					item.cover, new ImageLoadingListener() {
+
+						@Override
+						public void onLoadingStarted(String imageUri, View view) {
+						}
+
+						@Override
+						public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+							ImageView mImageView = (ImageView) view;
+							mImageView.setImageResource(R.drawable.default_no_image);
+						}
+
+						@Override
+						public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+						}
+
+						@Override
+						public void onLoadingCancelled(String imageUri, View view) {
+
+						}
+					});
+		} else {
+			item.cover.setImageResource(R.drawable.default_no_image);
 		}
 
+		if(mBaseEntityList.get(position).getContentTypeId() == 3){
+			Video video = (Video)mBaseEntityList.get(position);
+			String deteilInformation = Nexxoo.splitToComponentTimes(
+					video.getDuration())
+					+Nexxoo.DURATION_DIVIDER+	Nexxoo
+					.readableFileSize(mBaseEntityList.get(position)
+							.getSize());
+			item.size.setText(deteilInformation);
+		}else if(mBaseEntityList.get(position).getContentTypeId() == 2){
+			Manual manual = (Manual)mBaseEntityList.get(position);
+			String deteilInformation = manual.getPages()
+					+Nexxoo.PAGES+	Nexxoo
+					.readableFileSize(manual.getSize());
+			item.size.setText(deteilInformation);
+		}else if(mBaseEntityList.get(position).getContentTypeId() == 1){
+			Catalog catalog = (Catalog)mBaseEntityList.get(position);
+			String deteilInformation = catalog.getPages()
+					+Nexxoo.PAGES+	Nexxoo
+					.readableFileSize(catalog.getSize());
+			item.size.setText(deteilInformation);
+		}
 		return v;
 	}
 

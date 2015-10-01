@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import de.nexxoo.kiosk_app.entity.BaseEntity;
+import de.nexxoo.kiosk_app.entity.Catalog;
 import de.nexxoo.kiosk_app.entity.Manual;
 import de.nexxoo.kiosk_app.entity.Video;
 
@@ -68,8 +69,6 @@ public class ContentDBHelper extends SQLiteOpenHelper {
 		} else {
 			db.insert(TABLE_CONTENTS, null, convertContentIntoValues(content));
 		}
-
-
 		db.close();
 	}
 
@@ -113,9 +112,10 @@ public class ContentDBHelper extends SQLiteOpenHelper {
 		content.setName(cursor.getString(2));
 		content.setFileName(cursor.getString(3));
 		content.setSize(cursor.getInt(4));
-		content.setCoverImageName(cursor.getString(5));
-		content.setContentTypeId(cursor.getInt(6));
-		content.setPages(cursor.getInt(7));
+		content.setContentTypeId(cursor.getInt(5));
+		content.setCoverImageName(cursor.getString(6));
+		content.setDuration(cursor.getInt(7));
+		content.setPages(cursor.getInt(8));
 		return content;
 	}
 
@@ -133,15 +133,19 @@ public class ContentDBHelper extends SQLiteOpenHelper {
 		values.put(NAME, content.getName());
 		values.put(FILENAME, content.getFileName());
 		values.put(SIZE, content.getSize());
-		values.put(COVERIMAGENAME, content.getName() + ".jpg");
 		values.put(CONTENTTYPE, content.getContentTypeId());
-		if (content.getContentTypeId() < 3) {
-			Manual manual = (Manual) content;
-			values.put(PAGES, manual.getPages());
-		}
+		values.put(COVERIMAGENAME, content.getContentId() + ".jpg");
 		if (content.getContentTypeId() == 3) {
 			Video video = (Video) content;
 			values.put(DURATION, video.getDuration());
+		}
+		if (content.getContentTypeId() == 2) {
+			Manual manual = (Manual) content;
+			values.put(PAGES, manual.getPages());
+		}
+		if (content.getContentTypeId() == 1) {
+			Catalog catalog = (Catalog) content;
+			values.put(PAGES, catalog.getPages());
 		}
 
 		return values;

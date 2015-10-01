@@ -3,6 +3,7 @@ package de.nexxoo.kiosk_app;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import de.nexxoo.kiosk_app.db.ContentDBHelper;
 import de.nexxoo.kiosk_app.entity.Video;
 import de.nexxoo.kiosk_app.tools.FileStorageHelper;
 import de.nexxoo.kiosk_app.tools.Global;
@@ -112,18 +114,30 @@ public class VideoGridViewAdapter extends ArrayAdapter<Video> {
 			@Override
 			public void onClick(View v) {
 				Nexxoo.saveContentId(mContext,mVideoList.get(position).getContentId());
-				if (isVideoDownloaded) {
+				if (fileHelper.isContentDownloaded(mVideoList.get(position).getFileName())) {
 					File video = new File(fileHelper.getDownloadAbsolutePath(mVideoList
 							.get(position).getFileName()));
 					video.delete();
+					/**
+					 * delete content from DB
+					 */
+					ContentDBHelper db = new ContentDBHelper(mContext);
+					db.deleteContent(mVideoList.get(position).getContentId());
+					Log.e(Nexxoo.TAG, "delete content from DB :" + db.getContentsCount());
 					ImageView image = (ImageView) v;
 					image.setImageResource(R.drawable.ic_grid_download);
 					//hide trash button on listview item
 					callback.updateListViewItemIcon(position, false);
 				} else {
+					Video video = mVideoList.get(position);
+					ContentDBHelper db = new ContentDBHelper(mContext);
+					db.addContact(video);
+					Log.e(Nexxoo.TAG, "add content into DB :" + db.getContentsCount());
 					DownloadAsyncTask task = new DownloadAsyncTask(mContext, mVideoList
 							.get(position).getUrl(), mVideoList.get
-							(position).getFileName(),(ImageView)v, Global
+							(position).getFileName(),mVideoList.get
+							(position).getmPictureList().get(0).getmUrl(),mVideoList.get
+							(position).getContentId()+".jpg",Global
 							.DOWNLOAD_TASK_TYPE_VIDEO);
 					task.execute();
 					//show trash button on listview item

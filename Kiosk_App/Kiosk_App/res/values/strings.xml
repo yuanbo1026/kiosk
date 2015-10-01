@@ -21,6 +21,10 @@
 
     <!-- no WIFI alert message -->
     <string name="no_wifi_message">Bitte stellen Sie eine WiFi Verbindung, um den Inhalt darzustellen.</string>
+    <string name="history_no_wifi_message">Bitte stellen Sie eine WiFi Verbindung, um den Inhalt
+        darzustellen.</string>
+    <string name="from_menu_click">from_menu_click</string>
+    <string name="wifi_status">wifi_status</string>
 
     <!-- open PDF file -->
     <string name="open_pdf_file">Öffnen</string>
@@ -30,7 +34,6 @@
     <string-array name="drawer_titles">
         <item>Impressum</item>
         <item>Verlauf</item>
-        <item>Version:1.0.0</item>
     </string-array>
 
     <string-array name="fragment_titles">
@@ -103,7 +106,8 @@
         Die bereitgestellten Informationen auf dieser Webseite wurden sorgfältig geprüft und werden regelmäßig aktualisiert. Jedoch kann keine
         Haftung oder Garantie dafür übernommen werden, dass alle Angaben zu jeder Zeit vollständig,
         richtig und in letzter Aktualität dargestellt sind. Dies gilt insbesondere für alle Links zu anderen Websites,
-        auf die direkt oder indirekt verwiesen wird. Alle Angaben können ohne vorherige Ankündigung geändert, entfernt oder ergänzt werden. \n \n \n \n]]></string>
+        auf die direkt oder indirekt verwiesen wird. Alle Angaben können ohne vorherige Ankündigung geändert, entfernt oder ergänzt werden. \n \n \n \n
+        Version Number 1.0.2 \n \n]]></string>
 
 
 </resources>

@@ -104,21 +104,16 @@ public class CatalogFragment extends Fragment implements UpdateSwipeListViewMenu
 				new OnJSONResponse() {
 					@Override
 					public void onReceivedJSONResponse(JSONObject json) {
-						try {
-							int count = json.getInt("count");
-							prepareListData(json);
-							CatalogGridViewAdapter gridAdapter = new CatalogGridViewAdapter
-									(getActivity(), R.layout.catalog_gridview_item, catalogList);
-							gridview.setAdapter(gridAdapter);
-							gridAdapter.setCallback(CatalogFragment.this);
-							CatalogListAdapter listAdapter = new CatalogListAdapter(getActivity
-									(), Global.isNormalScreenSize ? R.layout
-									.catalog_listview_item : R.layout.catalog_listview_item_big, catalogList);
-							listview.setAdapter(listAdapter);
+						prepareListData(json);
+						CatalogGridViewAdapter gridAdapter = new CatalogGridViewAdapter
+								(getActivity(), R.layout.catalog_gridview_item, catalogList);
+						gridview.setAdapter(gridAdapter);
+						gridAdapter.setCallback(CatalogFragment.this);
+						CatalogListAdapter listAdapter = new CatalogListAdapter(getActivity
+								(), Global.isNormalScreenSize ? R.layout
+								.catalog_listview_item : R.layout.catalog_listview_item_big, catalogList);
+						listview.setAdapter(listAdapter);
 
-						} catch (JSONException e) {
-							Log.d("KioskError", "Error!" + e.getMessage());
-						}
 					}
 
 					@Override
@@ -172,6 +167,12 @@ public class CatalogFragment extends Fragment implements UpdateSwipeListViewMenu
 									(catalogList
 											.get(position).getFileName()));
 							manual.delete();
+							/**
+							 * delete content from DB
+							 */
+							ContentDBHelper db = new ContentDBHelper(context);
+							db.deleteContent(catalogList.get(position).getContentId());
+
 							LinearLayout image = (LinearLayout) parent.findViewById(new
 									Integer(50000));
 							image.setVisibility(View.GONE);
@@ -179,58 +180,38 @@ public class CatalogFragment extends Fragment implements UpdateSwipeListViewMenu
 							break;
 						case 50001:
 							String filename = catalogList.get(position).getFileName();
-							if (fileHelper.isContentDownloaded(filename)) {
-								listview.closeAllMenu();
-								File file = new File(fileHelper.getDownloadAbsolutePath(filename));
-								Intent target = new Intent(Intent.ACTION_VIEW);
-								target.setDataAndType(Uri.fromFile(file), "application/pdf");
-								target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-								Intent i = Intent.createChooser(target, "Open File");
-								startActivity(i);
-							} else {
-								listview.closeAllMenu();
-								DownloadAsyncTask task1 = new DownloadAsyncTask(context,
-										catalogList
-												.get(position).getUrl(), catalogList.get
-										(position).getFileName());
-								task1.execute();
-							}
+							listview.closeAllMenu();
+							File file = new File(fileHelper.getDownloadAbsolutePath(filename));
+							Intent target = new Intent(Intent.ACTION_VIEW);
+							target.setDataAndType(Uri.fromFile(file), "application/pdf");
+							target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+							Intent i = Intent.createChooser(target, "Open File");
+							startActivity(i);
 							break;
 					}
 				} else {// one button
 					LinearLayout image = (LinearLayout) parent.findViewById(new
 							Integer(50000));
 					image.setVisibility(View.VISIBLE);
-
-					String filename1 = catalogList.get(position).getFileName();
-					if (fileHelper.isContentDownloaded(filename1)) {
-						File file = new File(fileHelper.getDownloadAbsolutePath
-								(filename1));
-						Intent target = new Intent(Intent.ACTION_VIEW);
-						target.setDataAndType(Uri.fromFile(file), "application/pdf");
-						target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-						Intent i = Intent.createChooser(target, "Open File");
-						startActivity(i);
-					} else {
-						if (listview.getChildAt(position) instanceof SwipeMenuLayout) {
-							SwipeMenuLayout menuLayout = (SwipeMenuLayout)
-									listview.getChildAt(position);
-							menuLayout.smoothCloseMenu();
-						}
-						/**
-						 * add download content to local DB
-						 */
-						Catalog catalog = catalogList.get(position);
-						ContentDBHelper db = new ContentDBHelper(context);
-						db.addContact(catalog);
-
-						DownloadAsyncTask task1 = new DownloadAsyncTask(context,
-								catalogList
-										.get(position).getUrl(), catalogList.get
-								(position).getFileName(), Global
-								.DOWNLOAD_TASK_TYPE_PDF);
-						task1.execute();
+					if (listview.getChildAt(position) instanceof SwipeMenuLayout) {
+						SwipeMenuLayout menuLayout = (SwipeMenuLayout)
+								listview.getChildAt(position);
+						menuLayout.smoothCloseMenu();
 					}
+					/**
+					 * add download content to local DB
+					 */
+					Catalog catalog = catalogList.get(position);
+					ContentDBHelper db = new ContentDBHelper(context);
+					db.addContact(catalog);
+					DownloadAsyncTask task1 = new DownloadAsyncTask(context,
+							catalog.getUrl(),
+							catalog.getFileName(),
+							catalog.getmPictureList().isEmpty()?null:catalog.getmPictureList().get(0)
+									.getmUrl(),
+							catalog.getContentId()+".jpg", Global
+							.DOWNLOAD_TASK_TYPE_PDF);
+					task1.execute();
 				}
 				return false;
 			}

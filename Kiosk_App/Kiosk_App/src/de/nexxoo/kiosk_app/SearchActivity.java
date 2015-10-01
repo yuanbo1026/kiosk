@@ -76,11 +76,7 @@ public class SearchActivity extends FragmentActivity {
 			NexxooWebservice.searchForContent(true, query, new OnJSONResponse() {
 				@Override
 				public void onReceivedJSONResponse(JSONObject json) {
-					try {
-						int count = json.getInt("count");
-//						Log.d(Nexxoo.TAG, "get search result list size is : " + count);
 						prepareListData(json);
-
 						/**
 						 * begin: inflate content frame in container
 						 */
@@ -111,20 +107,9 @@ public class SearchActivity extends FragmentActivity {
 						Typeface font = Typeface.createFromAsset(getAssets(),"OpenSans-Regular.ttf");
 						tabs.setTypeface(font, Typeface.NORMAL);
 						tabs.setViewPager(pager);
-
-						tabs.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-							@Override
-							public void onPageSelected(int position) {
-							}
-						});
-
 						/**
 						 * end: inflate content frame in container
 						 */
-
-					} catch (JSONException e) {
-						Log.d("KioskError", "Error!" + e.getMessage());
-					}
 				}
 
 				@Override
@@ -146,8 +131,6 @@ public class SearchActivity extends FragmentActivity {
 				try {
 					JSONObject jsonContentObj = json.getJSONObject("content" + i);
 					int contentTypeId = jsonContentObj.getInt(CONTENTTYPE);
-//					BaseEntity base = new BaseEntity(jsonContentObj);
-//					mBaseEntityList.add(base);
 					switch (contentTypeId){
 						case 1://catalog
 							catalog = new Catalog(jsonContentObj);

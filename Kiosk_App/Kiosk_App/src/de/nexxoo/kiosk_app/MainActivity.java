@@ -3,12 +3,12 @@ package de.nexxoo.kiosk_app;
 import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.SearchManager;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
+import android.content.*;
 import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
@@ -22,6 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.*;
 import com.astuetz.PagerSlidingTabStrip;
+import de.nexxoo.kiosk_app.tools.Global;
 import de.nexxoo.kiosk_app.tools.Misc;
 
 import java.util.ArrayList;
@@ -43,6 +44,8 @@ public class MainActivity extends FragmentActivity {
 	private String[] mFragmentTitles;
 	private Context context;
 	private ActionBar actionbar;
+	private MenuItem searchMenuItem;
+	private SearchView searchView;
 
 	@Override
 	protected void onStart() {
@@ -53,7 +56,9 @@ public class MainActivity extends FragmentActivity {
 					.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
 							Intent i = new Intent(MainActivity.this, HistoryActivity.class);
+							i.putExtra(getString(R.string.wifi_status), false);
 							startActivity(i);
+							Global.isNoticed = true;
 						}
 					})
 					.setIcon(android.R.drawable.ic_dialog_alert)
@@ -74,22 +79,8 @@ public class MainActivity extends FragmentActivity {
 		actionBar.setDisplayUseLogoEnabled(false);
 		getActionBar().setIcon(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
 
-		/*actionBar.setCustomView(R.layout.custom_actionbar);
-		actionBar.setDisplayShowTitleEnabled(false);
-		actionBar.setDisplayShowCustomEnabled(true);
-		actionBar.setDisplayShowHomeEnabled(false);
-		actionBar.setDisplayHomeAsUpEnabled(true);
-		actionBar.setDisplayShowHomeEnabled(false);
-		actionBar.setDisplayShowTitleEnabled(true);
-		actionBar.setDisplayUseLogoEnabled(false);*/
-
-		/*getActionBar().setDisplayHomeAsUpEnabled(true);
-		getActionBar().setHomeButtonEnabled(true);
-		getActionBar().setDisplayUseLogoEnabled(true);
-		getActionBar().setIcon(R.drawable.app_icon);
-		getActionBar().setTitle(Nexxoo.getStyledText(context, " " + getString(R.string
-				.manual_fragment_title)));*/
 		setContentView(R.layout.drawer_container);
+
 		mTitle = mDrawerTitle = getTitle();
 		mTitles = getResources().getStringArray(R.array.drawer_titles);
 		mFragmentTitles = getResources().getStringArray(R.array.fragment_titles);
@@ -103,8 +94,6 @@ public class MainActivity extends FragmentActivity {
 				R.layout.drawer_list_item, mTitles));
 		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
-		// ActionBarDrawerToggle ties together the the proper interactions
-		// between the sliding drawer and the action bar app icon
 		mDrawerToggle = new ActionBarDrawerToggle(
 				this,                  /* host Activity */
 				mDrawerLayout,         /* DrawerLayout object */
@@ -113,27 +102,19 @@ public class MainActivity extends FragmentActivity {
 				R.string.drawer_title  /* "close drawer" description for accessibility */
 		) {
 			public void onDrawerClosed(View view) {
-//				getActionBar().setTitle(mFragmentTitles[pager.getCurrentItem()]);
-//				invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
 
 			}
 
 			public void onDrawerOpened(View drawerView) {
-//				getActionBar().setTitle(mFragmentTitles[pager.getCurrentItem()]);
-//				invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-				//without moving left
 				super.onDrawerSlide(drawerView, 0);
 			}
 
 			@Override
 			public void onDrawerSlide(View drawerView, float slideOffset) {
-				//without moving left
 				super.onDrawerSlide(drawerView, 0); // this disables the animation
 			}
 		};
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
-
-
 		/**
 		 * begin: inflate content frame in container
 		 */
@@ -159,25 +140,40 @@ public class MainActivity extends FragmentActivity {
 		Typeface font = Typeface.createFromAsset(getAssets(), "OpenSans-Regular.ttf");
 		tabs.setTypeface(font, Typeface.NORMAL);
 		tabs.setViewPager(pager);
-
-		tabs.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-			@Override
-			public void onPageSelected(int position) {
-				/**
-				 * use new structure of actionbar :(
-				 */
-
-				/*actionbar.setTitle(Nexxoo.getStyledText(context,
-						"  " + mFragmentTitles[pager
-								.getCurrentItem()]));
-				pager.getChildAt(position).requestFocus();*/
-			}
-		});
-
 		/**
 		 * end: inflate content frame in container
 		 */
+		/**
+		 * register wifi status listener
+		 */
+		this.registerReceiver(this.myWifiReceiver,
+				new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
 	}
+
+	private BroadcastReceiver myWifiReceiver
+			= new BroadcastReceiver() {
+		@Override
+		public void onReceive(Context arg0, Intent arg1) {
+			// TODO Auto-generated method stub
+			ConnectivityManager myConnManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+			NetworkInfo netInfo = myConnManager.getActiveNetworkInfo();
+			if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+
+			} else {
+				new AlertDialog.Builder(context)
+						.setMessage(context.getResources().getString(R.string.no_wifi_message))
+						.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int which) {
+								Intent i = new Intent(MainActivity.this, HistoryActivity.class);
+								i.putExtra(getString(R.string.wifi_status), false);
+								startActivity(i);
+							}
+						})
+						.setIcon(android.R.drawable.ic_dialog_alert)
+						.show();
+			}
+		}
+	};
 
 	private class DrawerItemClickListener implements ListView.OnItemClickListener {
 		@Override
@@ -196,6 +192,7 @@ public class MainActivity extends FragmentActivity {
 				break;
 			case 1:
 				Intent history = new Intent(context, HistoryActivity.class);
+				history.putExtra(getString(R.string.from_menu_click),true);
 				startActivity(history);
 				break;
 		}
@@ -211,39 +208,16 @@ public class MainActivity extends FragmentActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		/*getMenuInflater().inflate(R.menu.menu, menu);
-		MenuItem searchMI = (MenuItem) menu.findItem(R.id.search);
-		searchMI.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
-			@Override
-			public boolean onMenuItemActionCollapse(MenuItem menuItem) {
-				//nothing
-				return true;
-			}
-
-			@Override
-			public boolean onMenuItemActionExpand(MenuItem menuItem) {
-				getActionBar().setDisplayShowHomeEnabled(false);
-				return true;
-			}
-		});
-		// Associate searchable configuration with the SearchView
-		SearchManager searchManager =
-				(SearchManager) getSystemService(Context.SEARCH_SERVICE);
-		SearchView searchView =
-				(SearchView) menu.findItem(R.id.search).getActionView();
-		searchView.setSearchableInfo(
-				searchManager.getSearchableInfo(getComponentName()));
-
-		return super.onCreateOptionsMenu(menu);*/
 		getMenuInflater().inflate(R.menu.menu, menu);
 		SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-		SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
+		searchMenuItem = menu.findItem(R.id.search);
+		searchView = (SearchView) searchMenuItem.getActionView();
 		searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-
 		int searchIconId = searchView.getContext().getResources().
 				getIdentifier("android:id/search_button", null, null);
 		ImageView searchIcon = (ImageView) searchView.findViewById(searchIconId);
 		searchIcon.setImageResource(R.drawable.ic_search);
+
 		return true;
 	}
 
@@ -268,16 +242,17 @@ public class MainActivity extends FragmentActivity {
 	}
 
 	@Override
+	protected void onRestart() {
+		super.onRestart();
+
+	}
+
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// The action bar home/up action should open or close the drawer.
-		// ActionBarDrawerToggle will take care of this.
 		if (mDrawerToggle.onOptionsItemSelected(item)) {
 			return true;
 		}
-//		getActionBar().setIcon(R.drawable.ic_chevron_left_white_36dp);
 		getActionBar().setDisplayShowHomeEnabled(false);
-
-
 		getActionBar().setDisplayShowHomeEnabled(false);
 		getActionBar().setDisplayHomeAsUpEnabled(false);
 		getActionBar().setDisplayShowHomeEnabled(false);
@@ -288,4 +263,13 @@ public class MainActivity extends FragmentActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
+	@Override
+	protected void onPause() {
+		super.onPause();
+		/**
+		 * try to collapse search view on actionbar, doesn't work.
+		 */
+//		searchMenuItem.collapseActionView();
+//		searchView.setQuery("", false);
+	}
 }

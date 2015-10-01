@@ -7,21 +7,19 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+import de.nexxoo.kiosk_app.db.ContentDBHelper;
 import de.nexxoo.kiosk_app.db.DatabaseHandler;
 import de.nexxoo.kiosk_app.entity.Catalog;
 import de.nexxoo.kiosk_app.layout.*;
 import de.nexxoo.kiosk_app.tools.FileStorageHelper;
 import de.nexxoo.kiosk_app.tools.Global;
 import de.nexxoo.kiosk_app.tools.Nexxoo;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.File;
 import java.io.Serializable;
@@ -65,8 +63,7 @@ public class SearchResultCatalogFragment extends Fragment implements UpdateSwipe
 		dbHandler = new DatabaseHandler(context);
 
 		View rootView = inflater.inflate(R.layout.catalog_fragment, container, false);
-		mViewSwitcher = (ViewSwitcher) rootView.findViewById(R.id.catalog_viewswitcher);
-		mViewSwitcher.setDisplayedChild(0);
+
 
 		b_grid = (ImageButton) rootView.findViewById(R.id.catalog_b_grid);
 		b_list = (ImageButton) rootView.findViewById(R.id.catalog_b_list);
@@ -101,6 +98,9 @@ public class SearchResultCatalogFragment extends Fragment implements UpdateSwipe
 		});
 
 
+
+		gridview = (GridView) rootView.findViewById(R.id.catalog_grid);
+		gridview.setNumColumns(Global.isNormalScreenSize ? 1 : 2);
 		listview = (SwipeMenuListView) rootView.findViewById(R.id.catalog_list);
 		TextView emptyView = new TextView(context);
 		emptyView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
@@ -111,25 +111,25 @@ public class SearchResultCatalogFragment extends Fragment implements UpdateSwipe
 		emptyView.setVisibility(View.GONE);
 		((ViewGroup)listview.getParent().getParent()).addView(emptyView);
 		listview.setEmptyView(emptyView);
-		gridview = (GridView) rootView.findViewById(R.id.catalog_grid);
-		gridview.setNumColumns(Global.isNormalScreenSize ? 1 : 2);
 		Header = (View) rootView.findViewById(R.id.catalog_header);
 		Header.setVisibility(View.INVISIBLE);
-
-		gridAdapter = new CatalogGridViewAdapter
-				(getActivity(), R.layout.catalog_gridview_item, catalogList);
-		gridview.setAdapter(gridAdapter);
-		gridAdapter.setCallback(SearchResultCatalogFragment.this);
-
-		listAdapter= new CatalogListAdapter(getActivity
-				(), Global.isNormalScreenSize ? R.layout
-				.catalog_listview_item : R.layout.catalog_listview_item_big, catalogList);
-		listview.setAdapter(listAdapter);
 
 		/**
 		 * init swipe listview
 		 */
 		initSwipeListView(Global.isNormalScreenSize);
+
+		gridAdapter = new CatalogGridViewAdapter
+				(getActivity(), R.layout.catalog_gridview_item, catalogList);
+		gridview.setAdapter(gridAdapter);
+		gridAdapter.setCallback(SearchResultCatalogFragment.this);
+		listAdapter= new CatalogListAdapter(getActivity
+				(), Global.isNormalScreenSize ? R.layout
+				.catalog_listview_item : R.layout.catalog_listview_item_big, catalogList);
+		listview.setAdapter(listAdapter);
+
+		mViewSwitcher = (ViewSwitcher) rootView.findViewById(R.id.catalog_viewswitcher);
+		mViewSwitcher.setDisplayedChild(0);
 
 		return rootView;
 	}
@@ -175,6 +175,12 @@ public class SearchResultCatalogFragment extends Fragment implements UpdateSwipe
 									(catalogList
 											.get(position).getFileName()));
 							manual.delete();
+							/**
+							 * delete content from DB
+							 */
+							ContentDBHelper db = new ContentDBHelper(context);
+							db.deleteContent(catalogList.get(position).getContentId());
+
 							LinearLayout image = (LinearLayout) parent.findViewById(new
 									Integer(50000));
 							image.setVisibility(View.GONE);
@@ -191,15 +197,20 @@ public class SearchResultCatalogFragment extends Fragment implements UpdateSwipe
 										.getString(R.string.open_pdf_file));
 								startActivity(i);
 							} else {
-								if (listview.getChildAt(position) instanceof SwipeMenuLayout) {
-									SwipeMenuLayout menuLayout = (SwipeMenuLayout)
-											listview.getChildAt(position);
-									menuLayout.smoothCloseMenu();
-								}
+								listview.closeAllMenu();
+								/**
+								 * add download content to local DB
+								 */
+								Catalog catalog = catalogList.get(position);
+								ContentDBHelper db1 = new ContentDBHelper(context);
+								db1.addContact(catalog);
+
 								DownloadAsyncTask task1 = new DownloadAsyncTask(context,
-										catalogList
-												.get(position).getUrl(), catalogList.get
-										(position).getFileName());
+										catalogList.get(position).getUrl(), catalogList.get
+										(position).getFileName(),catalogList.get
+										(position).getmPictureList().get(0).getmUrl(),catalogList.get
+										(position).getContentId()+".jpg",Global
+										.DOWNLOAD_TASK_TYPE_PDF);
 								task1.execute();
 							}
 							break;
@@ -225,10 +236,19 @@ public class SearchResultCatalogFragment extends Fragment implements UpdateSwipe
 									listview.getChildAt(position);
 							menuLayout.smoothCloseMenu();
 						}
+						/**
+						 * add download content to local DB
+						 */
+						Catalog catalog = catalogList.get(position);
+						ContentDBHelper db = new ContentDBHelper(context);
+						db.addContact(catalog);
+
 						DownloadAsyncTask task1 = new DownloadAsyncTask(context,
 								catalogList
 										.get(position).getUrl(), catalogList.get
-								(position).getFileName(), Global
+								(position).getFileName(), catalogList.get
+								(position).getmPictureList().get(0).getmUrl(),catalogList.get
+								(position).getContentId()+".jpg",Global
 								.DOWNLOAD_TASK_TYPE_PDF);
 						task1.execute();
 					}
@@ -270,24 +290,6 @@ public class SearchResultCatalogFragment extends Fragment implements UpdateSwipe
 				getResources().getDisplayMetrics());
 	}
 
-	private void prepareListData(JSONObject json) {
-		try {
-			int count = json.getInt("count");
-			Catalog catalog = null;
-			for (int i = 0; i < count; i++) {
-				try {
-					JSONObject jsonContentObj = json.getJSONObject("content" + i);
-					catalog = new Catalog(jsonContentObj);
-					catalogList.add(catalog);
-				} catch (Exception e) {
-					Log.d(Nexxoo.TAG, e.getMessage());
-				}
-			}
-
-		} catch (JSONException e) {
-			Log.d(Nexxoo.TAG, e.getMessage());
-		}
-	}
 	private void updateGridViewItemIcon(int position){
 		LinearLayout griditemLayout = (LinearLayout) gridview.getChildAt(0);
 		ImageView trash_icon = (ImageView) griditemLayout.findViewById(R.id

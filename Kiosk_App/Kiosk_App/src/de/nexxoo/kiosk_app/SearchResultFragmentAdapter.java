@@ -8,16 +8,15 @@ import android.support.v4.view.ViewPager;
 
 import java.util.List;
 
-public class SearchResultFragmentAdapter extends FragmentPagerAdapter implements ViewPager.OnPageChangeListener{
+public class SearchResultFragmentAdapter extends FragmentPagerAdapter implements ViewPager
+		.OnPageChangeListener{
 
     private String[] titles = new String[]{"Alle","Anleitungen", "Videos", "Kataloge"};
     private List<Fragment> fragmentList;
-	private ActionBar mActionBar;
 
     public SearchResultFragmentAdapter(FragmentManager fm, List<Fragment> objects, ActionBar actionbar) {
         super(fm);
         fragmentList = objects;
-		mActionBar = actionbar;
     }
 
     @Override

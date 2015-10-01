@@ -7,21 +7,19 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+import de.nexxoo.kiosk_app.db.ContentDBHelper;
 import de.nexxoo.kiosk_app.db.DatabaseHandler;
 import de.nexxoo.kiosk_app.entity.Manual;
 import de.nexxoo.kiosk_app.layout.*;
 import de.nexxoo.kiosk_app.tools.FileStorageHelper;
 import de.nexxoo.kiosk_app.tools.Global;
 import de.nexxoo.kiosk_app.tools.Nexxoo;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.File;
 import java.io.Serializable;
@@ -67,8 +65,7 @@ public class SearchResultManualFragment extends Fragment implements UpdateSwipeL
 		dbHandler = new DatabaseHandler(context);
 
 		View rootView = inflater.inflate(R.layout.manual_fragment, container, false);
-		mViewSwitcher = (ViewSwitcher) rootView.findViewById(R.id.manual_viewswitcher);
-		mViewSwitcher.setDisplayedChild(0);
+
 
 		b_grid = (ImageButton) rootView.findViewById(R.id.manual_b_grid);
 		b_list = (ImageButton) rootView.findViewById(R.id.manual_b_list);
@@ -102,7 +99,19 @@ public class SearchResultManualFragment extends Fragment implements UpdateSwipeL
 		});
 
 
+
+		gridview = (GridView) rootView.findViewById(R.id.manual_grid);
 		listview = (SwipeMenuListView) rootView.findViewById(R.id.manual_list);
+		/**
+		 * init swipe listview
+		 */
+		initSwipeListView(Global.isNormalScreenSize);
+
+		gridAdapter = new ManualGridViewAdapter
+				(getActivity(), R.layout.manual_gridview_item, manualList);
+		gridview.setAdapter(gridAdapter);
+		gridAdapter.setCallback(SearchResultManualFragment.this);
+		gridview.setNumColumns(Global.isNormalScreenSize ? 1 : 2);
 		TextView emptyView = new TextView(context);
 		emptyView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 		emptyView.setText(Nexxoo.getStyledText(context, context.getString(R.string
@@ -116,20 +125,10 @@ public class SearchResultManualFragment extends Fragment implements UpdateSwipeL
 				(), Global.isNormalScreenSize ? R.layout
 				.manual_listview_item : R.layout.manual_listview_item_big, manualList);
 		listview.setAdapter(listAdapter);
-		gridview = (GridView) rootView.findViewById(R.id.manual_grid);
-		gridAdapter = new ManualGridViewAdapter
-				(getActivity(), R.layout.manual_gridview_item, manualList);
-		gridview.setAdapter(gridAdapter);
-		gridAdapter.setCallback(SearchResultManualFragment.this);
-		gridview.setNumColumns(Global.isNormalScreenSize ? 1 : 2);
 		Header = (View) rootView.findViewById(R.id.manual_header);
 		Header.setVisibility(View.INVISIBLE);
-
-		/**
-		 * init swipe listview
-		 */
-		initSwipeListView(Global.isNormalScreenSize);
-
+		mViewSwitcher = (ViewSwitcher) rootView.findViewById(R.id.manual_viewswitcher);
+		mViewSwitcher.setDisplayedChild(0);
 		return rootView;
 	}
 
@@ -175,6 +174,12 @@ public class SearchResultManualFragment extends Fragment implements UpdateSwipeL
 									(manualList
 											.get(position).getFileName()));
 							manual.delete();
+							/**
+							 * delete content from DB
+							 */
+							ContentDBHelper db = new ContentDBHelper(context);
+							db.deleteContent(manualList.get(position).getContentId());
+
 							LinearLayout image = (LinearLayout) parent.findViewById(new
 									Integer(50000));
 							image.setVisibility(View.GONE);
@@ -200,10 +205,18 @@ public class SearchResultManualFragment extends Fragment implements UpdateSwipeL
 											listview.getChildAt(position);
 									menuLayout.smoothCloseMenu();
 								}
+								/**
+								 * add download content to local DB
+								 */
+								Manual manual1 = manualList.get(position);
+								ContentDBHelper db1 = new ContentDBHelper(context);
+								db1.addContact(manual1);
 								DownloadAsyncTask task1 = new DownloadAsyncTask(context,
 										manualList
 												.get(position).getUrl(), manualList.get
-										(position).getFileName(), Global
+										(position).getFileName(),manualList.get
+										(position).getmPictureList().get(0).getmUrl(),manualList.get
+										(position).getContentId()+".jpg", Global
 										.DOWNLOAD_TASK_TYPE_PDF);
 								task1.execute();
 							}
@@ -233,12 +246,19 @@ public class SearchResultManualFragment extends Fragment implements UpdateSwipeL
 									listview.getChildAt(position);
 							menuLayout.smoothCloseMenu();
 						}
-						DownloadAsyncTask task1 = new DownloadAsyncTask(context,
-								manualList
-										.get(position).getUrl(), manualList.get
-								(position).getFileName(), Global
+						/**
+						 * add download content to local DB
+						 */
+						Manual manual = manualList.get(position);
+						ContentDBHelper db = new ContentDBHelper(context);
+						db.addContact(manual);
+						DownloadAsyncTask task = new DownloadAsyncTask(context,
+								manualList.get(position).getUrl(), manualList.get
+								(position).getFileName(),manualList.get
+								(position).getmPictureList().get(0).getmUrl(),manualList.get
+								(position).getContentId()+".jpg", Global
 								.DOWNLOAD_TASK_TYPE_PDF);
-						task1.execute();
+						task.execute();
 					}
 				}
 				return false;
@@ -274,26 +294,6 @@ public class SearchResultManualFragment extends Fragment implements UpdateSwipeL
 		});
 	}
 
-
-	private void prepareListData(JSONObject json) {
-		try {
-			int count = json.getInt("count");
-			Manual manual = null;
-			for (int i = 0; i < count; i++) {
-				try {
-					JSONObject jsonContentObj = json.getJSONObject("content" + i);
-					manual = new Manual(jsonContentObj);
-					manualList.add(manual);
-
-				} catch (Exception e) {
-					Log.d(Nexxoo.TAG, e.getMessage());
-				}
-			}
-
-		} catch (JSONException e) {
-			Log.d(Nexxoo.TAG, e.getMessage());
-		}
-	}
 	private void updateGridViewItemIcon(int position){
 		LinearLayout griditemLayout = (LinearLayout) gridview.getChildAt(0);
 		ImageView trash_icon = (ImageView) griditemLayout.findViewById(R.id

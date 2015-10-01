@@ -1,8 +1,10 @@
 package de.nexxoo.kiosk_app;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -60,54 +62,73 @@ public class VideoActivity extends Activity {
 		if (mediaControls == null) {
 			mediaControls = new MediaController(this);
 		}
-		if (!url.isEmpty() && !url.contains(getString(R.string.video_url_keywork))) {
-			myVideoView = (VideoView) findViewById(R.id.video_view);
-
+		myVideoView = (VideoView) findViewById(R.id.video_view);
+		myVideoView.setMediaController(mediaControls);
+		try {
+			if (isVideoDownloaded) {
+				File temp = new File(fileHelper.getDownloadAbsolutePath(filename));
+				if (temp.exists()) {
+					myVideoView.setVideoPath(fileHelper.getDownloadAbsolutePath(filename));
+					Log.d(Nexxoo.TAG, fileHelper.getDownloadAbsolutePath(filename) + " " +
+							"exists");
+				} else {
+					Log.e(Nexxoo.TAG, fileHelper.getDownloadAbsolutePath(filename) + " " +
+							"doesn't exist.");
+					new AlertDialog.Builder(VideoActivity.this)
+							.setMessage(VideoActivity.this.getResources().getString(R.string.video_empty_url_alert_text))
+							.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog, int which) {
+									finish();
+								}
+							})
+							.setIcon(android.R.drawable.ic_dialog_alert)
+							.show();
+				}
+			} else {
+				if (url != null && !url.isEmpty() && !url.contains(getString(R.string.video_url_keywork))) {
+					myVideoView.setVideoURI(Uri.parse(url));
+				} else {
+					Toast.makeText(context, getString(R.string.video_empty_url_alert_text), Toast.LENGTH_LONG).show();
+				}
+			}
 			progressDialog = new ProgressDialog(this);
 			progressDialog.setTitle("Video abspielen");
 			progressDialog.setMessage("Loading");
 			progressDialog.setCancelable(false);
 			progressDialog.show();
-			/*myVideoView.setVideoURI(Uri.parse("https://nexxoo:wenexxoo4kiosk!@www.appstock" +
-					".de/kiosk/content/3/5/TechniTwin ISIO_Produktvideo.mp4"));*/
-			try {
-				myVideoView.setMediaController(mediaControls);
-				if (isVideoDownloaded) {
-					File temp = new File(fileHelper.getDownloadAbsolutePath(filename));
-					if (temp.exists()) {
-						myVideoView.setVideoPath(fileHelper.getDownloadAbsolutePath(filename));
-						Log.e(Nexxoo.TAG, fileHelper.getDownloadAbsolutePath(filename) + " " +
-								"exists");
-					} else {
-						Log.e(Nexxoo.TAG, fileHelper.getDownloadAbsolutePath(filename) + " " +
-								"doesn't exist.");
-					}
+			myVideoView.setOnErrorListener(new MediaPlayer.OnErrorListener() {
 
-				} else {
-					myVideoView.setVideoURI(Uri.parse(url));
+				@Override
+				public boolean onError(MediaPlayer mp, int what, int extra) {
+					new AlertDialog.Builder(VideoActivity.this)
+							.setMessage(VideoActivity.this.getResources().getString(R.string.video_empty_url_alert_text))
+							.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog, int which) {
+									finish();
+								}
+							})
+							.setIcon(android.R.drawable.ic_dialog_alert)
+							.show();
+					return true;
 				}
-				myVideoView.requestFocus();
-				myVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-					// Close the progress bar and play the video
-					public void onPrepared(MediaPlayer mp) {
-						progressDialog.dismiss();
-						myVideoView.seekTo(position);
-						if (position == 0) {
-							myVideoView.start();
-						} else {
-							myVideoView.pause();
-						}
+			});
+			myVideoView.requestFocus();
+			myVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+				// Close the progress bar and play the video
+				public void onPrepared(MediaPlayer mp) {
+					progressDialog.dismiss();
+					myVideoView.seekTo(position);
+					if (position == 0) {
+						myVideoView.start();
+					} else {
+						myVideoView.pause();
 					}
-				});
-
-
-			} catch (Exception e) {
-				Log.e("Error", e.getMessage());
-				e.printStackTrace();
-				finish();
-			}
-		} else {
-			Toast.makeText(context, getString(R.string.video_empty_url_alert_text), Toast.LENGTH_LONG).show();
+				}
+			});
+		} catch (Exception e) {
+			Log.e("Error", e.getMessage());
+			e.printStackTrace();
+			finish();
 		}
 
 

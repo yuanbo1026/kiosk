@@ -11,6 +11,7 @@ import android.widget.*;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import de.nexxoo.kiosk_app.db.ContentDBHelper;
 import de.nexxoo.kiosk_app.db.DatabaseHandler;
 import de.nexxoo.kiosk_app.entity.Manual;
 import de.nexxoo.kiosk_app.layout.SquareLayout;
@@ -73,7 +74,7 @@ public class ManualGridViewAdapter extends ArrayAdapter<Manual> {
 
 		item.manualName.setText(mManualList.get(position).getName());
 		String deteilInformation = mManualList.get(position).getPages()
-				+Nexxoo.PAGES+	Nexxoo
+				+ Nexxoo.PAGES + Nexxoo
 				.readableFileSize(mManualList.get(position)
 						.getSize());
 		item.manualSize.setText(deteilInformation);
@@ -83,6 +84,11 @@ public class ManualGridViewAdapter extends ArrayAdapter<Manual> {
 				File video = new File(fileHelper.getDownloadAbsolutePath(mManualList
 						.get(position).getFileName()));
 				video.delete();
+				/**
+				 * delete content from DB
+				 */
+				ContentDBHelper db = new ContentDBHelper(mContext);
+				db.deleteContent(mManualList.get(position).getContentId());
 				ImageView image = (ImageView) v;
 				image.setVisibility(View.INVISIBLE);
 				//hide trash button on listview item
@@ -92,13 +98,13 @@ public class ManualGridViewAdapter extends ArrayAdapter<Manual> {
 		item.manualCover.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Nexxoo.saveContentId(mContext,mManualList.get(position).getContentId());
+				Nexxoo.saveContentId(mContext, mManualList.get(position).getContentId());
 				SquareLayout parent = (SquareLayout) v.getParent();
-				LinearLayout fatherView = (LinearLayout)parent.getParent();
+				LinearLayout fatherView = (LinearLayout) parent.getParent();
 				ImageView mImageView = (ImageView) fatherView.findViewById(R.id
 						.manual_grid_item_trash_button);
 				//show trash button on listview item
-				callback.updateListViewItemIcon(position,true);
+				callback.updateListViewItemIcon(position, true);
 				String filename = mManualList.get(position).getFileName();
 				if (fileHelper.isContentDownloaded(filename)) {
 					File file = new File(fileHelper.getDownloadAbsolutePath(filename));
@@ -110,10 +116,18 @@ public class ManualGridViewAdapter extends ArrayAdapter<Manual> {
 							.getString(R.string.open_pdf_file));
 					mContext.startActivity(i);
 				} else {
+					/**
+					 * add download content to local DB
+					 */
+					Manual manual = mManualList.get(position);
+					ContentDBHelper db = new ContentDBHelper(mContext);
+					db.addContact(manual);
+
 					DownloadAsyncTask task = new DownloadAsyncTask(mContext,
-							mManualList
-									.get(position).getUrl(), mManualList.get
-							(position).getFileName(),mImageView, Global
+							manual.getUrl(),
+							manual.getFileName(), manual.getmPictureList().isEmpty()?null:manual.getmPictureList().get(0)
+							.getmUrl(),
+							manual.getContentId()+".jpg", Global
 							.DOWNLOAD_TASK_TYPE_PDF);
 					task.execute();
 				}
@@ -122,11 +136,11 @@ public class ManualGridViewAdapter extends ArrayAdapter<Manual> {
 		item.watch_button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Nexxoo.saveContentId(mContext,mManualList.get(position).getContentId());
+				Nexxoo.saveContentId(mContext, mManualList.get(position).getContentId());
 				RelativeLayout parent = (RelativeLayout) v.getParent();
 				ImageView mImageView = (ImageView) parent.findViewById(R.id
 						.manual_grid_item_trash_button);
-				callback.updateListViewItemIcon(position,true);
+				callback.updateListViewItemIcon(position, true);
 				String filename = mManualList.get(position).getFileName();
 				if (fileHelper.isContentDownloaded(filename)) {
 					File file = new File(fileHelper.getDownloadAbsolutePath(filename));
@@ -138,10 +152,15 @@ public class ManualGridViewAdapter extends ArrayAdapter<Manual> {
 							.getString(R.string.open_pdf_file));
 					mContext.startActivity(i);
 				} else {
+					Manual manual = mManualList.get(position);
+					ContentDBHelper db = new ContentDBHelper(mContext);
+					db.addContact(manual);
 					DownloadAsyncTask task = new DownloadAsyncTask(mContext,
-							mManualList
-									.get(position).getUrl(), mManualList.get
-							(position).getFileName(),mImageView, Global
+							manual.getUrl(),
+							manual.getFileName(),
+							manual.getmPictureList().isEmpty()?null:manual.getmPictureList().get(0)
+									.getmUrl(),
+							manual.getContentId()+".jpg", Global
 							.DOWNLOAD_TASK_TYPE_PDF);
 					task.execute();
 				}

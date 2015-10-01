@@ -11,6 +11,7 @@ import android.widget.*;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import de.nexxoo.kiosk_app.db.ContentDBHelper;
 import de.nexxoo.kiosk_app.entity.Catalog;
 import de.nexxoo.kiosk_app.layout.SquareLayout;
 import de.nexxoo.kiosk_app.tools.FileStorageHelper;
@@ -81,6 +82,12 @@ public class CatalogGridViewAdapter extends ArrayAdapter<Catalog> {
 				File video = new File(fileHelper.getDownloadAbsolutePath(mCatalogList
 						.get(currentPosition).getFileName()));
 				video.delete();
+				/**
+				 * delete content from DB
+				 */
+				ContentDBHelper db = new ContentDBHelper(mContext);
+				db.deleteContent(mCatalogList.get(position).getContentId());
+
 				ImageView image = (ImageView) v;
 				image.setVisibility(View.INVISIBLE);
 				//hide the trash icon on listview item
@@ -108,10 +115,18 @@ public class CatalogGridViewAdapter extends ArrayAdapter<Catalog> {
 							.string.open_pdf_file));
 					mContext.startActivity(i);
 				} else {
+					/**
+					 * add download content to local DB
+					 */
+					Catalog catalog = mCatalogList.get(position);
+					ContentDBHelper db = new ContentDBHelper(mContext);
+					db.addContact(catalog);
 					DownloadAsyncTask task = new DownloadAsyncTask(mContext,
-							mCatalogList
-									.get(position).getUrl(), mCatalogList.get
-							(position).getFileName(),mImageView, Global
+							catalog.getUrl(),
+							catalog.getFileName(),
+							catalog.getmPictureList().isEmpty()?null:catalog.getmPictureList().get(0)
+									.getmUrl(),
+							catalog.getContentId()+".jpg", Global
 							.DOWNLOAD_TASK_TYPE_PDF);
 					task.execute();
 				}
@@ -136,10 +151,18 @@ public class CatalogGridViewAdapter extends ArrayAdapter<Catalog> {
 							.string.open_pdf_file));
 					mContext.startActivity(i);
 				} else {
+					/**
+					 * add download content to local DB
+					 */
+					Catalog catalog = mCatalogList.get(position);
+					ContentDBHelper db = new ContentDBHelper(mContext);
+					db.addContact(catalog);
 					DownloadAsyncTask task = new DownloadAsyncTask(mContext,
-							mCatalogList
-									.get(position).getUrl(), mCatalogList.get
-							(position).getFileName(),mImageView, Global
+							catalog.getUrl(),
+							catalog.getFileName(),
+							catalog.getmPictureList().isEmpty()?null:catalog.getmPictureList().get(0)
+									.getmUrl(),
+							catalog.getContentId()+".jpg", Global
 							.DOWNLOAD_TASK_TYPE_PDF);
 					task.execute();
 				}

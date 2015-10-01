@@ -23,8 +23,7 @@ public class Video extends BaseEntity {
 	public Video(Content content){
 		duration = content.getDuration();
 	}
-	public Video() {
-	}
+	public Video() {}
 
 	public int getDuration() {
 		return duration;

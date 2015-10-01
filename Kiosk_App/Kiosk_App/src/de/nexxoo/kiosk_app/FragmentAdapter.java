@@ -12,12 +12,10 @@ public class FragmentAdapter extends FragmentPagerAdapter implements ViewPager.O
 
     private String[] titles = new String[]{"Anleitungen", "Videos", "Kataloge"};
     private List<Fragment> fragmentList;
-	private ActionBar mActionBar;
 
     public FragmentAdapter(FragmentManager fm,List<Fragment> objects,ActionBar actionbar) {
         super(fm);
         fragmentList = objects;
-		mActionBar = actionbar;
     }
 
     @Override
@@ -39,6 +37,14 @@ public class FragmentAdapter extends FragmentPagerAdapter implements ViewPager.O
 	@Override
 	public void onPageScrolled(int i, float v, int i1) {
 
+	}
+
+	@Override
+	public int getItemPosition(Object object) {
+//		if(object instanceof ManualFragment){
+//			ManualFragment manual = (ManualFragment) object;
+//		}
+		return super.getItemPosition(object);
 	}
 
 	@Override

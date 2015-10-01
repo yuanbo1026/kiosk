@@ -85,7 +85,7 @@
         <View android:layout_width="match_parent" android:layout_height="1px"
               android:background="@color/swipe_listview_divider_color"/>
         <View android:layout_width="match_parent" android:layout_height="1dp"
-              android:background="@android:color/white"/>
+              android:background="@android:color/white" android:visibility="invisible"/>
     </LinearLayout>
     <View android:layout_width="1px" android:layout_height="match_parent"
           android:background="@color/swipe_listview_divider_color"

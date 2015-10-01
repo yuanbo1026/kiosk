@@ -171,6 +171,12 @@ public class VideoFragment extends Fragment implements UpdateSwipeListViewMenuIt
 									(videoList
 											.get(position).getFileName()));
 							video.delete();
+							/**
+							 * delete content from DB
+							 */
+							ContentDBHelper db = new ContentDBHelper(context);
+							db.deleteContent(videoList.get(position).getContentId());
+
 							LinearLayout imageLayout = (LinearLayout) parent
 									.findViewById(new
 											Integer(50000));
@@ -187,9 +193,12 @@ public class VideoFragment extends Fragment implements UpdateSwipeListViewMenuIt
 							db.addContact(video);
 
 							DownloadAsyncTask task = new DownloadAsyncTask(context,
-									videoList
-											.get(position).getUrl(), videoList.get
-									(position).getFileName());
+									video.getUrl(),
+									video.getFileName(),
+									video.getmPictureList().isEmpty()?null:video.getmPictureList().get(0)
+											.getmUrl(),
+									video.getContentId()+".jpg", Global
+									.DOWNLOAD_TASK_TYPE_VIDEO);
 							task.execute();
 							LinearLayout imageLayout = (LinearLayout) parent
 									.findViewById(new

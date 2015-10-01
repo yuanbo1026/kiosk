@@ -2,6 +2,7 @@ package de.nexxoo.kiosk_app;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import de.nexxoo.kiosk_app.tools.FileStorageHelper;
 import de.nexxoo.kiosk_app.tools.Misc;
 import de.nexxoo.kiosk_app.tools.Nexxoo;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +34,7 @@ public class HistoryListAdapter extends ArrayAdapter<BaseEntity> {
 	private List<BaseEntity> mBaseEntityList;
 	private int mLayoutId;
 	private FileStorageHelper helper;
+	private boolean isWifiOn = true;
 
 
 	public HistoryListAdapter(Context context, int layoutId, List<BaseEntity> objects) {
@@ -41,6 +44,16 @@ public class HistoryListAdapter extends ArrayAdapter<BaseEntity> {
 		mBaseEntityList = new ArrayList<BaseEntity>(objects);
 		mLayoutId = layoutId;
 		helper = new FileStorageHelper(context);
+	}
+
+	public HistoryListAdapter(Context context, int layoutId, List<BaseEntity> objects, boolean wifiStatus) {
+		super(context, layoutId, objects);
+		mInflater = LayoutInflater.from(context);
+		mContext = context;
+		mBaseEntityList = new ArrayList<BaseEntity>(objects);
+		mLayoutId = layoutId;
+		helper = new FileStorageHelper(context);
+		isWifiOn = wifiStatus;
 	}
 
 	@Override
@@ -63,9 +76,9 @@ public class HistoryListAdapter extends ArrayAdapter<BaseEntity> {
 			item.cover = (ImageView) v.findViewById(R.id.history_listview_item_cover);
 			v.setTag(item);
 		} else {
-			if(v.getTag()!=null){
+			if (v.getTag() != null) {
 				item = (Item) v.getTag();
-			}else{
+			} else {
 				v = mInflater.inflate(mLayoutId, parent, false);
 				v.setBackgroundColor(mContext.getResources().getColor(
 						R.color.RealWhite));
@@ -81,54 +94,66 @@ public class HistoryListAdapter extends ArrayAdapter<BaseEntity> {
 				v.setTag(item);
 			}
 		}
-		item.name.setText(mBaseEntityList.get(position).getName());
-		if (!mBaseEntityList.get(position).getmPictureList().isEmpty()) {
-			ImageLoader imageLoader = ImageLoader.getInstance(); // Get singleton instance
-			imageLoader.displayImage(mBaseEntityList.get(position).getmPictureList().get
-							(0).getmUrl(),
-					item.cover, new ImageLoadingListener() {
+		if (isWifiOn) {
+			if (!mBaseEntityList.get(position).getmPictureList().isEmpty()) {
+				ImageLoader imageLoader = ImageLoader.getInstance(); // Get singleton instance
+				imageLoader.displayImage(mBaseEntityList.get(position).getmPictureList().get
+								(0).getmUrl(),
+						item.cover, new ImageLoadingListener() {
 
-						@Override
-						public void onLoadingStarted(String imageUri, View view) {
-						}
+							@Override
+							public void onLoadingStarted(String imageUri, View view) {
+							}
 
-						@Override
-						public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-							ImageView mImageView = (ImageView) view;
-							mImageView.setImageResource(R.drawable.default_no_image);
-						}
+							@Override
+							public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+								ImageView mImageView = (ImageView) view;
+								mImageView.setImageResource(R.drawable.default_no_image);
+							}
 
-						@Override
-						public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-						}
+							@Override
+							public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+							}
 
-						@Override
-						public void onLoadingCancelled(String imageUri, View view) {
+							@Override
+							public void onLoadingCancelled(String imageUri, View view) {
 
-						}
-					});
+							}
+						});
+			} else {
+				item.cover.setImageResource(R.drawable.default_no_image);
+			}
 		} else {
-			item.cover.setImageResource(R.drawable.default_no_image);
+			File image = new File(helper.getImageAbsolutePath(mBaseEntityList.get(position)
+					.getContentId() + ".jpg"));
+			if (image.exists()) {
+				Bitmap myBitmap = BitmapFactory.decodeFile(image.getAbsolutePath());
+				item.cover.setImageBitmap(myBitmap);
+			} else {
+				item.cover.setImageResource(R.drawable.default_no_image);
+			}
 		}
 
-		if(mBaseEntityList.get(position).getContentTypeId() == 3){
-			Video video = (Video)mBaseEntityList.get(position);
+
+		item.name.setText(mBaseEntityList.get(position).getName());
+		if (mBaseEntityList.get(position).getContentTypeId() == 3) {
+			Video video = (Video) mBaseEntityList.get(position);
 			String deteilInformation = Nexxoo.splitToComponentTimes(
 					video.getDuration())
-					+Nexxoo.DURATION_DIVIDER+	Nexxoo
+					+ Nexxoo.DURATION_DIVIDER + Nexxoo
 					.readableFileSize(mBaseEntityList.get(position)
 							.getSize());
 			item.size.setText(deteilInformation);
-		}else if(mBaseEntityList.get(position).getContentTypeId() == 2){
-			Manual manual = (Manual)mBaseEntityList.get(position);
+		} else if (mBaseEntityList.get(position).getContentTypeId() == 2) {
+			Manual manual = (Manual) mBaseEntityList.get(position);
 			String deteilInformation = manual.getPages()
-					+Nexxoo.PAGES+	Nexxoo
+					+ Nexxoo.PAGES + Nexxoo
 					.readableFileSize(manual.getSize());
 			item.size.setText(deteilInformation);
-		}else if(mBaseEntityList.get(position).getContentTypeId() == 1){
-			Catalog catalog = (Catalog)mBaseEntityList.get(position);
+		} else if (mBaseEntityList.get(position).getContentTypeId() == 1) {
+			Catalog catalog = (Catalog) mBaseEntityList.get(position);
 			String deteilInformation = catalog.getPages()
-					+Nexxoo.PAGES+	Nexxoo
+					+ Nexxoo.PAGES + Nexxoo
 					.readableFileSize(catalog.getSize());
 			item.size.setText(deteilInformation);
 		}

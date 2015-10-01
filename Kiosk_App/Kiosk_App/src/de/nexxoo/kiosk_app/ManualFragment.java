@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import de.nexxoo.kiosk_app.db.ContentDBHelper;
-import de.nexxoo.kiosk_app.db.DatabaseHandler;
 import de.nexxoo.kiosk_app.entity.Manual;
 import de.nexxoo.kiosk_app.layout.*;
 import de.nexxoo.kiosk_app.tools.FileStorageHelper;
@@ -47,15 +46,10 @@ public class ManualFragment extends Fragment implements UpdateSwipeListViewMenuI
 	private ManualListAdapter listAdapter;
 	private ManualGridViewAdapter gridAdapter;
 
-	private DatabaseHandler DBHelper;
-
-
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		context = this.getActivity();
 		fileHelper = new FileStorageHelper(context);
-		DBHelper = new DatabaseHandler(context);
-
 		View rootView = inflater.inflate(R.layout.manual_fragment, container, false);
 		mViewSwitcher = (ViewSwitcher) rootView.findViewById(R.id.manual_viewswitcher);
 		mViewSwitcher.setDisplayedChild(0);
@@ -108,11 +102,7 @@ public class ManualFragment extends Fragment implements UpdateSwipeListViewMenuI
 				new OnJSONResponse() {
 					@Override
 					public void onReceivedJSONResponse(JSONObject json) {
-						try {
-							int count = json.getInt("count");
-//							Log.d(Nexxoo.TAG, "get manual list size is : " + count);
 							prepareListData(json);
-
 							gridAdapter = new ManualGridViewAdapter
 									(getActivity(), R.layout.manual_gridview_item, manualList);
 							gridview.setAdapter(gridAdapter);
@@ -121,10 +111,6 @@ public class ManualFragment extends Fragment implements UpdateSwipeListViewMenuI
 									(), Global.isNormalScreenSize ? R.layout
 									.manual_listview_item : R.layout.manual_listview_item_big, manualList);
 							listview.setAdapter(listAdapter);
-
-						} catch (JSONException e) {
-							Log.d("KioskError", "Error!" + e.getMessage());
-						}
 					}
 
 					@Override
@@ -168,16 +154,13 @@ public class ManualFragment extends Fragment implements UpdateSwipeListViewMenuI
 
 			@Override
 			public void onSwipeStart(int position) {
-				// swipe start
 			}
 
 			@Override
 			public void onSwipeEnd(int position) {
-				// swipe end
 			}
 		});
 
-		// step 2. listener item click event
 		listview.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
 			@Override
 			public boolean onMenuItemClick(int position, SwipeMenuView parent, SwipeMenu menu, int index) {
@@ -195,7 +178,7 @@ public class ManualFragment extends Fragment implements UpdateSwipeListViewMenuI
 							 */
 							ContentDBHelper db = new ContentDBHelper(context);
 							db.deleteContent(manualList.get(position).getContentId());
-							Log.e(Nexxoo.TAG, "delete content from DB :" + db.getContentsCount());
+
 
 							LinearLayout image = (LinearLayout) parent.findViewById(new
 									Integer(50000));
@@ -214,14 +197,6 @@ public class ManualFragment extends Fragment implements UpdateSwipeListViewMenuI
 								Intent i = Intent.createChooser(target, context
 										.getString(R.string.open_pdf_file));
 								startActivity(i);
-							} else {
-								listview.closeAllMenu();
-
-								DownloadAsyncTask task1 = new DownloadAsyncTask(context,
-										manualList
-												.get(position).getUrl(), manualList.get
-										(position).getFileName());
-								task1.execute();
 							}
 							break;
 					}
@@ -247,7 +222,6 @@ public class ManualFragment extends Fragment implements UpdateSwipeListViewMenuI
 						Manual manual = manualList.get(position);
 						ContentDBHelper db = new ContentDBHelper(context);
 						db.addContact(manual);
-						Log.e(Nexxoo.TAG, "add content into DB :" + db.getContentsCount());
 
 						if (listview.getChildAt(position) instanceof SwipeMenuLayout) {
 							SwipeMenuLayout menuLayout = (SwipeMenuLayout)
@@ -256,10 +230,11 @@ public class ManualFragment extends Fragment implements UpdateSwipeListViewMenuI
 						}
 
 						DownloadAsyncTask task = new DownloadAsyncTask(context,
-								manualList.get(position).getUrl(), manualList.get
-								(position).getFileName(),manualList.get
-								(position).getmPictureList().get(0).getmUrl(),manualList.get
-								(position).getContentId()+".jpg", Global
+								manual.getUrl(),
+								manual.getFileName(),
+								manual.getmPictureList().isEmpty()?null:manual.getmPictureList().get(0)
+										.getmUrl(),
+								manual.getContentId()+".jpg", Global
 								.DOWNLOAD_TASK_TYPE_PDF);
 						task.execute();
 					}

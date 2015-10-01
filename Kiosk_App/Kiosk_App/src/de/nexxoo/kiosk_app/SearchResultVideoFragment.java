@@ -6,13 +6,13 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+import de.nexxoo.kiosk_app.db.ContentDBHelper;
 import de.nexxoo.kiosk_app.db.DatabaseHandler;
 import de.nexxoo.kiosk_app.entity.Video;
 import de.nexxoo.kiosk_app.layout.*;
@@ -173,6 +173,11 @@ public class SearchResultVideoFragment extends Fragment implements UpdateSwipeLi
 									(videoList
 											.get(position).getFileName()));
 							video.delete();
+							/**
+							 * delete content from DB
+							 */
+							ContentDBHelper db = new ContentDBHelper(context);
+							db.deleteContent(videoList.get(position).getContentId());
 							LinearLayout imageLayout = (LinearLayout) parent
 									.findViewById(new
 											Integer(50000));
@@ -181,10 +186,18 @@ public class SearchResultVideoFragment extends Fragment implements UpdateSwipeLi
 							updateGridViewItemIcon(position, false);
 						} else {// not downloaded
 							updateGridViewItemIcon(position,true);
+							/**
+							 * add download content to local DB
+							 */
+							Video video = videoList.get(position);
+							ContentDBHelper db = new ContentDBHelper(context);
+							db.addContact(video);
 							DownloadAsyncTask task = new DownloadAsyncTask(context,
-									videoList
-											.get(position).getUrl(), videoList.get
-									(position).getFileName());
+									videoList.get(position).getUrl(), videoList.get
+									(position).getFileName(),videoList.get
+									(position).getmPictureList().get(0).getmUrl(),videoList.get
+									(position).getContentId()+".jpg", Global
+									.DOWNLOAD_TASK_TYPE_VIDEO);
 							task.execute();
 							LinearLayout imageLayout = (LinearLayout) parent
 									.findViewById(new

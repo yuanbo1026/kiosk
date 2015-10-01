@@ -137,10 +137,20 @@ public class SearchResultAllListAdapter extends ArrayAdapter<BaseEntity> {
 		return v;
 	}
 
+	/**
+	 * only for search-result adapter menu type
+	 * rule: contentTypeId + isDownloaded
+	 * @param position
+	 * @return
+	 */
+
 	@Override
 	public int getItemViewType(int position) {
+		String fileName = mBaseEntityList.get(position).getFileName();
+		boolean isContentDownloaded = helper.isContentDownloaded(fileName);
+		int download =  isContentDownloaded ? 1 : 0;
 		int contentTypeId = mBaseEntityList.get(position).getContentTypeId();
-		return contentTypeId;
+		return contentTypeId*10+download;
 	}
 
 	@Override

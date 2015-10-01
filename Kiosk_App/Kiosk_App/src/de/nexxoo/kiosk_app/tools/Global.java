@@ -14,4 +14,5 @@ public class Global {
 	public final static int MANUAL_DATABASE_ENTITY_TYPE = 2;
 	public final static int VIDEO_DATABASE_ENTITY_TYPE = 3;
 	public final static int CATALOG_DATABASE_ENTITY_TYPE = 1;
+	public static boolean isNoticed = false;
 }

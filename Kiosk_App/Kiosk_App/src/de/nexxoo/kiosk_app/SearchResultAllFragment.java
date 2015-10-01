@@ -17,8 +17,11 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import de.nexxoo.kiosk_app.db.DatabaseHandler;
+import de.nexxoo.kiosk_app.db.ContentDBHelper;
 import de.nexxoo.kiosk_app.entity.BaseEntity;
+import de.nexxoo.kiosk_app.entity.Catalog;
+import de.nexxoo.kiosk_app.entity.Manual;
+import de.nexxoo.kiosk_app.entity.Video;
 import de.nexxoo.kiosk_app.layout.*;
 import de.nexxoo.kiosk_app.tools.FileStorageHelper;
 import de.nexxoo.kiosk_app.tools.Global;
@@ -42,17 +45,19 @@ public class SearchResultAllFragment extends Fragment {
 	private Context mContext;
 
 	private FileStorageHelper mFileStorgeHelper;
-	private DatabaseHandler mDatabaseHandler;
-	private static final int CONTENT_TYPE_MAUNAL = 2;
-	private static final int CONTENT_TYPE_CATALOG = 1;
-	private static final int CONTENT_TYPE_VIDEO = 3;
+	private static final int CONTENT_TYPE_MAUNAL_DOWNLOADED = 21;
+	private static final int CONTENT_TYPE_MAUNAL_NOT_DOWNLOADED = 20;
+	private static final int CONTENT_TYPE_CATALOG_DOWNLOADED = 11;
+	private static final int CONTENT_TYPE_CATALOG_NOT_DOWNLOADED = 10;
+	private static final int CONTENT_TYPE_VIDEO_DOWNLOADED = 31;
+	private static final int CONTENT_TYPE_VIDEO_NOT_DOWNLOADED = 30;
 	private boolean isVideoDownloaded;
 
 	public static SearchResultAllFragment newInstance(Context context,
 													  List<BaseEntity> entityList) {
 		SearchResultAllFragment f = new SearchResultAllFragment();
 		Bundle args = new Bundle();
-		args.putSerializable(context.getString(R.string.search_result_all_list), (Serializable)entityList);
+		args.putSerializable(context.getString(R.string.search_result_all_list), (Serializable) entityList);
 		f.setArguments(args);
 		return f;
 	}
@@ -62,15 +67,13 @@ public class SearchResultAllFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		mContext = this.getActivity();
 		mFileStorgeHelper = new FileStorageHelper(mContext);
-		mDatabaseHandler = new DatabaseHandler(mContext);
 		mBaseEntityList = (List<BaseEntity>) getArguments().getSerializable(mContext
 				.getString(R.string
-				.search_result_all_list));
+						.search_result_all_list));
 
 		View rootView = inflater.inflate(R.layout.history, container, false);
 
 		mFileStorgeHelper = new FileStorageHelper(mContext);
-		mDatabaseHandler = new DatabaseHandler(mContext);
 		listview = (SwipeMenuListView) rootView.findViewById(R.id.history_list);
 		TextView emptyView = new TextView(mContext);
 		emptyView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
@@ -79,7 +82,7 @@ public class SearchResultAllFragment extends Fragment {
 		emptyView.setGravity(Gravity.CENTER);
 		emptyView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
 		emptyView.setVisibility(View.GONE);
-		((ViewGroup)listview.getParent()).addView(emptyView);
+		((ViewGroup) listview.getParent()).addView(emptyView);
 		listview.setEmptyView(emptyView);
 		getHistoryContetnsFromWebServer();
 		initSwipeListView(Global.isNormalScreenSize);
@@ -98,44 +101,121 @@ public class SearchResultAllFragment extends Fragment {
 		SwipeMenuCreator creator = new SwipeMenuCreator() {
 			@Override
 			public void create(SwipeMenu menu) {
-				if (menu.getViewType() == CONTENT_TYPE_VIDEO) {
-					SwipeMenuItem play = new SwipeMenuItem(mContext);
-					play.setId(40000);
-					play.setBackground(new ColorDrawable(Color.rgb(0xE5, 0xF5, 0xFF)));
-					play.setWidth(Nexxoo.dp2px(mContext, isNormal ? 90 : 120));
-					play.setIcon(R.drawable.ic_list_play);
-					play.setIsVisiable(true);
-					menu.addMenuItem(play);
-				} else {
-					SwipeMenuItem download = new SwipeMenuItem(mContext);
-					download.setId(30000);
-					download.setBackground(new ColorDrawable(Color.rgb(0xF3, 0xF3, 0xF3)));
-					download.setWidth(Nexxoo.dp2px(mContext, isNormal ? 90 : 120));
-					download.setIcon(R.drawable.ic_list_trash);
-					download.setIsVisiable(menu.getViewType() > 0);
-					menu.addMenuItem(download);
+				switch (menu.getViewType()) {
+					case CONTENT_TYPE_VIDEO_DOWNLOADED:
+						SwipeMenuItem download = new SwipeMenuItem(mContext);
+						download.setId(30000);
+						download.setBackground(new ColorDrawable(Color.rgb(0xF3, 0xF3, 0xF3)));
+						download.setWidth(Nexxoo.dp2px(mContext, isNormal ? 90 : 120));
+						download.setIcon(R.drawable.ic_list_trash);
+						download.setIsVisiable(true);
+						menu.addMenuItem(download);
 
+						SwipeMenuItem play = new SwipeMenuItem(mContext);
+						play.setId(40000);
+						play.setBackground(new ColorDrawable(Color.rgb(0xE5, 0xF5, 0xFF)));
+						play.setWidth(Nexxoo.dp2px(mContext, isNormal ? 90 : 120));
+						play.setIcon(R.drawable.ic_list_play);
+						play.setIsVisiable(true);
+						menu.addMenuItem(play);
+						break;
+					case CONTENT_TYPE_VIDEO_NOT_DOWNLOADED:
+						SwipeMenuItem video_not_download = new SwipeMenuItem(mContext);
+						video_not_download.setId(30000);
+						video_not_download.setBackground(new ColorDrawable(Color.rgb(0xF3, 0xF3, 0xF3)));
+						video_not_download.setWidth(Nexxoo.dp2px(mContext, isNormal ? 90 : 120));
+						video_not_download.setIcon(R.drawable.ic_list_download);
+						video_not_download.setIsVisiable(true);
+						menu.addMenuItem(video_not_download);
 
-					SwipeMenuItem view = new SwipeMenuItem(mContext);
-					view.setId(40000);
-					view.setBackground(new ColorDrawable(Color.rgb(0xE5, 0xF5, 0xFF)));
-					view.setWidth(Nexxoo.dp2px(mContext, isNormal ? 90 : 120));
-					view.setIcon(R.drawable.ic_list_view);
-					view.setIsVisiable(true);
-					menu.addMenuItem(view);
+						SwipeMenuItem video_play = new SwipeMenuItem(mContext);
+						video_play.setId(40000);
+						video_play.setBackground(new ColorDrawable(Color.rgb(0xE5, 0xF5, 0xFF)));
+						video_play.setWidth(Nexxoo.dp2px(mContext, isNormal ? 90 : 120));
+						video_play.setIcon(R.drawable.ic_list_play);
+						video_play.setIsVisiable(true);
+						menu.addMenuItem(video_play);
+						break;
+					case CONTENT_TYPE_CATALOG_DOWNLOADED:
+						SwipeMenuItem catalog_downloaded = new SwipeMenuItem(mContext);
+						catalog_downloaded.setId(30000);
+						catalog_downloaded.setBackground(new ColorDrawable(Color.rgb(0xF3, 0xF3, 0xF3)));
+						catalog_downloaded.setWidth(Nexxoo.dp2px(mContext, isNormal ? 90 : 120));
+						catalog_downloaded.setIcon(R.drawable.ic_list_trash);
+						catalog_downloaded.setIsVisiable(true);
+						menu.addMenuItem(catalog_downloaded);
+
+						SwipeMenuItem view = new SwipeMenuItem(mContext);
+						view.setId(40000);
+						view.setBackground(new ColorDrawable(Color.rgb(0xE5, 0xF5, 0xFF)));
+						view.setWidth(Nexxoo.dp2px(mContext, isNormal ? 90 : 120));
+						view.setIcon(R.drawable.ic_list_view);
+						view.setIsVisiable(true);
+						menu.addMenuItem(view);
+						break;
+					case CONTENT_TYPE_CATALOG_NOT_DOWNLOADED:
+						SwipeMenuItem catalog_not_download = new SwipeMenuItem(mContext);
+						catalog_not_download.setId(30000);
+						catalog_not_download.setBackground(new ColorDrawable(Color.rgb(0xF3, 0xF3, 0xF3)));
+						catalog_not_download.setWidth(Nexxoo.dp2px(mContext, isNormal ? 90 : 120));
+						catalog_not_download.setIcon(R.drawable.ic_list_trash);
+						catalog_not_download.setIsVisiable(false);
+						menu.addMenuItem(catalog_not_download);
+
+						SwipeMenuItem catalog_view = new SwipeMenuItem(mContext);
+						catalog_view.setId(40000);
+						catalog_view.setBackground(new ColorDrawable(Color.rgb(0xE5, 0xF5, 0xFF)));
+						catalog_view.setWidth(Nexxoo.dp2px(mContext, isNormal ? 90 : 120));
+						catalog_view.setIcon(R.drawable.ic_list_view);
+						catalog_view.setIsVisiable(true);
+						menu.addMenuItem(catalog_view);
+						break;
+					case CONTENT_TYPE_MAUNAL_DOWNLOADED:
+						SwipeMenuItem manual_download = new SwipeMenuItem(mContext);
+						manual_download.setId(30000);
+						manual_download.setBackground(new ColorDrawable(Color.rgb(0xF3, 0xF3, 0xF3)));
+						manual_download.setWidth(Nexxoo.dp2px(mContext, isNormal ? 90 : 120));
+						manual_download.setIcon(R.drawable.ic_list_trash);
+						manual_download.setIsVisiable(true);
+						menu.addMenuItem(manual_download);
+
+						SwipeMenuItem manual_view = new SwipeMenuItem(mContext);
+						manual_view.setId(40000);
+						manual_view.setBackground(new ColorDrawable(Color.rgb(0xE5, 0xF5, 0xFF)));
+						manual_view.setWidth(Nexxoo.dp2px(mContext, isNormal ? 90 : 120));
+						manual_view.setIcon(R.drawable.ic_list_view);
+						manual_view.setIsVisiable(true);
+						menu.addMenuItem(manual_view);
+						break;
+					case CONTENT_TYPE_MAUNAL_NOT_DOWNLOADED:
+						SwipeMenuItem manual_not_download = new SwipeMenuItem(mContext);
+						manual_not_download.setId(30000);
+						manual_not_download.setBackground(new ColorDrawable(Color.rgb(0xF3, 0xF3, 0xF3)));
+						manual_not_download.setWidth(Nexxoo.dp2px(mContext, isNormal ? 90 : 120));
+						manual_not_download.setIcon(R.drawable.ic_list_trash);
+						manual_not_download.setIsVisiable(false);
+						menu.addMenuItem(manual_not_download);
+
+						SwipeMenuItem manual_not_view = new SwipeMenuItem(mContext);
+						manual_not_view.setId(40000);
+						manual_not_view.setBackground(new ColorDrawable(Color.rgb(0xE5, 0xF5, 0xFF)));
+						manual_not_view.setWidth(Nexxoo.dp2px(mContext, isNormal ? 90 : 120));
+						manual_not_view.setIcon(R.drawable.ic_list_view);
+						manual_not_view.setIsVisiable(true);
+						menu.addMenuItem(manual_not_view);
+						break;
 				}
+
 			}
 		};
-		// set creator
 		listview.setMenuCreator(creator);
 
-		// step 2. listener item click event
 		listview.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
 			@Override
-			public boolean onMenuItemClick(int position, SwipeMenuView parent,SwipeMenu menu, int index) {
+			public boolean onMenuItemClick(int position, SwipeMenuView parent, SwipeMenu menu, int index) {
+				Nexxoo.saveContentId(mContext, mBaseEntityList.get(position).getContentId());
 				int contentTypeId = menu.getViewType();
-				if(contentTypeId == 3)
-				{//video
+				if (contentTypeId == 3) {//video
 					switch (index) {
 						case 50000:
 							if (mFileStorgeHelper.isContentDownloaded(mBaseEntityList.get(position)
@@ -144,12 +224,24 @@ public class SearchResultAllFragment extends Fragment {
 										(mBaseEntityList
 												.get(position).getFileName()));
 								video.delete();
+								/**
+								 * delete content from DB
+								 */
+								ContentDBHelper db = new ContentDBHelper(mContext);
+								db.deleteContent(mBaseEntityList.get(position).getContentId());
+
 								LinearLayout imageLayout = (LinearLayout) parent
 										.findViewById(new
 												Integer(50000));
-								ImageView image =(ImageView)imageLayout.getChildAt(0);
+								ImageView image = (ImageView) imageLayout.getChildAt(0);
 								image.setImageResource(R.drawable.ic_list_download);
 							} else {// not downloaded
+								/**
+								 * add download content to local DB
+								 */
+								Video video = (Video) mBaseEntityList.get(position);
+								ContentDBHelper db = new ContentDBHelper(mContext);
+								db.addContact(video);
 								DownloadAsyncTask task = new DownloadAsyncTask(mContext,
 										mBaseEntityList
 												.get(position).getUrl(), mBaseEntityList.get
@@ -158,7 +250,7 @@ public class SearchResultAllFragment extends Fragment {
 								LinearLayout imageLayout = (LinearLayout) parent
 										.findViewById(new
 												Integer(50000));
-								ImageView image =(ImageView)imageLayout.getChildAt(0);
+								ImageView image = (ImageView) imageLayout.getChildAt(0);
 								image.setImageResource(R.drawable.ic_list_trash);
 							}
 							break;
@@ -176,9 +268,7 @@ public class SearchResultAllFragment extends Fragment {
 							mContext.startActivity(i);
 							break;
 					}
-				}
-				else
-				{//PDF
+				} else {//PDF
 					if (mFileStorgeHelper.isContentDownloaded(mBaseEntityList.get(position)
 							.getFileName())) {//two buttons
 						switch (index) {
@@ -187,6 +277,12 @@ public class SearchResultAllFragment extends Fragment {
 										(mBaseEntityList
 												.get(position).getFileName()));
 								manual.delete();
+								/**
+								 * delete content from DB
+								 */
+								ContentDBHelper db = new ContentDBHelper(mContext);
+								db.deleteContent(mBaseEntityList.get(position).getContentId());
+
 								LinearLayout image = (LinearLayout) parent.findViewById(new
 										Integer(50000));
 								image.setVisibility(View.GONE);
@@ -204,40 +300,61 @@ public class SearchResultAllFragment extends Fragment {
 											.getString(R.string.open_pdf_file));
 									startActivity(i);
 								} else {
-									listview.closeAllMenu();
-									DownloadAsyncTask task1 = new DownloadAsyncTask(mContext,
-											mBaseEntityList
-													.get(position).getUrl(), mBaseEntityList.get
-											(position).getFileName());
-									task1.execute();
+//									listview.closeAllMenu();
+//									DownloadAsyncTask task1 = new DownloadAsyncTask(mContext,
+//											mBaseEntityList
+//													.get(position).getUrl(), mBaseEntityList.get
+//											(position).getFileName());
+//									task1.execute();
 								}
 								break;
 						}
-					}else{// one button
+					} else {// one button
 						LinearLayout image = (LinearLayout) parent.findViewById(new
 								Integer(50000));
 						image.setVisibility(View.VISIBLE);
 
 						String filename1 = mBaseEntityList.get(position).getFileName();
 						if (mFileStorgeHelper.isContentDownloaded(filename1)) {
-							File file = new File(mFileStorgeHelper.getDownloadAbsolutePath
-									(filename1));
-							Intent target = new Intent(Intent.ACTION_VIEW);
-							target.setDataAndType(Uri.fromFile(file), "application/pdf");
-							target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-							Intent i = Intent.createChooser(target, mContext
-									.getString(R.string.open_pdf_file));
-							startActivity(i);
+							/**
+							 * not useful, one button means, no PDF downloaded.
+							 */
+//							File file = new File(mFileStorgeHelper.getDownloadAbsolutePath
+//									(filename1));
+//							Intent target = new Intent(Intent.ACTION_VIEW);
+//							target.setDataAndType(Uri.fromFile(file), "application/pdf");
+//							target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+//							Intent i = Intent.createChooser(target, mContext
+//									.getString(R.string.open_pdf_file));
+//							startActivity(i);
 						} else {
 							if (listview.getChildAt(position) instanceof SwipeMenuLayout) {
 								SwipeMenuLayout menuLayout = (SwipeMenuLayout)
 										listview.getChildAt(position);
 								menuLayout.smoothCloseMenu();
 							}
+							/**
+							 * add download content to local DB
+							 */
+							switch (mBaseEntityList.get(position).getContentTypeId()) {
+								case 1:
+									Catalog catalog = (Catalog) mBaseEntityList.get(position);
+									ContentDBHelper db = new ContentDBHelper(mContext);
+									db.addContact(catalog);
+									break;
+								case 2:
+									Manual manual = (Manual) mBaseEntityList.get(position);
+									ContentDBHelper db1 = new ContentDBHelper(mContext);
+									db1.addContact(manual);
+									break;
+							}
+							BaseEntity base = mBaseEntityList.get(position);
+							ContentDBHelper db = new ContentDBHelper(mContext);
+							db.addContact(base);
 							DownloadAsyncTask task1 = new DownloadAsyncTask(mContext,
-									mBaseEntityList
-											.get(position).getUrl(), mBaseEntityList.get
-									(position).getFileName(), Global
+									base.getUrl(), base.getFileName(),
+									base.getmPictureList().isEmpty()?null:base.getmPictureList().get(0).getmUrl(),
+									base.getContentId() + ".jpg", Global
 									.DOWNLOAD_TASK_TYPE_PDF);
 							task1.execute();
 						}
